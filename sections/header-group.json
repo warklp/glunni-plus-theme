@@ -20,9 +20,21 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "promo-countdown-bar": {
+      "type": "promo-countdown-bar",
+      "settings": {
+        "text": "PROMOÇÃO: ATÉ 70% OFF",
+        "duration_hours": 12,
+        "label_hours": "HRS",
+        "label_minutes": "MIN",
+        "label_seconds": "SEG",
+        "color_scheme": "scheme-3"
+      }
     }
   },
   "order": [
+    "promo-countdown-bar",
     "header"
   ]
 }
