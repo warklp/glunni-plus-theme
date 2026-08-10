@@ -71,7 +71,7 @@
           "settings": {
             "heading": "Como funciona?",
             "icon": "question_mark",
-            "content": "Descreva aqui, em detalhes, como o produto funciona, os ingredientes e o modo de uso."
+            "content": "<p>Descreva aqui, em detalhes, como o produto funciona, os ingredientes e o modo de uso.</p>"
           }
         }
       },
