@@ -66,9 +66,47 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "glunni_hero": {
+      "type": "image-with-text",
+      "settings": {
+        "layout": "image_first",
+        "desktop_image_width": "medium",
+        "height": "large"
+      },
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Alívio Intestinal Que Vai Direto à Raiz",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "A maioria dos probióticos só joga bactérias no problema. O Glunni+ atua onde a digestão começa — entregando o que seu intestino precisa para se equilibrar de verdade.",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Comprar Agora",
+            "button_link": "/collections/all",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ]
     }
   },
   "order": [
+    "glunni_hero",
     "image_banner",
     "featured_collection"
   ]
