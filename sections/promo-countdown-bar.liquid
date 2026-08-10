@@ -1,0 +1,111 @@
+{{ 'component-promo-countdown-bar.css' | asset_url | stylesheet_tag }}
+
+<div class="promo-countdown-bar color-{{ section.settings.color_scheme }}">
+  <div class="promo-countdown-bar__inner page-width">
+    <span class="promo-countdown-bar__text">{{ section.settings.text }}</span>
+    <span class="promo-countdown-bar__sep">:</span>
+    <div class="promo-countdown-bar__timer" data-promo-countdown data-duration="{{ section.settings.duration_hours | times: 3600 }}">
+      <div class="promo-countdown-bar__unit">
+        <span data-unit="hours">00</span>
+        <small>{{ section.settings.label_hours }}</small>
+      </div>
+      <div class="promo-countdown-bar__unit">
+        <span data-unit="minutes">00</span>
+        <small>{{ section.settings.label_minutes }}</small>
+      </div>
+      <div class="promo-countdown-bar__unit">
+        <span data-unit="seconds">00</span>
+        <small>{{ section.settings.label_seconds }}</small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  document.querySelectorAll('[data-promo-countdown]').forEach(function (el) {
+    var duration = parseInt(el.dataset.duration, 10) || 43200;
+    var storageKey = 'promoCountdownEnd';
+    var end = parseInt(localStorage.getItem(storageKey), 10);
+    var now = Date.now();
+    if (!end || end < now) {
+      end = now + duration * 1000;
+      localStorage.setItem(storageKey, end);
+    }
+    var hoursEl = el.querySelector('[data-unit="hours"]');
+    var minutesEl = el.querySelector('[data-unit="minutes"]');
+    var secondsEl = el.querySelector('[data-unit="seconds"]');
+
+    function pad(n) {
+      return String(n).padStart(2, '0');
+    }
+
+    function tick() {
+      var diff = Math.max(0, end - Date.now());
+      var h = Math.floor(diff / 3600000);
+      var m = Math.floor((diff % 3600000) / 60000);
+      var s = Math.floor((diff % 60000) / 1000);
+      hoursEl.textContent = pad(h);
+      minutesEl.textContent = pad(m);
+      secondsEl.textContent = pad(s);
+      if (diff <= 0) {
+        localStorage.removeItem(storageKey);
+      }
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Barra de promoção com contagem",
+  "class": "section-promo-countdown-bar",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texto da promoção",
+      "default": "PROMOÇÃO: ATÉ 70% OFF"
+    },
+    {
+      "type": "range",
+      "id": "duration_hours",
+      "label": "Duração do contador (horas)",
+      "min": 1,
+      "max": 48,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "label_hours",
+      "label": "Rótulo horas",
+      "default": "HRS"
+    },
+    {
+      "type": "text",
+      "id": "label_minutes",
+      "label": "Rótulo minutos",
+      "default": "MIN"
+    },
+    {
+      "type": "text",
+      "id": "label_seconds",
+      "label": "Rótulo segundos",
+      "default": "SEG"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-3"
+    }
+  ]
+}
+{% endschema %}
