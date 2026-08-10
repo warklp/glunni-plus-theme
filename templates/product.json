@@ -128,10 +128,334 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "glunni_checklist_1": {
+      "type": "glunni-checklist-banner",
+      "settings": {
+        "heading": "Veja a Diferença em Como Seu Corpo se Sente",
+        "text": "Apoie a digestão que o GLP-1 desacelerou — para que o inchaço e o desconforto que estão te incomodando finalmente tenham motivo para diminuir.",
+        "image": "shopify://shop_images/glunni-acv-hero.png",
+        "image_position": "right",
+        "color_scheme": "scheme-3",
+        "columns": "2",
+        "padding_top": 60,
+        "padding_bottom": 60
+      },
+      "blocks": {
+        "item1": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Menos inchaço ao longo do dia"
+          }
+        },
+        "item2": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Digestão mais tranquila no GLP-1"
+          }
+        },
+        "item3": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Menos refluxo e azia"
+          }
+        },
+        "item4": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Idas ao banheiro mais regulares"
+          }
+        }
+      },
+      "block_order": [
+        "item1",
+        "item2",
+        "item3",
+        "item4"
+      ]
+    },
+    "glunni_process": {
+      "type": "multicolumn",
+      "settings": {
+        "title": "O Jeito Natural de Recuperar o Equilíbrio",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "step1": {
+          "type": "column",
+          "settings": {
+            "title": "Passo 1 — O que está acontecendo",
+            "text": "<p>O GLP-1 desacelera o esvaziamento do estômago e reduz a produção de ácido e enzimas — por isso vêm a náusea, o inchaço e a prisão de ventre.</p>"
+          }
+        },
+        "step2": {
+          "type": "column",
+          "settings": {
+            "title": "Passo 2 — O que o Glunni ACV faz",
+            "text": "<p>Vinagre de maçã, fibra prebiótica e enzimas digestivas trabalham juntos para apoiar a digestão e devolver o conforto após as refeições.</p>"
+          }
+        },
+        "step3": {
+          "type": "column",
+          "settings": {
+            "title": "Passo 3 — O que muda no seu corpo",
+            "text": "<p>Em poucas semanas, a maioria sente menos inchaço, digestão mais leve e o intestino funcionando com mais regularidade.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step1",
+        "step2",
+        "step3"
+      ]
+    },
+    "glunni_testimonials": {
+      "type": "glunni-testimonials",
+      "settings": {
+        "heading": "Histórias Reais. Resultados Reais.",
+        "color_scheme": "scheme-2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "t1": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Desde que comecei o Ozempic o inchaço não me deixava em paz. Com o Glunni ACV isso mudou já nas primeiras semanas.",
+            "author_name": "Marina S.",
+            "author_detail": "42 • Cliente verificada"
+          }
+        },
+        "t2": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Uso Mounjaro e a prisão de ventre era constante. Hoje é bem mais raro, e não sinto mais aquele desconforto depois das refeições.",
+            "author_name": "Camila R.",
+            "author_detail": "51 • Cliente verificada"
+          }
+        },
+        "t3": {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Simples de tomar, sem o gosto forte do vinagre. Senti diferença na digestão rapidinho, ainda no primeiro mês de Wegovy.",
+            "author_name": "Fernanda A.",
+            "author_detail": "38 • Cliente verificada"
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3"
+      ]
+    },
+    "glunni_checklist_2": {
+      "type": "glunni-checklist-banner",
+      "settings": {
+        "heading": "Quando Seu Intestino Está em Equilíbrio, Seu Corpo Mostra",
+        "text": "Apoiar a parede intestinal traz benefícios para o corpo todo. Menos inchaço. Mais energia. Digestão mais leve. Tudo começa no intestino — e é onde o Glunni ACV atua.",
+        "image_position": "right",
+        "color_scheme": "scheme-1",
+        "columns": "1",
+        "padding_top": 60,
+        "padding_bottom": 60
+      },
+      "blocks": {
+        "item1": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Menos inchaço abdominal"
+          }
+        },
+        "item2": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Mais energia no dia a dia"
+          }
+        },
+        "item3": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Digestão mais leve e regular"
+          }
+        },
+        "item4": {
+          "type": "checklist_item",
+          "settings": {
+            "label": "Resultados que aumentam com o tempo"
+          }
+        }
+      },
+      "block_order": [
+        "item1",
+        "item2",
+        "item3",
+        "item4"
+      ]
+    },
+    "glunni_timeline": {
+      "type": "glunni-timeline",
+      "settings": {
+        "heading": "Sua Jornada de Alívio Digestivo",
+        "color_scheme": "scheme-2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "w1": {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 1",
+            "title": "O desconforto começa a aliviar",
+            "description": "O inchaço da tarde fica mais leve. Algumas pessoas sentem uma pequena adaptação nos primeiros dias, enquanto o corpo se ajusta."
+          }
+        },
+        "w2": {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 2",
+            "title": "A digestão se regulariza",
+            "description": "As idas ao banheiro ficam mais previsíveis. Menos urgência e menos desconforto depois das refeições."
+          }
+        },
+        "w3": {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 3",
+            "title": "O inchaço dá lugar ao conforto",
+            "description": "A sensação de estufamento diminui para muita gente. Várias pessoas relatam sono mais tranquilo."
+          }
+        },
+        "w4": {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 4+",
+            "title": "O equilíbrio se mantém",
+            "description": "O corpo passa a funcionar com mais regularidade, mesmo continuando o tratamento com GLP-1."
+          }
+        }
+      },
+      "block_order": [
+        "w1",
+        "w2",
+        "w3",
+        "w4"
+      ]
+    },
+    "glunni_reasons": {
+      "type": "multicolumn",
+      "settings": {
+        "title": "4 Motivos Para Escolher o Glunni",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "column_alignment": "left",
+        "background_style": "primary",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "2",
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "r1": {
+          "type": "column",
+          "settings": {
+            "title": "Feito Para Quem Usa GLP-1",
+            "text": "<p>Formulado pensando nos efeitos digestivos comuns de Ozempic, Wegovy e Mounjaro.</p>"
+          }
+        },
+        "r2": {
+          "type": "column",
+          "settings": {
+            "title": "100% Natural",
+            "text": "<p>Vinagre de maçã, fibra prebiótica e enzimas, sem enchimento desnecessário.</p>"
+          }
+        },
+        "r3": {
+          "type": "column",
+          "settings": {
+            "title": "Cápsula, Sem Gosto Forte",
+            "text": "<p>Todo o benefício do vinagre de maçã, sem o sabor ácido do líquido.</p>"
+          }
+        },
+        "r4": {
+          "type": "column",
+          "settings": {
+            "title": "Qualidade Testada",
+            "text": "<p>Não-OGM, sem glúten, sem laticínios, fabricado com rigor de qualidade.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ]
+    },
+    "glunni_final_cta": {
+      "type": "image-with-text",
+      "settings": {
+        "image": "shopify://shop_images/glunni-acv-hero.png",
+        "layout": "image_first",
+        "desktop_image_width": "medium",
+        "height": "large",
+        "desktop_content_position": "middle",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 52,
+        "padding_bottom": 52
+      },
+      "blocks": {
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "Alívio Digestivo Que Vai Direto à Raiz do Problema do GLP-1",
+            "heading_size": "h1"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "text": "<p>A maioria dos suplementos genéricos não considera o que o GLP-1 faz com sua digestão. O Glunni ACV foi pensado para apoiar o estômago e o intestino de quem está nesse tratamento — com ingredientes que a ciência já estuda há anos.</p>",
+            "text_style": "body"
+          }
+        },
+        "button": {
+          "type": "button",
+          "settings": {
+            "button_label": "Comprar Agora",
+            "button_link": "#buy-box",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading",
+        "text",
+        "button"
+      ]
     }
   },
   "order": [
     "main",
+    "glunni_checklist_1",
+    "glunni_process",
+    "glunni_testimonials",
+    "glunni_checklist_2",
+    "glunni_timeline",
+    "glunni_reasons",
+    "glunni_final_cta",
     "disclosures",
     "related-products"
   ]
