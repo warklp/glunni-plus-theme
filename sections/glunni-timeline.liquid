@@ -1,0 +1,211 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .glunni-timeline-{{ section.id }} {
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-foreground));
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__heading {
+    text-align: center;
+    margin: 0 0 2.5rem 0;
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__list {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2.25rem;
+    border-left: 2px solid rgba(var(--color-foreground), 0.15);
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__item:last-child {
+    padding-bottom: 0;
+    border-left-color: transparent;
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__item::before {
+    content: '';
+    position: absolute;
+    left: -7px;
+    top: 0.25rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgb(var(--color-foreground));
+    border: 3px solid rgb(var(--color-background));
+    box-shadow: 0 0 0 1px rgba(var(--color-foreground), 0.25);
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__badge {
+    display: inline-block;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background-color: rgba(var(--color-foreground), 0.08);
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 0.6rem;
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__title {
+    margin: 0 0 0.5rem 0;
+  }
+
+  .glunni-timeline-{{ section.id }} .glunni-tl__description {
+    margin: 0;
+    opacity: 0.85;
+    line-height: 1.5;
+  }
+{%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} glunni-timeline-{{ section.id }}">
+  <div class="page-width section-{{ section.id }}-padding">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="glunni-tl__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="glunni-tl__list">
+        {%- for block in section.blocks -%}
+          <div class="glunni-tl__item" {{ block.shopify_attributes }}>
+            {%- if block.settings.badge_label != blank -%}
+              <span class="glunni-tl__badge">{{ block.settings.badge_label }}</span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="glunni-tl__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="glunni-tl__description">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Linha do tempo",
+  "class": "section",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Sua jornada com o Glunni"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Esquema de cor",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento superior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaçamento inferior",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "milestone",
+      "name": "Etapa",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "Rótulo",
+          "default": "Semana 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Início da rotina"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrição",
+          "default": "Você começa a tomar o Glunni todos os dias junto com o vinagre de maçã, os prebióticos e as enzimas."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Linha do tempo",
+      "blocks": [
+        {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 1",
+            "title": "Adaptação da rotina",
+            "description": "Você começa a tomar o Glunni diariamente, combinando vinagre de maçã, prebióticos e enzimas junto com o seu tratamento com GLP-1."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 2",
+            "title": "Primeiras sensações",
+            "description": "Muitas pessoas relatam sentir menos inchaço abdominal e uma digestão um pouco mais leve após as refeições."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 3",
+            "title": "Mais regularidade",
+            "description": "A maioria sente uma rotina intestinal mais regular, com menos desconforto ao longo do dia."
+          }
+        },
+        {
+          "type": "milestone",
+          "settings": {
+            "badge_label": "Semana 4+",
+            "title": "Conforto no dia a dia",
+            "description": "Com o uso contínuo, muitas pessoas relatam mais conforto digestivo e sensação de leveza mesmo seguindo o tratamento com GLP-1."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
