@@ -41,15 +41,50 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "glunni_rating": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"glunni-rating-badge\">\n  <span class=\"glunni-rating-badge__stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</span>\n  <span class=\"glunni-rating-badge__text\">Excelente 4.8/5 &middot; Baseado em 1247 avaliações</span>\n</div>\n<style>\n.glunni-rating-badge{display:inline-flex;align-items:center;gap:8px;background:#eef3ee;color:#2f4a3a;padding:6px 12px;border-radius:6px;font-size:1.3rem;margin-bottom:1.2rem;}\n.glunni-rating-badge__stars{color:#2f4a3a;letter-spacing:1px;}\n</style>"
+          }
+        },
+        "glunni_buybox": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"glunni-purchase-options\" data-glunni-purchase-options>\n  <p class=\"glunni-purchase-options__eyebrow\">A promoção acaba à meia-noite</p>\n\n  <label class=\"glunni-option\" data-glunni-option data-qty=\"1\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"1\">\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__label\">Compre 1</span>\n    <span class=\"glunni-option__price\" data-multiplier=\"1\"></span>\n  </label>\n\n  <label class=\"glunni-option glunni-option--featured\" data-glunni-option data-qty=\"3\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"3\" checked>\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__badge\">Mais popular</span>\n    <span class=\"glunni-option__label\">Compre 2, Leve 3 <em>+ Frete grátis</em></span>\n    <span class=\"glunni-option__price\" data-multiplier=\"2\"></span>\n  </label>\n\n  <label class=\"glunni-option\" data-glunni-option data-qty=\"5\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"5\">\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__badge glunni-option__badge--alt\">Melhor valor</span>\n    <span class=\"glunni-option__label\">Compre 3, Leve 5 <em>+ Frete grátis</em></span>\n    <span class=\"glunni-option__price\" data-multiplier=\"3\"></span>\n  </label>\n\n  <label class=\"glunni-subscribe\">\n    <input type=\"checkbox\" checked>\n    <span>Economize 25% com reposição automática — sem compromisso, cancele quando quiser</span>\n  </label>\n</div>\n\n<div class=\"glunni-trust-row\">\n  <span>Visa</span><span>Mastercard</span><span>Amex</span><span>Pix</span><span>Apple Pay</span>\n</div>\n<p class=\"glunni-guarantee\">Garantia de 60 dias &middot; Frete grátis acima de R$250</p>\n\n<style>\n.glunni-purchase-options{border:1px solid rgba(0,0,0,.1);border-radius:10px;padding:1.4rem;margin:1.2rem 0;}\n.glunni-purchase-options__eyebrow{text-align:center;font-size:1.1rem;text-transform:uppercase;letter-spacing:.06em;opacity:.65;margin:0 0 1rem;}\n.glunni-option{display:flex;align-items:center;gap:.8rem;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:.9rem 1rem;margin-bottom:.7rem;cursor:pointer;position:relative;}\n.glunni-option input{position:absolute;opacity:0;}\n.glunni-option__radio{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.3);flex:none;}\n.glunni-option:has(input:checked){border-color:#2f4a3a;background:#f2f6f2;}\n.glunni-option:has(input:checked) .glunni-option__radio{border-color:#2f4a3a;background:radial-gradient(circle,#2f4a3a 40%,transparent 44%);}\n.glunni-option__label{flex:1;font-weight:600;}\n.glunni-option__label em{display:block;font-style:normal;font-weight:400;font-size:1.1rem;opacity:.75;}\n.glunni-option__price{font-weight:700;}\n.glunni-option__badge{position:absolute;top:-10px;right:12px;background:#2f4a3a;color:#fff;font-size:1rem;padding:2px 8px;border-radius:4px;}\n.glunni-option__badge--alt{background:#8a6d3b;}\n.glunni-subscribe{display:flex;align-items:flex-start;gap:.6rem;font-size:1.2rem;margin-top:.6rem;cursor:pointer;}\n.glunni-trust-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin:1rem 0 .4rem;font-size:1.1rem;opacity:.65;}\n.glunni-guarantee{text-align:center;font-size:1.1rem;opacity:.7;margin:0 0 1rem;}\n</style>\n\n<script>\n(function(){\n  var root = document.currentScript.closest('.shopify-section');\n  var price = {{ product.price | money_without_currency | remove: ',' | replace: '.', '' | default: 0 }};\n  price = {{ product.price }};\n  var options = root.querySelectorAll('[data-glunni-option]');\n  var qtyInput = root.querySelector('input[name=\"quantity\"], quantity-input input');\n\n  function fmt(cents){\n    return Shopify.formatMoney(cents, {{ shop.money_format | json }});\n  }\n\n  options.forEach(function(opt){\n    var mult = parseFloat(opt.querySelector('[data-multiplier]').dataset.multiplier);\n    opt.querySelector('.glunni-option__price').textContent = fmt(price * mult);\n    opt.addEventListener('click', function(){\n      options.forEach(function(o){ o.querySelector('input').checked = false; });\n      opt.querySelector('input').checked = true;\n      if (qtyInput) {\n        qtyInput.value = opt.dataset.qty;\n        qtyInput.dispatchEvent(new Event('change', { bubbles: true }));\n      }\n    });\n  });\n})();\n</script>"
+          }
+        },
+        "glunni_benefits": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_1": "leaf",
+            "heading_1": "Restaura suas defesas naturais",
+            "icon_2": "heart",
+            "heading_2": "Combate inflamação crônica",
+            "icon_3": "lightning_bolt",
+            "heading_3": "Sinta a diferença em 2 semanas"
+          }
+        },
+        "glunni_faq": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Como funciona?",
+            "icon": "question_mark",
+            "content": "Descreva aqui, em detalhes, como o produto funciona, os ingredientes e o modo de uso."
+          }
         }
       },
       "block_order": [
-        "vendor",
         "title",
+        "glunni_rating",
+        "glunni_benefits",
         "price",
+        "glunni_buybox",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "glunni_faq",
         "description",
         "share"
       ],
