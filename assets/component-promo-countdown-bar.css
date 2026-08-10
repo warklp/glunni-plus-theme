@@ -1,0 +1,38 @@
+.promo-countdown-bar {
+  padding: 8px 0;
+}
+.promo-countdown-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+}
+.promo-countdown-bar__text {
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.promo-countdown-bar__sep {
+  opacity: 0.6;
+}
+.promo-countdown-bar__timer {
+  display: flex;
+  gap: 12px;
+}
+.promo-countdown-bar__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+  min-width: 28px;
+}
+.promo-countdown-bar__unit span {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+.promo-countdown-bar__unit small {
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
