@@ -1,0 +1,5 @@
+{%- liquid
+  assign gu_dollars = cents | divided_by: 100
+  assign gu_remainder = cents | modulo: 100
+  assign gu_remainder_str = gu_remainder | prepend: '00' | slice: -2, 2
+-%}${{ gu_dollars }}.{{ gu_remainder_str }}
