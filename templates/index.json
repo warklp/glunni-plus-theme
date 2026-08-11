@@ -17,21 +17,21 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Seu Intestino Não Aguenta Mais o GLP-1?",
+            "heading": "Is Your Gut Struggling With GLP-1?",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Náusea, prisão de ventre, refluxo e inchaço são super comuns em quem usa Ozempic, Mounjaro ou Wegovy. O Glunni ACV combina vinagre de maçã, fibra prebiótica e enzimas digestivas em cápsula — sem o gosto forte do vinagre — para devolver o equilíbrio ao seu intestino.</p>",
+            "text": "<p>Nausea, constipation, reflux, and bloating are extremely common for people using Ozempic, Mounjaro, or Wegovy. Glunni ACV combines apple cider vinegar, prebiotic fiber, and digestive enzymes in a capsule — without the harsh vinegar taste — to help bring balance back to your gut.</p>",
             "text_style": "body"
           }
         },
         "button": {
           "type": "button",
           "settings": {
-            "button_label": "Comprar Agora",
+            "button_label": "Shop Now",
             "button_link": "/products/glunni-apple-cider-vinegar-capsulas",
             "button_style_secondary": false
           }
