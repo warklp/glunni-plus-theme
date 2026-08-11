@@ -45,7 +45,7 @@
         "glunni_rating": {
           "type": "custom_liquid",
           "settings": {
-            "custom_liquid": "<div class=\"glunni-rating-badge\">\n  <span class=\"glunni-rating-badge__stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</span>\n  <span class=\"glunni-rating-badge__text\">Excelente 4.8/5 &middot; Baseado em 1247 avaliações</span>\n</div>\n<style>\n.glunni-rating-badge{display:inline-flex;align-items:center;gap:8px;background:#eef3ee;color:#2f4a3a;padding:6px 12px;border-radius:6px;font-size:1.3rem;margin-bottom:1.2rem;}\n.glunni-rating-badge__stars{color:#2f4a3a;letter-spacing:1px;}\n</style>"
+            "custom_liquid": "<div class=\"glunni-rating-badge\">\n  <span class=\"glunni-rating-badge__stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</span>\n  <span class=\"glunni-rating-badge__text\">Excellent 4.8/5 &middot; Based on 1247 Reviews</span>\n</div>\n<style>\n.glunni-rating-badge{display:inline-flex;align-items:center;gap:8px;background:#eef3ee;color:#2f4a3a;padding:6px 12px;border-radius:6px;font-size:1.3rem;margin-bottom:1.2rem;}\n.glunni-rating-badge__stars{color:#2f4a3a;letter-spacing:1px;}\n</style>"
           }
         },
         "glunni_buybox": {
@@ -59,19 +59,19 @@
           "settings": {
             "layout": "horizontal",
             "icon_1": "check_mark",
-            "heading_1": "Ajuda a aliviar o desconforto digestivo do GLP-1",
+            "heading_1": "Helps relieve GLP-1 digestive discomfort",
             "icon_2": "leaf",
-            "heading_2": "Cápsula prática, sem o gosto forte do vinagre",
+            "heading_2": "Convenient capsule, no harsh vinegar taste",
             "icon_3": "stopwatch",
-            "heading_3": "Sinta a diferença em poucas semanas"
+            "heading_3": "Feel the difference in just a few weeks"
           }
         },
         "glunni_faq": {
           "type": "collapsible_tab",
           "settings": {
-            "heading": "Perguntas frequentes sobre o Glunni ACV",
+            "heading": "Frequently Asked Questions about Glunni ACV",
             "icon": "question_mark",
-            "content": "<p><strong>Como o Glunni ACV ajuda quem toma Ozempic, Wegovy ou Mounjaro?</strong></p><p>Medicamentos GLP-1 costumam deixar a digestão mais lenta, o que pode causar náusea, inchaço, prisão de ventre e azia. O Glunni ACV combina vinagre de maçã, fibra prebiótica, probióticos e enzimas digestivas para ajudar a apoiar sua digestão nesse período de adaptação.</p><p><strong>Posso tomar o Glunni ACV junto com meu medicamento GLP-1?</strong></p><p>Muitas pessoas que usam GLP-1 incluem o Glunni ACV na rotina diária como suporte digestivo. Como cada organismo reage de um jeito, converse com seu médico antes de começar, especialmente se você já usa outros suplementos ou medicamentos.</p><p><strong>Quanto tempo leva até sentir diferença?</strong></p><p>Cada corpo responde no seu tempo, mas muitas pessoas relatam sentir mais leveza e conforto digestivo já nas primeiras semanas de uso contínuo.</p><p><strong>O Glunni ACV tem gosto de vinagre?</strong></p><p>Não. Diferente do vinagre de maçã líquido, o Glunni ACV vem em cápsulas fáceis de engolir — sem o sabor ácido nem o desconforto na garganta, só os benefícios, sem o gosto forte.</p><p><strong>O Glunni ACV substitui meu medicamento para GLP-1?</strong></p><p>Não. O Glunni ACV é um suplemento alimentar pensado para apoiar sua digestão durante o tratamento — ele não substitui, altera a dose ou interfere no efeito do seu medicamento.</p><p><strong>Como devo tomar o Glunni ACV?</strong></p><p>Siga a dosagem indicada na embalagem, tomando as cápsulas com água, de preferência próximo das refeições. Em caso de dúvida, consulte seu médico ou nutricionista.</p>"
+            "content": "<p><strong>How does Glunni ACV help people taking Ozempic, Wegovy, or Mounjaro?</strong></p><p>GLP-1 medications often slow digestion, which can cause nausea, bloating, constipation, and heartburn. Glunni ACV combines apple cider vinegar, prebiotic fiber, probiotics, and digestive enzymes to help support your digestion during this adjustment period.</p><p><strong>Can I take Glunni ACV alongside my GLP-1 medication?</strong></p><p>Many people using GLP-1 medications add Glunni ACV to their daily routine as digestive support. Since everyone responds differently, talk to your doctor before starting, especially if you're already taking other supplements or medications.</p><p><strong>How long does it take to feel a difference?</strong></p><p>Everybody responds at its own pace, but many people report feeling lighter and more comfortable digestively within the first few weeks of consistent use.</p><p><strong>Does Glunni ACV taste like vinegar?</strong></p><p>No. Unlike liquid apple cider vinegar, Glunni ACV comes in easy-to-swallow capsules — no sour taste or throat discomfort, just the benefits without the harsh flavor.</p><p><strong>Does Glunni ACV replace my GLP-1 medication?</strong></p><p>No. Glunni ACV is a dietary supplement designed to support your digestion during treatment — it does not replace, alter the dosage of, or interfere with your medication's effect.</p><p><strong>How should I take Glunni ACV?</strong></p><p>Follow the dosage on the label, taking the capsules with water, ideally close to meals. If you have any questions, consult your doctor or nutritionist.</p>"
           }
         }
       },
