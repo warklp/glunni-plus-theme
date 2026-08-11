@@ -27,6 +27,7 @@
 .glunni-free-badge{display:inline-flex;align-items:center;gap:.25rem;background:#eaf3ea;color:#1f3d2b;font-size:.72rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;padding:2px 8px;border-radius:20px;margin-left:.4rem;vertical-align:middle;}
 .glunni-free-price{color:#1f3d2b;font-weight:700;}
 .glunni-free-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.78rem;font-weight:700;color:#1f3d2b;background:#eaf3ea;padding:4px 10px;border-radius:20px;white-space:nowrap;}
+.glunni-free-tag-wrapper{display:flex;align-items:center;gap:.4rem;}
 .cart-item--free-gift{background:#f7faf7;border-radius:10px;}
 .drawer__footer{padding-top:.75rem !important;}
 .cart-drawer__footer .totals__total,.cart-drawer__footer .totals__total-value{font-size:1.15rem !important;}
@@ -284,7 +285,24 @@
                           headers="CartDrawer-ColumnQuantity"
                         >
                           {%- if glunni_is_free -%}
-                            <span class="glunni-free-tag">Included Free</span>
+                            <div class="glunni-free-tag-wrapper">
+                              <span class="glunni-free-tag">Included Free</span>
+                              <cart-remove-button
+                                id="CartDrawer-Remove-{{ item.index | plus: 1 }}"
+                                data-index="{{ item.index | plus: 1 }}"
+                              >
+                                <button
+                                  type="button"
+                                  class="button button--tertiary cart-remove-button"
+                                  aria-label="{{ 'sections.cart.remove_title' | t: title: item.title | escape }}"
+                                  data-variant-id="{{ item.variant.id }}"
+                                >
+                                  <span class="svg-wrapper">
+                                    {{- 'icon-remove.svg' | inline_asset_content -}}
+                                  </span>
+                                </button>
+                              </cart-remove-button>
+                            </div>
                           {%- else -%}
                           <quantity-popover>
                             <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
