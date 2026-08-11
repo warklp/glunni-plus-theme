@@ -24,11 +24,11 @@
     "promo-countdown-bar": {
       "type": "promo-countdown-bar",
       "settings": {
-        "text": "PROMOÇÃO: ATÉ 70% OFF",
+        "text": "SALE: UP TO 70% OFF",
         "duration_hours": 12,
         "label_hours": "HRS",
         "label_minutes": "MIN",
-        "label_seconds": "SEG",
+        "label_seconds": "SEC",
         "color_scheme": "scheme-3"
       }
     }
