@@ -166,6 +166,36 @@ document.addEventListener('DOMContentLoaded', function () {
 .cart__checkout-button{background:#1f3d2b !important;border-color:#1f3d2b !important;border-radius:10px !important;font-weight:700 !important;font-size:1.1rem !important;padding:1rem !important;text-transform:none !important;letter-spacing:0 !important;}
 .cart__checkout-button:hover{background:#16301f !important;}
 .tax-note{opacity:.55 !important;font-size:.82rem !important;}
+
+.glunni-cart-header{position:relative;padding-bottom:1.1rem !important;}
+.glunni-cart-header::after{content:"";position:absolute;left:-1.5rem;right:-1.5rem;bottom:0;height:4px;background:#1f3d2b;}
+.drawer__heading{display:flex;align-items:center;gap:.6rem;margin:0 !important;}
+.glunni-cart-count{display:inline-flex;align-items:center;justify-content:center;min-width:2.2rem;height:2.2rem;padding:0 .5rem;background:#111;color:#fff;font-size:1.2rem;font-weight:700;border-radius:999px;line-height:1;}
+
+.glunni-free-pill{display:inline-flex;align-items:center;gap:.35rem;background:#1f3d2b;color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.02em;padding:3px 10px 3px 8px;border-radius:20px;margin:.35rem .4rem .2rem 0;}
+.glunni-free-pill .svg-wrapper{width:13px;height:13px;display:inline-flex;}
+.glunni-free-pill .svg-wrapper svg{width:100%;height:100%;}
+.glunni-plan-tag{display:flex;align-items:center;gap:.3rem;color:#c0432a;font-size:.75rem;font-weight:700;letter-spacing:.02em;margin-top:.3rem;}
+.glunni-plan-tag .svg-wrapper{width:12px;height:12px;display:inline-flex;flex:none;}
+.glunni-plan-tag .svg-wrapper svg{width:100%;height:100%;fill:currentColor;}
+
+.glunni-price-row{display:flex;flex-direction:column;align-items:flex-end;gap:1px;}
+.cart-item__old-price{opacity:.5;text-decoration:line-through;font-size:.85rem;font-weight:400;}
+.glunni-save-text{color:#c0432a;font-size:.8rem;font-weight:700;margin-top:2px;}
+.glunni-free-price{color:#1f3d2b !important;font-weight:700;}
+
+.cart-drawer quantity-input.quantity.cart-quantity{border:1px solid rgba(0,0,0,.18);border-radius:8px;}
+
+.glunni-totals{display:flex;align-items:flex-end;justify-content:space-between;gap:.5rem;flex-wrap:wrap;}
+.glunni-totals__label{margin:0;font-size:.95rem;opacity:.7;font-weight:500;}
+.glunni-totals__right{display:flex;align-items:baseline;gap:.5rem;}
+.glunni-totals__save-badge{background:#111;color:#fff;font-size:.75rem;font-weight:700;padding:2px 7px;border-radius:5px;}
+.glunni-totals__old{opacity:.45;text-decoration:line-through;font-size:.95rem;}
+.glunni-totals__final{font-size:1.25rem !important;font-weight:700;}
+
+.glunni-checkout-button{display:flex !important;align-items:center;justify-content:center;gap:.5rem;}
+.glunni-checkout-lock{width:16px;height:16px;display:inline-flex;flex:none;}
+.glunni-checkout-lock svg{width:100%;height:100%;fill:currentColor;}
 </style>
 
 <cart-drawer class="drawer{% if cart == empty %} is-empty{% endif %}">
@@ -212,8 +242,13 @@ document.addEventListener('DOMContentLoaded', function () {
           {%- endif -%}
         </div>
       {%- endif -%}
-      <div class="drawer__header">
-        <h2 class="drawer__heading">{{ 'sections.cart.title' | t }}</h2>
+      <div class="drawer__header glunni-cart-header">
+        <h2 class="drawer__heading">
+          {{ 'sections.cart.title' | t }}
+          {%- if cart.item_count > 0 -%}
+            <span class="glunni-cart-count">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </h2>
         <button
           class="drawer__close"
           type="button"
@@ -270,11 +305,22 @@ document.addEventListener('DOMContentLoaded', function () {
                   </thead>
 
                   <tbody role="rowgroup">
+                    {%- liquid
+                      assign glunni_retail_unit_cents = 7998
+                      assign glunni_plan_name = ''
+                      for it in cart.items
+                        if it.properties['_glunni_plan'] != blank
+                          assign glunni_plan_name = it.properties['_glunni_plan']
+                        endif
+                      endfor
+                    -%}
                     {%- for item in cart.items -%}
                       {%- assign glunni_is_free = false -%}
                       {%- if item.properties['_glunni_free'] == '1' -%}
                         {%- assign glunni_is_free = true -%}
                       {%- endif -%}
+                      {%- assign glunni_old_line_cents = glunni_retail_unit_cents | times: item.quantity -%}
+                      {%- assign glunni_save_cents = glunni_old_line_cents | minus: item.final_line_price -%}
                       <tr
                         id="CartDrawer-Item-{{ item.index | plus: 1 }}"
                         class="cart-item{% if item.parent_relationship.parent != null %} cart-item__nested-line{% endif %}{% if glunni_is_free %} cart-item--free-gift{% endif %}"
@@ -311,16 +357,26 @@ document.addEventListener('DOMContentLoaded', function () {
                             <a href="{{ item.url }}" class="cart-item__name h4 break">
                               {{- item.product.title | escape -}}
                             </a>
-                            {%- if glunni_is_free -%}
-                              <span class="glunni-free-badge">Free Gift</span>
-                            {%- endif -%}
                             {%- assign cart_disclosure_modal_id = 'CartDisclosureModal-drawer-' | append: item.key | replace: ':', '-' -%}
                             {%- render 'cart-disclosure-indicator',
                               product: item.product,
                               modal_id: cart_disclosure_modal_id
                             -%}
                           </div>
-                          {%- if item.properties['_glunni_plan'] != blank -%}
+                          {%- if glunni_is_free -%}
+                            <span class="glunni-free-pill">
+                              <span class="svg-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4"></rect><path d="M12 8v13"></path><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8"></path><path d="M16.5 8a2.5 2.5 0 0 0 0-5C13 3 12 8 12 8"></path></svg>
+                              </span>
+                              {{ item.quantity }} Free Gift{% if item.quantity != 1 %}s{% endif %}
+                            </span>
+                            {%- if glunni_plan_name != blank -%}
+                              <span class="glunni-plan-tag">
+                                <span class="svg-wrapper">{{- 'icon-price-tag.svg' | inline_asset_content -}}</span>
+                                {{ glunni_plan_name | upcase }}
+                              </span>
+                            {%- endif -%}
+                          {%- elsif item.properties['_glunni_plan'] != blank -%}
                             <p class="glunni-cart-plan">{{ item.properties['_glunni_plan'] }}</p>
                           {%- endif -%}
 
@@ -367,28 +423,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
                           {%- render 'loading-spinner' -%}
-                          <div class="cart-item__price-wrapper">
-                            {%- if glunni_is_free -%}
-                              <span class="price price--end glunni-free-price">Free</span>
-                            {%- elsif item.original_line_price != item.final_line_price -%}
-                              <div class="cart-item__discounted-prices">
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.regular_price' | t }}
-                                </span>
-                                <s class="cart-item__old-price price price--end">
-                                  {%- render 'glunni-usd', cents: item.original_line_price -%}
-                                </s>
-                                <span class="visually-hidden">
-                                  {{ 'products.product.price.sale_price' | t }}
-                                </span>
+                          <div class="cart-item__price-wrapper glunni-price-wrapper">
+                            <div class="cart-item__discounted-prices glunni-price-row">
+                              <s class="cart-item__old-price price price--end">
+                                {%- render 'glunni-usd', cents: glunni_old_line_cents -%}
+                              </s>
+                              {%- if glunni_is_free -%}
+                                <span class="price price--end glunni-free-price">Free</span>
+                              {%- else -%}
                                 <span class="price price--end">
                                   {%- render 'glunni-usd', cents: item.final_line_price -%}
                                 </span>
-                              </div>
-                            {%- else -%}
-                              <span class="price price--end">
-                                {%- render 'glunni-usd', cents: item.original_line_price -%}
-                              </span>
+                              {%- endif -%}
+                            </div>
+                            {%- if glunni_save_cents > 0 -%}
+                              <div class="glunni-save-text">Save&nbsp;{%- render 'glunni-usd', cents: glunni_save_cents -%}</div>
                             {%- endif -%}
 
                             {%- if item.variant.available and item.unit_price_measurement -%}
@@ -672,9 +721,20 @@ document.addEventListener('DOMContentLoaded', function () {
             {%- endif -%}
           </div>
 
-          <div class="totals" role="status">
-            <h2 class="totals__total">{{ 'sections.cart.estimated_total' | t }}</h2>
-            <p class="totals__total-value">{%- render 'glunni-usd', cents: cart.total_price -%}</p>
+          {%- liquid
+            assign glunni_footer_retail_unit_cents = 7998
+            assign glunni_cart_old_total_cents = glunni_footer_retail_unit_cents | times: cart.item_count
+            assign glunni_cart_save_cents = glunni_cart_old_total_cents | minus: cart.total_price
+          -%}
+          <div class="totals glunni-totals" role="status">
+            <p class="glunni-totals__label">Total: {{ cart.item_count }} Item{% if cart.item_count != 1 %}s{% endif %}</p>
+            <div class="glunni-totals__right">
+              {%- if glunni_cart_save_cents > 0 -%}
+                <span class="glunni-totals__save-badge">-{%- render 'glunni-usd', cents: glunni_cart_save_cents -%}</span>
+                <s class="glunni-totals__old">{%- render 'glunni-usd', cents: glunni_cart_old_total_cents -%}</s>
+              {%- endif -%}
+              <span class="totals__total-value glunni-totals__final">{%- render 'glunni-usd', cents: cart.total_price -%}</span>
+            </div>
           </div>
 
           <small class="tax-note caption-large rte">
@@ -724,13 +784,14 @@ document.addEventListener('DOMContentLoaded', function () {
           <button
             type="submit"
             id="CartDrawer-Checkout"
-            class="cart__checkout-button button"
+            class="cart__checkout-button button glunni-checkout-button"
             name="checkout"
             form="CartDrawer-Form"
             {% if cart == empty %}
               disabled
             {% endif %}
           >
+            <span class="svg-wrapper glunni-checkout-lock">{{- 'icon-padlock.svg' | inline_asset_content -}}</span>
             Secure Checkout
           </button>
         </div>
