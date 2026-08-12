@@ -1492,3 +1492,102 @@ a.product__text {
     border: none;
   }
 }
+
+/* Glunni: icon column beside media (product page restyle) */
+.product__icon-column {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.6rem;
+  order: 2;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.5rem 0;
+}
+
+.product__icon-column .icon-with-text {
+  width: 100%;
+}
+
+.product__icon-column .icon-with-text__item {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #eef2ee;
+  border-radius: 14px;
+  padding: 1.6rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  flex: 1 1 0;
+  min-height: 140px;
+  justify-content: center;
+}
+
+.product__icon-column .icon-with-text--vertical .icon-with-text__item {
+  margin-bottom: 1.4rem;
+}
+
+.product__icon-column .icon-with-text__item:last-child {
+  margin-bottom: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .product--with-icons .product__info-wrapper {
+    order: 3;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  .product--large.product--with-icons:not(.product--no-media) .product__media-wrapper {
+    max-width: 52%;
+    width: calc(52% - var(--grid-desktop-horizontal-spacing) / 2);
+  }
+
+  .product--large.product--with-icons:not(.product--no-media) .product__info-wrapper {
+    max-width: 30%;
+    width: calc(30% - var(--grid-desktop-horizontal-spacing) / 2);
+    padding-left: 3rem;
+  }
+
+  .product--large.product--with-icons.grid {
+    align-items: flex-start;
+  }
+
+  .product--with-icons .product__icon-column {
+    order: 2;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    max-width: 16%;
+    width: calc(16% - var(--grid-desktop-horizontal-spacing) / 2);
+    margin: 0;
+    padding: 0 0.5rem;
+    gap: 1rem;
+  }
+
+  .product--with-icons .product__icon-column .icon-with-text__item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #eef2ee;
+    border-radius: 14px;
+    padding: 1.6rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    flex: 1 1 0;
+    min-height: 150px;
+    justify-content: center;
+  }
+
+  .product--with-icons .product__icon-column .icon-with-text--vertical .svg-wrapper,
+  .product--with-icons .product__icon-column .icon-with-text--vertical img {
+    margin-right: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .product--with-icons .product__icon-column .h4 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+}
