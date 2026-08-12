@@ -11,6 +11,137 @@
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
 <script src="{{ 'quantity-popover.js' | asset_url }}" defer="defer"></script>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Glunni cart integrity guard.
+  // The bundle logic only ever adds "free gift" line items alongside a paid
+  // bundle line, in a fixed ratio (2 free capsules for every 3 paid). If the
+  // paid line is later removed or reduced -- via the drawer stepper, the /cart
+  // page, or a direct API call -- this recomputes how many free units are
+  // actually earned and trims the free line to match, so it's not possible to
+  // end up with free-only orders.
+  function glunniMaxAllowedFree(paidQty) {
+    return Math.floor((paidQty * 2) / 3);
+  }
+
+  function glunniRefreshCartUI(cartState) {
+    var drawerEl = document.querySelector('cart-drawer');
+    var onCartPage = window.location.pathname.indexOf('/cart') === 0;
+
+    if (onCartPage && (!drawerEl || !drawerEl.classList.contains('active'))) {
+      window.location.reload();
+      return;
+    }
+
+    fetch('/?sections=cart-drawer,cart-icon-bubble', { headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (sections) {
+        var cdContainer = document.getElementById('CartDrawer');
+        if (drawerEl && cdContainer && sections['cart-drawer']) {
+          var parsed = new DOMParser().parseFromString(sections['cart-drawer'], 'text/html').querySelector('#CartDrawer');
+          if (parsed) cdContainer.innerHTML = parsed.innerHTML;
+          drawerEl.classList.toggle('is-empty', !!cartState && cartState.item_count === 0);
+        }
+        var bubble = document.getElementById('cart-icon-bubble');
+        if (bubble && sections['cart-icon-bubble']) {
+          var parsedBubble = new DOMParser()
+            .parseFromString(sections['cart-icon-bubble'], 'text/html')
+            .querySelector('.shopify-section');
+          if (parsedBubble) bubble.innerHTML = parsedBubble.innerHTML;
+        }
+      })
+      .catch(function (err) {
+        console.error('glunni cart UI refresh failed', err);
+      });
+  }
+
+  window.glunniEnforceCartIntegrity = function () {
+    return fetch('/cart.js', { headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (cart) {
+        var paidQty = 0;
+        var freeQty = 0;
+        var freeLineKey = null;
+
+        cart.items.forEach(function (item) {
+          var props = item.properties || {};
+          if (props['_glunni_free'] === '1') {
+            freeQty += item.quantity;
+            freeLineKey = item.key;
+          } else if (props['_glunni_plan']) {
+            paidQty += item.quantity;
+          }
+        });
+
+        if (freeQty === 0 || !freeLineKey) return false;
+
+        var maxFree = glunniMaxAllowedFree(paidQty);
+        if (freeQty <= maxFree) return false;
+
+        return fetch('/cart/change.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ id: freeLineKey, quantity: maxFree }),
+        })
+          .then(function (r) {
+            return r.json();
+          })
+          .then(function (updatedCart) {
+            glunniRefreshCartUI(updatedCart);
+            return true;
+          });
+      })
+      .catch(function (err) {
+        console.error('glunniEnforceCartIntegrity failed', err);
+        return false;
+      });
+  };
+
+  // Re-check after any cart mutation anywhere on the site (drawer stepper,
+  // /cart page stepper, quick add, etc. all publish this event).
+  if (typeof subscribe === 'function' && typeof PUB_SUB_EVENTS !== 'undefined') {
+    subscribe(PUB_SUB_EVENTS.cartUpdate, function () {
+      window.glunniEnforceCartIntegrity();
+    });
+  }
+
+  // Last-resort safety net: validate right before checkout is reached, in
+  // case the cart was tampered with in a way that didn't go through the
+  // normal update flow (e.g. a direct API call).
+  document.addEventListener(
+    'click',
+    function (evt) {
+      var btn = evt.target.closest('#CartDrawer-Checkout, #checkout');
+      if (!btn || btn.dataset.glunniChecked === '1') return;
+      var form = btn.form || btn.closest('form');
+      if (!form) return;
+
+      evt.preventDefault();
+      evt.stopImmediatePropagation();
+
+      Promise.resolve(window.glunniEnforceCartIntegrity ? window.glunniEnforceCartIntegrity() : false).then(
+        function () {
+          btn.dataset.glunniChecked = '1';
+          if (form.requestSubmit) {
+            form.requestSubmit(btn);
+          } else {
+            form.submit();
+          }
+        }
+      );
+    },
+    true
+  );
+
+  // Validate once on load too (covers a direct /cart visit after tampering).
+  window.glunniEnforceCartIntegrity();
+});
+</script>
+
 <style>
   .drawer {
     visibility: hidden;

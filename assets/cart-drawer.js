@@ -79,6 +79,10 @@ class CartDrawer extends HTMLElement {
   renderContents(parsedState) {
     this.querySelector('.drawer__inner').classList.contains('is-empty') &&
       this.querySelector('.drawer__inner').classList.remove('is-empty');
+    // Keep the outer <cart-drawer> element's is-empty state in sync too — otherwise
+    // stale CSS from the empty-cart layout (grid/hide rules) leaves the drawer looking
+    // blank on the very first add-to-cart of a session, even though the items rendered fine.
+    this.classList.toggle('is-empty', parsedState.item_count === 0);
     this.productId = parsedState.id;
     this.getSectionsToRender().forEach((section) => {
       const sectionElement = section.selector
