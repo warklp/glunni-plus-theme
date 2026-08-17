@@ -1,38 +1,36 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "glunni_hero": {
       "type": "image-with-text",
-      "settings": {
-        "image": "shopify://shop_images/glunni-acv-hero.png",
-        "layout": "image_first",
-        "desktop_image_width": "medium",
-        "height": "large",
-        "desktop_content_position": "middle",
-        "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 36
-      },
       "blocks": {
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Is Your Gut Struggling With GLP-1?",
+            "heading": "El secreto japonés para una frescura eterna.",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Nausea, constipation, reflux, and bloating are extremely common for people using Ozempic, Mounjaro, or Wegovy. Glunni ACV combines apple cider vinegar, prebiotic fiber, and digestive enzymes in a capsule — without the harsh vinegar taste — to help bring balance back to your gut.</p>",
+            "text": "<p>Con la edad, nuestra piel produce un compuesto que el jabón común no puede eliminar. Los taninos del caqui ayudan a neutralizarlo, desde su origen, sin necesidad de perfumes.<br/><br/></p>",
             "text_style": "body"
           }
         },
         "button": {
           "type": "button",
           "settings": {
-            "button_label": "Shop Now",
-            "button_link": "/products/glunni-apple-cider-vinegar-capsulas",
+            "button_label": "COMPRAR AHORA",
+            "button_link": "shopify://products/jabon-original-de-caqui",
             "button_style_secondary": false
           }
         }
@@ -41,7 +39,22 @@
         "heading",
         "text",
         "button"
-      ]
+      ],
+      "settings": {
+        "image": "shopify://shop_images/ChatGPT_Image_17_de_ago._de_2026_14_18_44.png",
+        "height": "large",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "scheme-1",
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
