@@ -947,7 +947,7 @@
             "text_padding_top": 10,
             "text_padding_bottom": 15,
             "content_alignment": "center",
-            "content_gap": 21,
+            "content_gap": 19,
             "content_gap_mobile": 14
           },
           "blocks": {}
