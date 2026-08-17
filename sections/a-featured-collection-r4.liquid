@@ -1,0 +1,1519 @@
+{% render 'a-atlas-fonts-r2', atlas_font: section.settings.atlas_font %}
+{{ 'a-component-slider.css' | asset_url | stylesheet_tag }}
+{{ 'a-template-collection.css' | asset_url | stylesheet_tag }}
+{{ 'a-component-card.css' | asset_url | stylesheet_tag }}
+{%- comment -%} Load quick-add assets from the section's own CTA setting. The cards render quick
+   view from `section.settings.card_cta_type` (product_card_has_custom_settings is always on now),
+   and on the host theme we don't control the global `settings.card_cta_type`, so gating on the
+   global left the assets unloaded and the modal undefined. Keep the global as a superset. {%- endcomment -%}
+{%- if section.settings.card_cta_type == 'quick_view' or settings.card_cta_type == 'quick_view' -%}
+  <link rel="stylesheet" href="{{ 'a-quick-add-r2.css' | asset_url }}" media="print" onload="this.media='all'">
+  <script src="{{ 'a-quick-add-r2.js' | asset_url }}" defer="defer"></script>
+{%- endif -%}
+{%- liquid
+  assign global_heading_size = settings.enable_global_heading_font_size
+  assign global_body_size = settings.enable_global_body_font_size
+  assign global_color = settings.enable_global_color
+  # Number of product slides actually rendered (for the fraction pagination total).
+  assign slide_count = section.settings.products_to_show
+  assign coll_size = section.settings.collection.products.size
+  if coll_size < slide_count
+    assign slide_count = coll_size
+  endif
+-%}
+{% if request.visual_preview_mode %}
+  {% assign section_id_variable = 'id' %}
+  {% assign section_id_selector = '' %}
+{% else %}
+  {% assign section_id_variable = section.id %}
+  {% assign section_id_selector = '#section-' | append: section.id %}
+{% endif %}
+<style>
+  {%- if request.visual_preview_mode -%}
+    {% comment %} don't want fade-in animation in preview mode because it messes up preview {% endcomment %}
+    .animation_section,
+    .animation_section > * {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto !important;
+    }
+  {%- endif -%}
+
+  .atlas-isolation-wrapper #Slider-{{ section_id_variable }}.grid {
+    align-items: stretch;
+  }
+  .atlas-isolation-wrapper #Slider-{{ section_id_variable }} .grid__item {
+    display: flex;
+    flex-direction: column;
+    max-width: unset;
+    width: 100%;
+  }
+  .atlas-isolation-wrapper #Slider-{{ section_id_variable }} .grid__item > div {
+    height: 100%;
+  }
+
+
+  .atlas-isolation-wrapper .section__featured_collection {
+    padding: 5px 0;
+  }
+
+  .atlas-isolation-wrapper .section-{{ section_id_variable }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+  .atlas-isolation-wrapper .title-wrapper {
+    margin-bottom: {{ section.settings.gap_text_and_slider_mobile}}px;
+  }
+  @media screen and (min-width: 750px) {
+    .atlas-isolation-wrapper .title-wrapper {
+    margin-bottom: {{ section.settings.gap_text_and_slider_desktop }}px;
+  }
+    .atlas-isolation-wrapper .section-{{ section_id_variable }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .atlas-isolation-wrapper #collection__description-{{ section_id_variable }},
+  .atlas-isolation-wrapper #collection__description-{{ section_id_variable }} p {
+    font-size: {% if global_body_size %}var(--atlas-global-body-text-font-size)!important{% else %}{{ section.settings.desc_font_size }}px!important{% endif %};
+    line-height: {% if global_body_size %}var(--atlas-global-body-text-font-size)!important{% else %}{{ section.settings.desc_font_size | plus: 8 }}px!important{% endif %};
+    color: {% if global_color %}rgb(var(--atlas-color-base-text)){% else %}{{ section.settings.body_text_color }}{% endif %};
+  }
+  .atlas-isolation-wrapper #collection__description-{{ section_id_variable }} p strong {
+    {%- if section.settings.bolded_body_text_use_gradient -%}
+      background: {% if section.settings.bolded_body_text_gradient_color != blank %}{{ section.settings.bolded_body_text_gradient_color }}{% else %}var(--atlas-gradient-base-background-1){% endif %};
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    {% else %}
+      color: {{ section.settings.bolded_body_text_color }};
+    {%- endif -%}
+  }
+
+  #shopify-section-{{ section.id }} .product-grid {
+    grid-template-columns: repeat({{ section.settings.grid_desktop_columns }}, 1fr);
+    {%- comment -%}
+      Horizon's `.grid` sets a 14-column `grid-template-areas` template. The grid spec makes the
+      column count the max of the areas template and grid-template-columns, so those 14 tracks
+      (and their gaps) survive our column override and leave trailing empty space when the row
+      isn't full. Reset the areas template so our column count is authoritative at every breakpoint.
+    {%- endcomment -%}
+    grid-template-areas: none;
+    {% if section.settings.enable_slider %}
+      gap: 0;
+      display: flex;
+      width: fit-content;
+      padding: 0;
+    {% else %}
+      gap: {{ section.settings.grid_desktop_gap }}px;
+      display: grid;
+    {% endif %}
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} .product-grid {
+      grid-template-columns: repeat({{ section.settings.grid_tablet_columns }}, 1fr);
+      {% if section.settings.enable_slider %}
+        display: flex;
+        width: fit-content;
+      {% else %}
+        display: grid;
+        gap: {{ section.settings.grid_tablet_gap }}px;
+      {% endif %}
+    }
+  }
+
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .product-grid {
+      {% if section.settings.enable_slider %}
+        display: flex;
+        width: fit-content;
+      {% else %}
+        grid-template-columns: repeat({{ section.settings.grid_mobile_columns }}, 1fr);
+        display: grid;
+        gap: {{ section.settings.grid_mobile_gap }}px;
+      {% endif %}
+    }
+  }
+
+  {%- comment -%} Card settings are always section-level now — the host theme owns its own global settings. {%- endcomment -%}
+    .atlas-isolation-wrapper .card-wrapper {
+      --atlas-product-card-padding: {{ section.settings.card_padding  }}px;
+        --atlas-product-card-corner-radius: {{ section.settings.card_corner_radius | divided_by: 10.0 }}rem;
+        --atlas-product-card-text-alignment: {{ section.settings.card_text_alignment }};
+        --atlas-product-card-border-width: {{ section.settings.card_border_thickness | divided_by: 10.0 }}rem;
+        --atlas-product-card-border-opacity: {{ section.settings.card_border_opacity | divided_by: 100.0 }};
+        --atlas-product-card-shadow-opacity: {{ section.settings.card_shadow_opacity | divided_by: 100.0 }};
+        --atlas-product-card-shadow-visible: {% if section.settings.card_shadow_opacity > 0 %}1{% else %}0{% endif %};
+        --atlas-product-card-shadow-horizontal-offset: {{ section.settings.card_shadow_horizontal_offset | divided_by: 10.0 }}rem;
+        --atlas-product-card-shadow-vertical-offset: {{ section.settings.card_shadow_vertical_offset | divided_by: 10.0 }}rem;
+        --atlas-product-card-shadow-blur-radius: {{ section.settings.card_shadow_blur | divided_by: 10.0 }}rem;
+        --atlas-product-card-title-font-size: {{ section.settings.card_title_font_size }}px;
+        --atlas-product-card-title-font-size-mobile: {{ section.settings.card_title_font_size_mobile }}px;
+        --atlas-product-card-price-font-size: {{ section.settings.card_price_font_size }}px;
+        --atlas-product-card-price-font-size-mobile: {{ section.settings.card_price_font_size_mobile }}px;
+        --atlas-product-card-compare-at-price-font-size: {{ section.settings.card_compare_at_price_font_size }}px;
+        --atlas-product-card-compare-at-price-font-size-mobile: {{ section.settings.card_compare_at_price_font_size_mobile }}px;
+        --atlas-product-card-vendor-font-size: {{ section.settings.card_vendor_font_size }}px;
+        --atlas-product-card-vendor-font-size-mobile: {{ section.settings.card_vendor_font_size_mobile }}px;
+        --atlas-product-card-stock-indicator-font-size: {{ section.settings.card_stock_indicator_font_size }}px;
+        --atlas-product-card-stock-indicator-font-size-mobile: {{ section.settings.card_stock_indicator_font_size_mobile }}px;
+        --atlas-product-card-button-text-font-size: {{ section.settings.card_button_text_font_size }}px;
+        --atlas-product-card-button-text-font-size-mobile: {{ section.settings.card_button_text_font_size_mobile }}px;
+        --atlas-product-card-title-text-color: {{ section.settings.card_title_text_color.red }},{{ section.settings.card_title_text_color.green }},{{ section.settings.card_title_text_color.blue }};
+        --atlas-product-card-vendor-text-color: {{ section.settings.card_vendor_text_color.red }},{{ section.settings.card_vendor_text_color.green }},{{ section.settings.card_vendor_text_color.blue }};
+        --atlas-product-card-price-text-color: {{ section.settings.card_price_text_color.red }},{{ section.settings.card_price_text_color.green }},{{ section.settings.card_price_text_color.blue }};
+        --atlas-product-card-compare-at-price-text-color: {{ section.settings.card_compare_at_price_text_color.red }},{{ section.settings.card_compare_at_price_text_color.green }},{{ section.settings.card_compare_at_price_text_color.blue }};
+        --atlas-product-card-compare-at-price-color-opacity: {{ section.settings.card_compare_at_price_color_opacity | divided_by: 100.0 }};
+        --atlas-product-card-stock-indicator-text-color: {{ section.settings.card_stock_indicator_text_color.red }},{{ section.settings.card_stock_indicator_text_color.green }},{{ section.settings.card_stock_indicator_text_color.blue }};
+        --atlas-product-card-stock-indicator-svg-color-1: {{ section.settings.card_stock_indicator_svg_color_1.red }},{{ section.settings.card_stock_indicator_svg_color_1.green }},{{ section.settings.card_stock_indicator_svg_color_1.blue }};
+        --atlas-product-card-stock-indicator-svg-color-2: {{ section.settings.card_stock_indicator_svg_color_2.red }},{{ section.settings.card_stock_indicator_svg_color_2.green }},{{ section.settings.card_stock_indicator_svg_color_2.blue }};
+        {% if section.settings.card_background_color_use_gradient %}
+          --atlas-product-card-background-color: {{ section.settings.card_background_color_gradient }};
+        {% else %}
+          --atlas-product-card-background-color: rgba({{ section.settings.card_background_color.red }},{{ section.settings.card_background_color.green }},{{ section.settings.card_background_color.blue }},{{ section.settings.card_background_color_opacity | divided_by: 100.0 }});
+        {% endif %}
+        --atlas-product-card-border-thickness: {{ section.settings.card_border_thickness }}px;
+        --atlas-product-card-border-color: {{ section.settings.card_border_color.red }},{{ section.settings.card_border_color.green }},{{ section.settings.card_border_color.blue }};
+        --atlas-product-card-border-radius: {{ section.settings.card_border_radius }}px;
+        --atlas-product-card-border-opacity: {{ section.settings.card_border_opacity | divided_by: 100.0 }};
+        --atlas-product-card-button-main-color: {{ section.settings.card_button_main_color.red }},{{ section.settings.card_button_main_color.green }},{{ section.settings.card_button_main_color.blue }};
+        --atlas-product-card-button-secondary-color: {{ section.settings.card_button_secondary_color.red }},{{ section.settings.card_button_secondary_color.green }},{{ section.settings.card_button_secondary_color.blue }};
+        --atlas-product-card-button-tertiary-color: {{ section.settings.card_button_tertiary_color.red }},{{ section.settings.card_button_tertiary_color.green }},{{ section.settings.card_button_tertiary_color.blue }};
+    }
+  {% if section.settings.card_cta_outside_media %}
+    {%- assign btn_align = 'center' -%}
+    {%- if section.settings.card_button_text_align == 'left' -%}{%- assign btn_align = 'flex-start' -%}{%- elsif section.settings.card_button_text_align == 'right' -%}{%- assign btn_align = 'flex-end' -%}{%- endif -%}
+    {% comment %} The button is styled for overlaying the image via .card__inner rules; below the content it needs its own flow + styling. {% endcomment %}
+    #shopify-section-{{ section.id }} .card__content .quick-add {
+      position: static;
+      transform: none;
+      left: auto;
+      bottom: auto;
+      width: 100%;
+      max-width: 100%;
+      margin-top: 22px;
+    }
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit {
+      border-radius: {{ section.settings.card_button_border_radius }}px !important;
+      justify-content: {{ btn_align }};
+      padding: 8px 18px !important;
+      min-height: 0;
+      font-weight: 700 !important;
+    }
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-text {
+      font-weight: 700 !important;
+    }
+    {% unless section.settings.card_button_show_icon %}
+      #shopify-section-{{ section.id }} .card__content .quick-add__submit .icon-wrap {
+        display: none !important;
+      }
+    {% endunless %}
+  {% endif %}
+  {%- comment -%} Slider fraction pagination + prev/next controls (gated). Auto-hidden when Swiper locks (all slides fit). {%- endcomment -%}
+  {% if section.settings.enable_slider and section.settings.show_slider_pagination %}
+    #shopify-section-{{ section.id }} .featured-collection__slider-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    #shopify-section-{{ section.id }} .featured-collection__slider-nav:has(.swiper-button-lock) {
+      display: none;
+    }
+    #shopify-section-{{ section.id }} .fc-slider-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+      border: 1px solid {{ section.settings.bolded_heading_text_color }};
+      background: transparent;
+      color: {{ section.settings.bolded_heading_text_color }};
+      transition: opacity 0.15s ease;
+    }
+    #shopify-section-{{ section.id }} .fc-slider-btn--next {
+      background: {{ section.settings.bolded_heading_text_color }};
+      color: #ffffff;
+    }
+    #shopify-section-{{ section.id }} .fc-slider-btn.swiper-button-disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+    #shopify-section-{{ section.id }} .fc-slider-fraction {
+      font-size: 14px;
+      font-weight: 600;
+      color: {{ section.settings.heading_text_color }};
+      min-width: 44px;
+      text-align: center;
+      /* Neutralize Swiper's default .swiper-pagination absolute/full-width so it sits inline between the arrows. */
+      position: static !important;
+      width: auto !important;
+      bottom: auto !important;
+      left: auto !important;
+    }
+  {% endif %}
+
+  {%- comment -%} Marketing-card internals styling (gated, default off → other instances unchanged).
+     Also carries the add-to-cart layout reset (card__content flex + .card-product-variant-selector
+     position:static) needed whenever the CTA sits below the media, so emit it for
+     card_cta_outside_media too — not only marketing mode. {%- endcomment -%}
+  {% if section.settings.card_marketing_mode or section.settings.card_cta_outside_media %}
+    {%- comment -%}
+      Equal-height cards with the CTA pinned near the bottom regardless of title/inventory
+      length. The card, its content and information wrappers become flex columns; the
+      product info grows so the CTA + promo sit at the bottom.
+    {%- endcomment -%}
+    #shopify-section-{{ section.id }} .card-wrapper,
+    #shopify-section-{{ section.id }} .card {
+      height: 100%;
+    }
+    #shopify-section-{{ section.id }} .card--card {
+      display: flex;
+      flex-direction: column;
+    }
+    #shopify-section-{{ section.id }} .card__content {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+    }
+    #shopify-section-{{ section.id }} .card__content > .card__information {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+    }
+    #shopify-section-{{ section.id }} .card__content > .card__information > .card-information {
+      flex: 1 1 auto;
+    }
+    {%- comment -%}
+      Fully reset the inherited add-to-cart wrapper (base a-component-card.css uses
+      position:absolute; left:50%; translateX(-50%)) so it flows in normal document flow,
+      full width, above the promo line.
+    {%- endcomment -%}
+    #shopify-section-{{ section.id }} .card__content .card-product-variant-selector {
+      position: static !important;
+      left: auto !important;
+      right: auto !important;
+      bottom: auto !important;
+      transform: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      margin-top: 16px;
+    }
+    #shopify-section-{{ section.id }} .card__content .card-product-variant-selector product-form,
+    #shopify-section-{{ section.id }} .card__content .card-product-variant-selector form,
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    {%- comment -%} Button colour/fill treatment is MARKETING-MODE ONLY. For a plain outside-media
+       CTA (card_cta_outside_media without marketing mode) this would force the button to
+       card_button_main_color + white text, overriding the card's own (template-defined) button
+       colour. The layout reset above still applies to both modes, so outside-media content stays
+       uncovered while the button keeps its native colour. {%- endcomment -%}
+    {% if section.settings.card_marketing_mode %}
+    {%- comment -%} Available Add to Cart: full-width burgundy button, white text. {%- endcomment -%}
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart {
+      background-color: {{ section.settings.card_button_main_color }} !important;
+      color: #ffffff !important;
+      border-radius: {{ section.settings.card_button_border_radius }}px !important;
+      padding: 12px 20px !important;
+      min-height: 0 !important;
+      opacity: 1;
+    }
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart .quick-add__submit-text,
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart .quick-add__submit-price {
+      color: #ffffff !important;
+    }
+    {%- comment -%} Sold out: same footprint, muted disabled state. {%- endcomment -%}
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart[disabled],
+    #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart:disabled {
+      background-color: {{ section.settings.card_button_main_color }} !important;
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    {% endif %}
+    #shopify-section-{{ section.id }} .card__marketing-subtitle {
+      font-size: 14px;
+      color: {{ section.settings.card_marketing_subtitle_color }};
+      margin: 0;
+    }
+    #shopify-section-{{ section.id }} .card__marketing-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0;
+    }
+    #shopify-section-{{ section.id }} .card__marketing-chip {
+      border: 1px solid {{ section.settings.card_marketing_chip_color }};
+      color: {{ section.settings.card_marketing_chip_color }};
+      border-radius: 9999px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1;
+    }
+    #shopify-section-{{ section.id }} .card__marketing-promo {
+      font-size: 12px;
+      font-weight: 600;
+      margin: 10px 0 0;
+    }
+    {% if section.settings.card_price_in_button %}
+      #shopify-section-{{ section.id }} .card__content .quick-add__submit-add-to-cart {
+        display: flex !important;
+        align-items: center;
+        justify-content: center !important;
+        flex-wrap: wrap;
+        column-gap: 8px;
+        row-gap: 2px;
+      }
+      #shopify-section-{{ section.id }} .quick-add__submit-text {
+        white-space: nowrap;
+      }
+      #shopify-section-{{ section.id }} .quick-add__submit-price {
+        font-weight: 700;
+        white-space: nowrap;
+      }
+    {% endif %}
+  {% endif %}
+</style>
+
+
+  <div
+    id="section-{{ section.id }}"
+    class="isolate gradient section__featured_collection"
+    style="{% if section.settings.use_gradient_background %}background: {{ section.settings.section_background_gradient }};{% else %}background-color: {{ section.settings.section_background_color }};{% endif %}"
+  >
+    <div class="collection featured-collection-{{ section_id_variable }} section-{{ section_id_variable }}-padding page-width">
+      <div class="collection__title title-wrapper title-wrapper--no-top-margin " style="text-align: {{ section.settings.heading_alignment | default: 'center' }};{% if section.settings.heading_alignment == 'left' %} align-items: flex-start;{% elsif section.settings.heading_alignment == 'right' %} align-items: flex-end;{% endif %}">
+        {%- comment -%} Optional eyebrow above the heading (generic; blank → nothing). Uses the bolded-heading (accent) color. {%- endcomment -%}
+        {%- if section.settings.eyebrow != blank -%}
+          <p style="font-size: 12px; font-weight: 600; letter-spacing: 2px; margin: 0 0 8px; color: {{ section.settings.bolded_heading_text_color }};">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <style>
+            .atlas-isolation-wrapper #section-heading-{{ section_id_variable }} {
+              margin: 0;
+              font-size: {% if global_heading_size %}var(--atlas-font-heading-size)!important{% else %}{{ section.settings.heading_font_size }}px!important{% endif %};
+              line-height: {% if global_heading_size %}calc(var(--atlas-font-heading-size) + 10px) !important{% else %}{{ section.settings.heading_font_size | plus: 10 }}px!important{% endif %};
+              color: {% if global_color %}rgb(var(--atlas-color-base-heading)){% else %}{{ section.settings.heading_text_color }}{% endif %};
+            }
+            .atlas-isolation-wrapper #section-heading-{{ section_id_variable }} strong {
+              {%- if section.settings.bolded_heading_text_use_gradient -%}
+                background: {% if section.settings.bolded_heading_text_gradient_color != blank %}{{ section.settings.bolded_heading_text_gradient_color }}{% else %}var(--atlas-gradient-base-background-1){% endif %};
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+              {% else %}
+                color: {{ section.settings.bolded_heading_text_color }};
+              {%- endif -%}
+            }
+            @media (max-width: 768px) {
+              .atlas-isolation-wrapper #section-heading-{{ section_id_variable }} {
+                font-size: {% if global_heading_size %}var(--atlas-font-heading-mob-size) !important{% else %}{{ section.settings.heading_mob_font_size }}px!important{% endif %};
+                line-height: {% if global_heading_size %}calc(var(--atlas-font-heading-mob-size) + 10px) !important{% else %}{{ section.settings.heading_mob_font_size }}px!important{% endif %};
+              }
+            }
+          </style>
+
+          <h2 id="section-heading-{{ section_id_variable }}" class="title">
+            {{ section.settings.title }}
+          </h2>
+        {%- endif -%}
+
+        {%- if section.settings.description != blank -%}
+          <style>
+            .atlas-isolation-wrapper #collection__description-{{ section_id_variable }} {
+              margin-top: {{ section.settings.gap_between_heading_and_description_desktop }}px;
+            }
+            @media (max-width: 768px) {
+              .atlas-isolation-wrapper #collection__description-{{ section_id_variable }} {
+                margin-top: {{ section.settings.gap_between_heading_and_description_mobile }}px;
+              }
+            }
+          </style>
+          <div
+            id="collection__description-{{ section_id_variable }}"
+            class="collection__description image-with-text__text rte sw-base-text-color"
+          >
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div
+        {% if section.settings.enable_slider %}
+          class="swiper"
+        {% endif %}
+        id="Slider-{{ section_id_variable }}"
+      >
+        <ul
+          class=" {% if section.settings.enable_slider %} swiper-wrapper{% else %} grid{% endif %} product-grid contains-card contains-card--product"
+          role="list"
+          aria-label="Slider"
+        >
+          {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+            <li
+              id="Slide-{{ section_id_variable }}-{{ forloop.index }}"
+              class="grid__item {% if section.settings.enable_slider %} swiper-slide {% endif %}"
+              {% if section.settings.enable_slider %}
+                style="height: auto;padding: 0;"
+              {% endif %}
+            >
+              {% render 'a-card-product-r4',
+                card_product: product,
+                media_aspect_ratio: section.settings.image_ratio,
+                show_secondary_image: section.settings.show_secondary_image,
+                show_vendor: section.settings.show_vendor,
+                show_rating: section.settings.show_rating,
+                section_id: section_id_variable,
+                product_card_has_custom_settings: true
+              %}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+      {%- if section.settings.enable_slider and section.settings.show_slider_pagination -%}
+        {%- comment -%} Fraction pagination + prev/next (gated). Swiper auto-locks/hides it when all slides fit (e.g. desktop). {%- endcomment -%}
+        <div class="featured-collection__slider-nav" id="SliderNav-{{ section_id_variable }}">
+          <button type="button" class="fc-slider-btn fc-slider-btn--prev" id="SliderPrev-{{ section_id_variable }}" aria-label="Previous products">
+            <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M7.5 1 1.5 8l6 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="fc-slider-fraction" id="SliderFraction-{{ section_id_variable }}" aria-live="polite"></div>
+          <button type="button" class="fc-slider-btn fc-slider-btn--next" id="SliderNext-{{ section_id_variable }}" aria-label="Next products">
+            <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="m1.5 1 6 7-6 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+
+<script>
+  (function () {
+    function makeConfig() {
+      return {
+        slidesPerView: {{ section.settings.slider_slides_per_view_desktop }},
+        spaceBetween: 20,
+        {%- if section.settings.enable_slider and section.settings.show_slider_pagination -%}
+        watchOverflow: true,
+        navigation: {
+          prevEl: '#SliderPrev-{{ section_id_variable }}',
+          nextEl: '#SliderNext-{{ section_id_variable }}'
+        },
+        pagination: {
+          el: '#SliderFraction-{{ section_id_variable }}',
+          type: 'fraction',
+          formatFractionTotal: function () { return {{ slide_count }}; }
+        },
+        {%- endif -%}
+        breakpoints: {
+          320: {
+            slidesPerView: {{ section.settings.slider_slides_per_view_mobile }},
+          },
+          576: {
+            slidesPerView: {{ section.settings.slider_slides_per_view_tablet }},
+          },
+          1024: {
+            slidesPerView: {{ section.settings.slider_slides_per_view_desktop }},
+          }
+        }
+      };
+    }
+    function initSlider() {
+      new Swiper('#Slider-{{ section_id_variable }}', makeConfig());
+    }
+    document.addEventListener('DOMContentLoaded', initSlider);
+    document.addEventListener('shopify:section:load', initSlider);
+    document.addEventListener('shopify:section:unload', initSlider);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "tag": "section",
+  "class": "atlas-isolation-wrapper atlas-gradient section animation_section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "info": "Optional small line above the heading. Leave blank to hide."
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "default": "Featured collection",
+      "label": "Heading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Body"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "grid_desktop_columns",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop columns",
+      "visible_if": "{{ section.settings.enable_slider == false }}"
+    },
+    {
+      "type": "range",
+      "id": "grid_tablet_columns",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Tablet columns",
+      "visible_if": "{{ section.settings.enable_slider == false }}"
+    },
+    {
+      "type": "range",
+      "id": "grid_mobile_columns",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 2,
+      "label": "Mobile columns",
+      "visible_if": "{{ section.settings.enable_slider == false }}"
+    },
+    {
+      "type": "range",
+      "id": "grid_desktop_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "label": "Desktop grid gap",
+      "visible_if": "{{ section.settings.enable_slider == false }}"
+    },
+    {
+      "type": "range",
+      "id": "grid_tablet_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "label": "Tablet grid gap",
+      "visible_if": "{{ section.settings.enable_slider == false }}"
+    },
+    {
+      "type": "range",
+      "id": "grid_mobile_gap",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "label": "Mobile grid gap",
+      "visible_if": "{{ section.settings.enable_slider == false }}"
+    },
+    {
+      "type": "range",
+      "id": "gap_between_heading_and_description_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop gap between heading and description",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "gap_between_heading_and_description_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile gap between heading and description",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "gap_text_and_slider_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop gap between text and slider",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "gap_text_and_slider_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile gap between text and slider",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 12,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Desktop heading size",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "heading_mob_font_size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Mobile heading size",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "desc_font_size",
+      "min": 8,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Body font size",
+      "default": 16
+    },
+
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 24,
+      "step": 1,
+      "default": 3,
+      "label": "Maximum products"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider",
+      "label": "Enable carousel slider",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_slider_pagination",
+      "label": "Show slider pagination controls",
+      "info": "Prev/next arrows + a \"current / total\" counter below the slider. Auto-hides when all products fit the view.",
+      "default": false,
+      "visible_if": "{{ section.settings.enable_slider }}"
+    },
+    {
+      "type": "range",
+      "id": "slider_slides_per_view_desktop",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 4,
+      "label": "Desktop slides per view",
+      "visible_if": "{{ section.settings.enable_slider }}"
+    },
+    {
+      "type": "range",
+      "id": "slider_slides_per_view_tablet",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Tablet slides per view",
+      "visible_if": "{{ section.settings.enable_slider }}"
+    },
+    {
+      "type": "range",
+      "id": "slider_slides_per_view_mobile",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1,
+      "label": "Mobile slides per view",
+      "visible_if": "{{ section.settings.enable_slider }}"
+    },
+    {
+      "type": "header",
+      "content": "Styling"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "color",
+      "id": "heading_text_color",
+      "label": "Heading color",
+      "default": "#383838"
+    },
+    {
+      "type": "color",
+      "id": "bolded_heading_text_color",
+      "label": "Bolded heading color",
+      "default": "#383838"
+    },
+    {
+      "type": "checkbox",
+      "id": "bolded_heading_text_use_gradient",
+      "label": "Bolded heading text use gradient",
+      "default": false,
+      "info": "Any text formatted as bold within the heading will be converted to a gradient"
+    },
+    {
+      "type": "color_background",
+      "id": "bolded_heading_text_gradient_color",
+      "label": "Bolded heading text gradient color",
+      "default": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
+      "info": "Only visible when gradient is enabled",
+      "visible_if": "{{ section.settings.bolded_heading_text_use_gradient }}"
+    },
+    {
+      "type": "color",
+      "id": "body_text_color",
+      "label": "Body color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bolded_body_text_color",
+      "label": "Bolded body color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "bolded_body_text_use_gradient",
+      "label": "Bolded body text use gradient",
+      "default": false,
+      "info": "Any text formatted as bold within the body will be converted to a gradient"
+    },
+    {
+      "type": "color_background",
+      "id": "bolded_body_text_gradient_color",
+      "label": "Bolded body text gradient color",
+      "default": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
+      "info": "Only visible when gradient is enabled",
+      "visible_if": "{{ section.settings.bolded_body_text_use_gradient }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_background",
+      "label": "Use gradient background",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "section_background_gradient",
+      "label": "Section background gradient",
+      "default": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
+      "visible_if": "{{ section.settings.use_gradient_background }}"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.use_gradient_background == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Product card settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show product rating",
+      "default": false,
+      "info": "Shows star rating + value on each card. Requires product review metafields (reviews.rating)."
+    },
+    {
+      "type": "checkbox",
+      "id": "card_show_stock_indicator",
+      "label": "Show stock indicator",
+      "default": true,
+      "info": "Shows the inventory/stock line on each card (requires inventory tracking)."
+    },
+    {
+      "type": "text",
+      "id": "card_promo_label",
+      "label": "Card supporting label",
+      "info": "Optional line under each card (e.g. \"Buy one, get one free\"). Blank to hide."
+    },
+    {
+      "type": "color",
+      "id": "card_promo_label_color",
+      "label": "Card supporting label color",
+      "default": "#000000"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_marketing_mode",
+      "label": "Marketing card internals",
+      "default": false,
+      "info": "Adds a subtitle, spec chips, price-in-button and promo label to each card. Each element hides when its data is blank. Off = standard card."
+    },
+    {
+      "type": "text",
+      "id": "card_subtitle_metafield",
+      "label": "Subtitle metafield",
+      "info": "Namespace.key of a product metafield to show as a subtitle (e.g. custom.card_subtitle). Blank to hide.",
+      "visible_if": "{{ section.settings.card_marketing_mode }}"
+    },
+    {
+      "type": "color",
+      "id": "card_marketing_subtitle_color",
+      "label": "Subtitle color",
+      "default": "#676986",
+      "visible_if": "{{ section.settings.card_marketing_mode }}"
+    },
+    {
+      "type": "select",
+      "id": "card_spec_chips_source",
+      "label": "Spec chips source",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "tags", "label": "First 2 product tags" },
+        { "value": "metafield", "label": "List metafield" }
+      ],
+      "default": "none",
+      "visible_if": "{{ section.settings.card_marketing_mode }}"
+    },
+    {
+      "type": "text",
+      "id": "card_spec_chips_metafield",
+      "label": "Spec chips metafield",
+      "info": "Namespace.key of a list-type product metafield (e.g. custom.spec_chips). Used when source = list metafield.",
+      "visible_if": "{{ section.settings.card_marketing_mode }}"
+    },
+    {
+      "type": "color",
+      "id": "card_marketing_chip_color",
+      "label": "Spec chip color",
+      "default": "#7c1c2f",
+      "visible_if": "{{ section.settings.card_marketing_mode }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_price_in_button",
+      "label": "Show price inside Add to Cart button",
+      "default": false,
+      "info": "Requires button type = Add to cart. Uses the product's live price.",
+      "visible_if": "{{ section.settings.card_marketing_mode }}"
+    },
+    {
+      "type": "select",
+      "id": "card_text_alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center",
+      "label": "Text alignment"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "min": 0,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card padding",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": true,
+      "label": "Show second image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Vendor display"
+    },
+    {
+      "type": "checkbox",
+      "id": "product_card_use_slider_images",
+      "label": "Enable image slider on product cards",
+      "info": "Show multiple product images with navigation arrows",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Product Information"
+    },
+    {
+      "type": "select",
+      "id": "card_cta_type",
+      "options": [
+        {
+          "value": "none",
+          "label": "No button"
+        },
+        {
+          "value": "add_to_cart",
+          "label": "Add to cart"
+        },
+        {
+          "value": "quick_view",
+          "label": "Quick view"
+        },
+        {
+          "value": "choose_options",
+          "label": "Choose options"
+        }
+      ],
+      "default": "quick_view",
+      "label": "Button type"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_cta_outside_media",
+      "label": "Show button below image",
+      "default": false,
+      "info": "Places the Add to cart / button under the product details instead of overlaying the image."
+    },
+    {
+      "type": "checkbox",
+      "id": "card_variant_dropdowns",
+      "label": "Show variant dropdowns in card",
+      "default": false,
+      "info": "For clothing: shows each product's options (e.g. size) as dropdowns inside the card so shoppers can pick a variant before adding to cart.",
+      "visible_if": "{{ section.settings.product_card_has_custom_settings }}"
+    },
+    {
+      "type": "range",
+      "id": "card_button_border_radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Button corner radius",
+      "default": 8,
+      "visible_if": "{{ section.settings.card_cta_outside_media }}"
+    },
+    {
+      "type": "select",
+      "id": "card_button_text_align",
+      "label": "Button text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "visible_if": "{{ section.settings.card_cta_outside_media }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_button_show_icon",
+      "label": "Show plus icon",
+      "default": true,
+      "visible_if": "{{ section.settings.card_cta_outside_media }}"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size",
+      "label": "Desktop product title size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_title_font_size_mobile",
+      "label": "Mobile product title size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_price_font_size",
+      "label": "Desktop price size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_price_font_size_mobile",
+      "label": "Mobile price size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_compare_at_price_font_size",
+      "label": "Desktop compare at price size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_compare_at_price_font_size_mobile",
+      "label": "Mobile compare at price size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_vendor_font_size",
+      "label": "Desktop vendor name size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_vendor_font_size_mobile",
+      "label": "Mobile vendor name size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_button_text_font_size",
+      "label": "Desktop button text size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "card_button_text_font_size_mobile",
+      "label": "Mobile button text size",
+      "min": 8,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_stock_indicator_font_size",
+      "label": "Desktop stock indicator size",
+      "min": 5,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "card_stock_indicator_font_size_mobile",
+      "label": "Mobile stock indicator size",
+      "min": 5,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_title_text_color",
+      "label": "Product title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_price_text_color",
+      "label": "Price color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_compare_at_price_text_color",
+      "label": "Compare at price color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_compare_at_price_color_opacity",
+      "label": "Compare at price opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "card_vendor_text_color",
+      "label": "Vendor name color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "card_stock_indicator_text_color",
+      "label": "Stock indicator text color",
+      "default": "#000000",
+      "visible_if": "{{ section.settings.card_show_stock_indicator }}"
+    },
+    {
+      "type": "color",
+      "id": "card_stock_indicator_svg_color_1",
+      "label": "Stock indicator icon color 1",
+      "default": "#28FE5E",
+      "visible_if": "{{ section.settings.card_show_stock_indicator }}"
+    },
+    {
+      "type": "color",
+      "id": "card_stock_indicator_svg_color_2",
+      "label": "Stock indicator icon color 2",
+      "default": "#4AEB72",
+      "visible_if": "{{ section.settings.card_show_stock_indicator }}"
+    },
+    {
+      "type": "header",
+      "content": "Card Background"
+    },
+    {
+      "type": "color",
+      "id": "card_background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_background_color_opacity",
+      "label": "Background opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 27
+    },
+    {
+      "type": "checkbox",
+      "id": "card_background_color_use_gradient",
+      "label": "Use gradient background",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "card_background_color_gradient",
+      "label": "Background gradient",
+      "default": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)"
+    },
+    {
+      "type": "header",
+      "content": "Button Colors"
+    },
+    {
+      "type": "color",
+      "id": "card_button_main_color",
+      "label": "Button main color",
+      "default": "#1D1A2D"
+    },
+    {
+      "type": "color",
+      "id": "card_button_secondary_color",
+      "label": "Button secondary color",
+      "default": "#FCFCFC"
+    },
+    {
+      "type": "color",
+      "id": "card_button_tertiary_color",
+      "label": "Button tertiary color",
+      "default": "#f6f6f6"
+    },
+    {
+      "type": "header",
+      "content": "Sale Badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "card_custom_badge",
+      "label": "Show sale badge",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "card_badge_position",
+      "options": [
+        {
+          "value": "bottom left",
+          "label": "Bottom left"
+        },
+        {
+          "value": "bottom right",
+          "label": "Bottom right"
+        },
+        {
+          "value": "top left",
+          "label": "Top left"
+        },
+        {
+          "value": "top right",
+          "label": "Top right"
+        }
+      ],
+      "default": "top left",
+      "label": "Badge position"
+    },
+    {
+      "type": "text",
+      "id": "card_badge_text_html",
+      "label": "Badge text",
+      "default": "SAVE [percentage]",
+      "info": "Use [percentage] to show the discount percentage"
+    },
+    {
+      "type": "color",
+      "id": "card_badge_text_color",
+      "label": "Badge text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "card_badge_bg_type",
+      "label": "Badge background style",
+      "options": [
+        {
+          "value": "color",
+          "label": "Solid color"
+        },
+        {
+          "value": "gradient",
+          "label": "Gradient"
+        }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "card_badge_background_color",
+      "label": "Badge background color",
+      "default": "#3AB951"
+    },
+    {
+      "type": "color_background",
+      "id": "card_badge_background_gradient",
+      "label": "Badge gradient",
+      "default": "linear-gradient(135deg, #4a6cf7, #8c6bf7)"
+    },
+    {
+      "type": "range",
+      "id": "card_badge_corner_radius",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Badge corner radius",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Border & Shadow"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_border_thickness",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "label": "Border thickness",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_border_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Border opacity",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Shadow opacity",
+      "default": 5
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_horizontal_offset",
+      "min": -40,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Shadow horizontal offset",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_vertical_offset",
+      "min": -40,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Shadow vertical offset",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_blur",
+      "min": 0,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "label": "Shadow blur",
+      "default": 35
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Atlas fonts"
+    },
+    {
+      "type": "select",
+      "id": "atlas_font",
+      "label": "Font",
+      "info": "Applies a curated brand font to Atlas sections. Managed by Atlas.",
+      "options": [
+        { "value": "", "label": "Default (theme)" },
+        { "value": "work_sans", "label": "Work Sans" },
+        { "value": "inter", "label": "Inter" },
+        { "value": "archivo", "label": "Archivo" }
+      ],
+      "default": ""
+    }
+  ]
+}
+{% endschema %}

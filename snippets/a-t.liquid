@@ -1,0 +1,31 @@
+{%- comment -%}
+  a-t: render a translation key with a hard-coded fallback.
+
+  Imported sections resolve `| t` against the merchant's theme locales. Themes that
+  don't define our keys (e.g. Horizon) return the "Translation missing" marker, which
+  would otherwise render to shoppers. This snippet swaps in plain default text when the
+  key is missing. When the key resolves (our theme, or any theme that defines it), the
+  translated value passes through untouched and Translate & Adapt still applies.
+
+  Params:
+    key       (required)  locale key, e.g. 'products.product.sold_out'
+    fallback  (required)  default English text; may contain {{ quantity }} / {{ product }}
+    quantity  (optional)  interpolation value
+    product   (optional)  interpolation value
+    prepend   (optional)  string prefixed to the result (e.g. ' - ')
+    escape    (optional)  when true, HTML-escape the result (for attribute contexts)
+{%- endcomment -%}
+{%- liquid
+  assign resolved = key | t: quantity: quantity, product: product
+  assign resolved_lc = resolved | downcase
+  if resolved_lc contains 'translation missing'
+    assign resolved = fallback | replace: '{{ quantity }}', quantity | replace: '{{ product }}', product
+  endif
+  if escape
+    assign resolved = resolved | escape
+  endif
+  if prepend != blank
+    assign resolved = resolved | prepend: prepend
+  endif
+  echo resolved
+-%}

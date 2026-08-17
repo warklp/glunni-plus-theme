@@ -1,0 +1,1001 @@
+{% render 'a-atlas-fonts-r2', atlas_font: section.settings.atlas_font %}
+{% if request.visual_preview_mode %}
+  {% assign section_id_variable = 'id' %}
+  {% assign section_id_selector = '' %}
+{% else %}
+  {% assign section_id_variable = section.id %}
+  {% assign section_id_selector = '#section-' | append: section.id %}
+{% endif %}
+<style>
+  @media screen and (min-width: 1200px) {
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__container {
+      justify-content: center;
+    }
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content {
+    display: flex;
+    place-items: center;
+    flex-direction: column;
+  }
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-content {
+    display: flex;
+    height: fit-content;
+  }
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image {
+    display: flex;
+    width: 100%;
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image img {
+    border-radius: {{ section.settings.image_border_radius }}px;
+    object-fit: cover;
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__points,
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__points p {
+    font-weight: 500;
+    letter-spacing: normal;
+    word-break: normal;
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }}   .reasons-to-buy__points {
+    display: flex;
+    align-items: start;
+    gap: 1rem;
+    text-align: left;
+    padding: 2rem;
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons__text {
+    margin-top: 0px;
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-inner {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__button {
+    display: flex;
+    justify-content: center;
+  }
+
+  @media screen and (min-width: 1200px) {
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-inner.reasons-to-buy__reasons-first {
+      flex-direction: row-reverse;
+    }
+
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-inner {
+      gap: 4rem;
+    }
+  }
+</style>
+
+{% style %}
+    {%- if request.visual_preview_mode -%}
+      {% comment %} don't want fade-in animation in preview mode because it messes up preview {% endcomment %}
+      .atlas-isolation-wrapper {{ section_id_selector }} .animation_section,
+      .atlas-isolation-wrapper {{ section_id_selector }} .animation_section * {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+      }
+    {%- endif -%}
+
+    .atlas-isolation-wrapper {{ section_id_selector }} {
+      --atlas-section-padding-top: {{ section.settings.padding_top }}px;
+      --atlas-section-padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    .atlas-isolation-wrapper {{ section_id_selector }} .section__reasons_to_buy {
+      padding: 5px 0;
+    }
+
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} {
+      padding-top: var(--atlas-section-padding-top) !important;
+      padding-bottom: var(--atlas-section-padding-bottom) !important;
+
+    }
+
+
+
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+      padding-top: var(--atlas-section-padding-top) !important;
+      padding-bottom: var(--atlas-section-padding-bottom) !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-top: 1px solid rgba({{ section.settings.border_color.red }}, {{ section.settings.border_color.green }}, {{ section.settings.border_color.blue }}, {{ section.settings.border_color_opacity | divided_by: 100.0 }});
+      border-bottom: 1px solid rgba({{ section.settings.border_color.red }}, {{ section.settings.border_color.green }}, {{ section.settings.border_color.blue }}, {{ section.settings.border_color_opacity | divided_by: 100.0 }});
+      gap: 48px;
+    }
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 37px;
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-card {
+      grid-row: 2 / 3;
+      grid-column: 1 / 2;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-content {
+      display: flex;
+      height: fit-content;
+      grid-row: 1 / 4;
+      grid-column: 2 / 3;
+    }
+
+
+  @media screen and (max-width: 1200px) {
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+      gap: 30px;
+      padding-inline: 12px;
+    }
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__main-content {
+      gap: 16px;
+    }
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__image-content {
+      max-width: 100%;
+    }
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__image {
+      width: 100%;
+      max-width: 100%;
+    }
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__image img {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-inner {
+      flex-direction: column;
+    }
+  }
+  @media screen and (max-width: 1200px) and (min-width: 768px) {
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__container {
+      grid-template-columns: 1fr 1fr;
+      padding-inline: 0;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__main-content {
+      grid-row: 1 / 2;
+      grid-column: 1 / 3;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-content {
+      grid-row: 2 / 5;
+      grid-column: 2 / 3;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image img {
+      aspect-ratio: 1/1;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-card {
+      grid-row: 2 / 3;
+      grid-column: 1 / 2;
+      width: fit-content !important;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__container {
+      grid-template-columns: 1fr;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__main-content {
+      grid-row: auto;
+      grid-column: 1 / 2;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-content {
+      grid-row: auto;
+      grid-column: 1 / 2;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-card {
+      grid-row: auto;
+      grid-column: 1 / 2;
+    }
+  }
+  .atlas-isolation-wrapper .reasons-to-buy__image-inner {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+  }
+  .atlas-isolation-wrapper .reasons-to-buy__image-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  {%- assign image_pos = section.settings.image_position | default: 'center' -%}
+
+  {% comment %}
+    The content column wraps heading/text, card, stats and button. By default it
+    is display:contents so its children act as direct grid items and the original
+    center layout is unchanged; side-image layouts turn it into a real flex column.
+  {% endcomment %}
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+    display: contents;
+  }
+
+  {%- if section.settings.show_content_card -%}
+    {% comment %}
+      Optional card behind the content column (heading, stats, button). Renders as a
+      solid rounded box; intended for left/right image layouts where the content column
+      is a real flex box. On desktop it stretches to the image height with the content
+      vertically centered, matching the reference design.
+    {% endcomment %}
+    {%- assign card_r = section.settings.content_card_border_radius -%}
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+      background: {{ section.settings.content_card_background_color }};
+      border-radius:
+        {%- case section.settings.content_card_position -%}
+          {%- when 'top' %} {{ card_r }}px {{ card_r }}px 0 0
+          {%- when 'bottom' %} 0 0 {{ card_r }}px {{ card_r }}px
+          {%- when 'middle' %} 0
+          {%- else %} {{ card_r }}px
+        {%- endcase -%};
+      padding: {{ section.settings.content_card_padding }}px;
+    }
+    {%- if image_pos == 'center' -%}
+      {% comment %}
+        Center layout has no side image, so the content column is display:contents by
+        default and a card cannot paint on it. Turn it into a real full-width box and
+        stack its children centered so the card wraps the whole content.
+      {% endcomment %}
+      .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+        width: 100%;
+        text-align: center;
+      }
+    {%- endif -%}
+    @media screen and (min-width: 1200px) {
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+        align-self: stretch;
+        justify-content: center;
+      }
+      {%- if image_pos == 'left' or image_pos == 'right' -%}
+        {% comment %}
+          Bleed: remove the center gap so the card meets the image, and flatten the two
+          corners on the seam side of each so they read as one joined block. The image
+          sits on {{ image_pos }}, so the card keeps its rounded corners on the opposite side.
+        {% endcomment %}
+        .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+          gap: 0 !important;
+        }
+        .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+          {% if image_pos == 'right' %}
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+          {% else %}
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+          {% endif %}
+        }
+        .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-inner,
+        .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image img {
+          {% if image_pos == 'right' %}
+            border-top-left-radius: 0 !important;
+            border-bottom-left-radius: 0 !important;
+          {% else %}
+            border-top-right-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+          {% endif %}
+        }
+      {%- endif -%}
+    }
+    {%- if image_pos == 'left' or image_pos == 'right' -%}
+      @media screen and (max-width: 1199px) {
+        {% comment %}
+          Mobile bleed: the card and image stack vertically, so remove the gap and flatten
+          the corners along the horizontal seam between them. With the image above (the
+          column is reversed) the seam is image-bottom / card-top; with it below, the seam
+          is card-bottom / image-top.
+        {% endcomment %}
+        .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+          gap: 0 !important;
+        }
+        {%- if section.settings.mobile_image_order == 'above' -%}
+          .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+          }
+          .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-inner,
+          .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image img {
+            border-bottom-left-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+          }
+        {%- else -%}
+          .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+          }
+          .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-inner,
+          .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image img {
+            border-top-left-radius: 0 !important;
+            border-top-right-radius: 0 !important;
+          }
+        {%- endif -%}
+      }
+    {%- endif -%}
+  {%- endif -%}
+
+  {% comment %} Button (rendered in the content flow after the stats). {% endcomment %}
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+  .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: {% if section.settings.button_use_gradient %}{{ section.settings.button_background_gradient }}{% else %}{{ section.settings.button_background_color }}{% endif %};
+    color: {{ section.settings.button_text_color }};
+    font-size: {{ section.settings.button_font_size }}px;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    padding: 16px 40px;
+    border-radius: {{ section.settings.button_border_radius }}px;
+  }
+
+  {%- if section.settings.stats_layout == 'horizontal' -%}
+    {% comment %}
+      Horizontal stats: lay the percentage items in a wrapping row, each with the
+      number on top of its label, centered, separators removed. Two-up on mobile.
+      This applies for every image position.
+    {% endcomment %}
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__stats-content {
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__stats-content-item-container {
+      flex: 1 1 0;
+      min-width: 150px;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0;
+      border-bottom: none;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__stats-content-item-percentage {
+      justify-content: center;
+    }
+    .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__stats-content-item {
+      align-items: center;
+      text-align: center;
+    }
+    @media screen and (max-width: 768px) {
+      {% comment %} Force exactly two columns on mobile: basis = half the row minus half the gap. {% endcomment %}
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__stats-content-item-container {
+        flex: 0 1 calc(50% - 12px);
+        min-width: 0;
+      }
+    }
+  {%- endif -%}
+
+  {%- if section.settings.stats_layout == 'horizontal' and image_pos == 'center' -%}
+    {% comment %}
+      Center image position + horizontal stats: drop the 3-column grid and stack
+      the section vertically — heading/text centered on top, stats row below.
+    {% endcomment %}
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__main-content {
+      width: 100%;
+      align-items: center;
+      text-align: center;
+    }
+    {% comment %}
+      The flex column has no grid track to size the image, so give it a width or it
+      collapses to 0 and the image disappears. Cap and center it so it stays balanced
+      like the grid layout instead of spanning full width.
+    {% endcomment %}
+    .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__image-content {
+      width: 100%;
+      max-width: 500px;
+      margin-inline: auto;
+    }
+  {%- endif -%}
+
+  {%- if image_pos == 'left' or image_pos == 'right' -%}
+    {% comment %}
+      Side image: a two-column flex split — the content column on one side, the
+      image on the other. The content column groups its items (so the button sits
+      right under the stats) and is vertically centered against the image,
+      whatever the image height. Stacks to a single column on mobile.
+    {% endcomment %}
+    @media screen and (min-width: 1200px) {
+      .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+        display: flex;
+        {% if image_pos == 'left' %}flex-direction: row-reverse;{% endif %}
+        align-items: center;
+        gap: 48px;
+      }
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        flex: 1 1 0;
+        min-width: 0;
+      }
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-content {
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: 50%;
+      }
+    }
+    @media screen and (max-width: 1199px) {
+      .atlas-isolation-wrapper #reasons-to-buy-{{ section_id_variable }} .reasons-to-buy__container {
+        display: flex;
+        {% comment %} DOM order is content then image, so column-reverse puts the image above. {% endcomment %}
+        flex-direction: {% if section.settings.mobile_image_order == 'above' %}column-reverse{% else %}column{% endif %};
+        gap: 26px;
+      }
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__content-col {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-content {
+        width: 100%;
+      }
+    }
+  {%- endif -%}
+
+  {%- if section.settings.image == blank -%}
+    {%- if image_pos == 'left' or image_pos == 'right' -%}
+      {% comment %}
+        Placeholder sizing for the blank-image fallback rendered below (side layouts only).
+        Mirrors the a-image-with-text placeholder: tinted box + centered theme SVG.
+      {% endcomment %}
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-inner--placeholder {
+        aspect-ratio: 5 / 4;
+        background: rgba(var(--atlas-color-foreground), 0.04);
+        border-radius: {{ section.settings.image_border_radius }}px;
+      }
+      .atlas-isolation-wrapper {{ section_id_selector }} .reasons-to-buy__image-inner--placeholder > svg {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        fill: currentColor;
+      }
+    {%- endif -%}
+  {%- endif -%}
+
+  @media screen and (min-width: 1200px) {
+    .atlas-isolation-wrapper .reasons-to-buy__image-inner {
+      {% if section.settings.image_height == 'adapt' and section.settings.image != blank %}
+        padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;
+      {% endif %}
+      {% if section.settings.image_height == 'small' and section.settings.image != blank %}
+        min-height: 307px;
+      {% elsif section.settings.image_height == 'medium' and section.settings.image != blank %}
+        min-height: 38rem;
+      {% elsif section.settings.image_height == 'large' and section.settings.image != blank %}
+        min-height: 46rem;
+      {% endif %}
+    }
+    .atlas-isolation-wrapper .reasons-to-buy__image-inner img {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+{% endstyle %}
+
+<div
+  id="section-{{ section.id }}"
+  class="section__reasons_to_buy"
+  style="{% if section.settings.use_gradient_background %}background: {{ section.settings.section_background_gradient }};{% else %}background-color: {{ section.settings.section_background_color }};{% endif %}"
+>
+  <div id="reasons-to-buy-{{ section_id_variable }}" class="reasons-to-buy page-width">
+    <div class="reasons-to-buy__container">
+      {%- if request.visual_preview_mode -%}
+        {%- comment -%}
+          Self-contained static preview for the theme-editor "Add section" picker. The live
+          section renders its content through theme blocks (content_for 'blocks'), which the
+          picker's preview renderer can't handle — it shows "No preview available". This gives
+          it a representative thumbnail. Only affects the picker; the real page and the
+          on-canvas editor render the block-driven markup in the {% else %} branch below.
+        {%- endcomment -%}
+        <style>
+          .reasons-preview { display: flex; gap: 40px; align-items: center; flex-wrap: wrap; padding: 32px; width: 100%; box-sizing: border-box; }
+          .reasons-preview__col { flex: 1 1 320px; min-width: 0; }
+          .reasons-preview__col h2 { font-size: 40px; line-height: 1.1; margin: 0 0 12px; }
+          .reasons-preview__lead { margin: 0 0 24px; opacity: 0.75; }
+          .reasons-preview__stat { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(0, 0, 0, 0.08); }
+          .reasons-preview__num { font-size: 40px; font-weight: 900; line-height: 1; white-space: nowrap; }
+          .reasons-preview__btn { display: inline-block; margin-top: 24px; padding: 14px 32px; border-radius: 40px; background: #1a7a3c; color: #fff; font-weight: 600; }
+          .reasons-preview__img { flex: 1 1 320px; }
+          .reasons-preview__img svg { width: 100%; height: auto; border-radius: 20px; }
+        </style>
+        <div class="reasons-preview">
+          <div class="reasons-preview__col">
+            <h2>Why customers choose us</h2>
+            <p class="reasons-preview__lead">Quality and consistency you can count on.</p>
+            <div class="reasons-preview__stat"><span class="reasons-preview__num">96%</span><span>Would recommend to a friend</span></div>
+            <div class="reasons-preview__stat"><span class="reasons-preview__num">92%</span><span>Noticed a difference</span></div>
+            <div class="reasons-preview__stat"><span class="reasons-preview__num">88%</span><span>Come back to order again</span></div>
+            <span class="reasons-preview__btn">Shop now</span>
+          </div>
+          <div class="reasons-preview__img">{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}</div>
+        </div>
+      {%- else -%}
+      {% capture reasons_blocks %}
+        {% content_for 'blocks' %}
+      {% endcapture %}
+      {% if reasons_blocks contains '<!-- start _reasons-to-buy-content.liquid -->' %}
+        {% assign reasons_content = reasons_blocks
+          | split: '<!-- start _reasons-to-buy-content.liquid -->'
+          | last
+          | split: '<!-- end _reasons-to-buy-content.liquid -->'
+          | first
+        %}
+      {% endif %}
+      {% if reasons_blocks contains '<!-- start _reasons-to-buy-product-card.liquid -->' %}
+        {% assign reasons_card = reasons_blocks
+          | split: '<!-- start _reasons-to-buy-product-card.liquid -->'
+          | last
+          | split: '<!-- end _reasons-to-buy-product-card.liquid -->'
+          | first
+        %}
+      {% endif %}
+      {% if reasons_blocks contains '<!-- start _reasons-to-buy-stats.liquid -->' %}
+        {% assign reasons_stats = reasons_blocks
+          | split: '<!-- start _reasons-to-buy-stats.liquid -->'
+          | last
+          | split: '<!-- end _reasons-to-buy-stats.liquid -->'
+          | first
+        %}
+      {% endif %}
+      <div class="reasons-to-buy__content-col">
+        <div class="reasons-to-buy__main-content">
+          {{ reasons_content }}
+        </div>
+        {%- capture reasons_button -%}
+          {%- if section.settings.button_label != blank -%}
+            <div class="reasons-to-buy__button">
+              <a
+                class="reasons-to-buy__button-link"
+                {% if section.settings.button_url != blank %}
+                  href="{{ section.settings.button_url }}"
+                {% else %}
+                  role="link" aria-disabled="true"
+                {% endif %}
+              >
+                {{ section.settings.button_label }}
+              </a>
+            </div>
+          {%- endif -%}
+        {%- endcapture -%}
+        {%- if section.settings.button_position == 'after_heading' -%}
+          {{ reasons_button }}
+        {%- endif -%}
+        {{ reasons_card }}
+        {{ reasons_stats }}
+        {%- unless section.settings.button_position == 'after_heading' -%}
+          {{ reasons_button }}
+        {%- endunless -%}
+      </div>
+      {%- if section.settings.image != blank -%}
+        <div class="reasons-to-buy__image-content">
+          <div class="reasons-to-buy__image">
+            <div class="reasons-to-buy__image-inner">
+              {{
+                section.settings.image
+                | image_url: width: 1500
+                | image_tag:
+                  loading: 'lazy',
+                  width: 750,
+                  widths: '400, 600, 800, 1000, 1200, 1500',
+                  sizes: '(min-width: 1200px) 50vw, 100vw'
+              }}
+            </div>
+          </div>
+        </div>
+      {%- elsif image_pos == 'left' or image_pos == 'right' -%}
+        {%- comment -%}
+          Side-image layouts expect an image column; without one the section collapses to a
+          single column. Blank image → standard theme placeholder (sibling pattern). Gated:
+          unreachable at the default image position (center), and never replaces a real image.
+        {%- endcomment -%}
+        <div class="reasons-to-buy__image-content">
+          <div class="reasons-to-buy__image">
+            <div class="reasons-to-buy__image-inner reasons-to-buy__image-inner--placeholder placeholder">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Reasons to buy",
+  "class": "atlas-isolation-wrapper atlas-gradient section animation_section",
+  "blocks": [
+    {
+      "type": "_a-reasons-to-buy-content"
+    },
+    {
+      "type": "_a-reasons-to-buy-product-card"
+    },
+    {
+      "type": "_a-reasons-to-buy-stats-r2"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_height",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ],
+      "default": "small",
+      "label": "Image height"
+    },
+    {
+      "type": "range",
+      "id": "image_border_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center",
+      "info": "Left or right places a full-height image beside the content. Center keeps the original stacked layout."
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_order",
+      "label": "Mobile image order",
+      "options": [
+        { "value": "below", "label": "Below content" },
+        { "value": "above", "label": "Above content" }
+      ],
+      "default": "below",
+      "info": "Only applies when image position is left or right.",
+      "visible_if": "{{ section.settings.image_position != 'center' }}"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Section border color",
+      "default": "#000000",
+      "info": "This is the top and bottom border color of the section"
+    },
+    {
+      "type": "range",
+      "id": "border_color_opacity",
+      "label": "Section border color opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_background",
+      "label": "Use gradient background",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "section_background_gradient",
+      "label": "Section background gradient",
+      "default": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
+      "visible_if": "{{ section.settings.use_gradient_background }}"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.use_gradient_background == false }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content_card",
+      "label": "Show content card",
+      "default": false,
+      "info": "Places the heading, stats and button on a solid card. Best with a left or right image."
+    },
+    {
+      "type": "color",
+      "id": "content_card_background_color",
+      "label": "Content card background",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.show_content_card }}"
+    },
+    {
+      "type": "range",
+      "id": "content_card_border_radius",
+      "label": "Content card corner radius",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 24,
+      "visible_if": "{{ section.settings.show_content_card }}"
+    },
+    {
+      "type": "range",
+      "id": "content_card_padding",
+      "label": "Content card padding",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 48,
+      "visible_if": "{{ section.settings.show_content_card }}"
+    },
+    {
+      "type": "select",
+      "id": "content_card_position",
+      "label": "Card position in group",
+      "info": "Flatten the corners that join a neighbouring card so stacked sections read as one card.",
+      "options": [
+        { "value": "standalone", "label": "Standalone (all corners rounded)" },
+        { "value": "top", "label": "Top of group" },
+        { "value": "middle", "label": "Middle of group" },
+        { "value": "bottom", "label": "Bottom of group" }
+      ],
+      "default": "standalone",
+      "visible_if": "{{ section.settings.show_content_card }}"
+    },
+    {
+      "type": "select",
+      "id": "stats_layout",
+      "label": "Percentage stats layout",
+      "options": [
+        { "value": "vertical", "label": "Vertical (stacked rows)" },
+        { "value": "horizontal", "label": "Horizontal (side by side)" }
+      ],
+      "default": "vertical",
+      "info": "Horizontal lays the percentage stats side by side. With a centered image it also stacks the heading on top."
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "info": "Leave blank to hide the button."
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_position",
+      "label": "Button position",
+      "options": [
+        { "value": "after_stats", "label": "Below stats" },
+        { "value": "after_heading", "label": "Above stats" }
+      ],
+      "default": "after_stats"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button background color",
+      "default": "#1a7a3c"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_use_gradient",
+      "label": "Use gradient for button",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "button_background_gradient",
+      "label": "Button gradient background",
+      "default": "linear-gradient(180deg, rgba(26, 122, 60, 1), rgba(14, 59, 33, 1) 100%)",
+      "visible_if": "{{ section.settings.button_use_gradient }}"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button corner radius",
+      "min": 0,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Atlas fonts"
+    },
+    {
+      "type": "select",
+      "id": "atlas_font",
+      "label": "Font",
+      "info": "Applies a curated brand font to Atlas sections. Managed by Atlas.",
+      "options": [
+        { "value": "", "label": "Default (theme)" },
+        { "value": "work_sans", "label": "Work Sans" },
+        { "value": "inter", "label": "Inter" },
+        { "value": "archivo", "label": "Archivo" }
+      ],
+      "default": ""
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "presets": [
+    {
+      "name": "Reasons to buy",
+      "settings": {
+        "border_color": "#E5E5E5",
+        "border_color_opacity": 100,
+        "use_gradient_background": false,
+        "section_background_color": "#FFFFFF"
+      },
+      "blocks": [
+        {
+          "type": "_a-reasons-to-buy-content",
+          "settings": {
+            "heading": "Why customers choose us",
+            "heading_color": "#000000",
+            "bolded_heading_color": "#000000",
+            "heading_use_gradient": false,
+            "text": "Quality and consistency you can count on.",
+            "text_color": "#000000",
+            "bolded_text_color": "#000000",
+            "text_use_gradient": false
+          }
+        },
+        {
+          "type": "_a-reasons-to-buy-stats-r2",
+          "settings": {
+            "percentage_number_has_gradient": false,
+            "percentage_number_color": "#000000",
+            "block_heading_color": "#000000",
+            "bolded_block_heading_color": "#000000",
+            "block_body_color": "#000000",
+            "bolded_block_body_color": "#000000",
+            "border_color": "#E5E5E5"
+          },
+          "blocks": [
+            {
+              "type": "_a-reasons-to-buy-stat-r2",
+              "settings": {
+                "row_heading": "<p>Would recommend to a friend</p>",
+                "row_text": "<p>Based on post-purchase surveys</p>",
+                "percentage": 96
+              }
+            },
+            {
+              "type": "_a-reasons-to-buy-stat-r2",
+              "settings": {
+                "row_heading": "<p>Noticed a difference</p>",
+                "row_text": "<p>Within the first two weeks</p>",
+                "percentage": 92
+              }
+            },
+            {
+              "type": "_a-reasons-to-buy-stat-r2",
+              "settings": {
+                "row_heading": "<p>Come back to order again</p>",
+                "row_text": "<p>Customers who reorder within a year</p>",
+                "percentage": 88
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

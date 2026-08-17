@@ -1,0 +1,423 @@
+{%- comment -%}
+  Price comparison — a bespoke cost-ladder band. LEFT: a product image. RIGHT: an eyebrow +
+  heading over a two-column comparison: a "cost ladder" (a consequence label + descending
+  price rows, each a bold price + small label + a proportional mauve bar) beside a bordered
+  "own it once" card that carries the price and an Add-to-Cart button. Desktop lays the ladder
+  and card side by side on a white strip; mobile stacks image, heading, ladder, then card.
+  Blank images fall back to the theme placeholder SVG (sibling pattern). Every text/image
+  token is optional; with no heading, no rows and no card content the section renders nothing
+  (gated / default-off).
+
+  Kept as its own section (nature test): a product image beside a competitor cost ladder with
+  descending bars and a bordered own-it card that holds the ATC is a bespoke composite that no
+  library section carries (a-reasons is image + stat rows + a section button, not an inline
+  price ladder with a bordered CTA card beside it).
+{%- endcomment -%}
+{% render 'a-atlas-fonts-r2', atlas_font: section.settings.atlas_font %}
+
+{%- liquid
+  assign row_count = 3
+  assign has_content = false
+  if section.settings.eyebrow_text != blank or section.settings.heading != blank or section.settings.subhead != blank or section.settings.image != blank or section.settings.ladder_label != blank or section.settings.card_price != blank or section.settings.cta_label != blank
+    assign has_content = true
+  endif
+  for i in (1..row_count)
+    assign price_key = 'row_' | append: i | append: '_price'
+    assign label_key = 'row_' | append: i | append: '_label'
+    if section.settings[price_key] != blank or section.settings[label_key] != blank
+      assign has_content = true
+    endif
+  endfor
+-%}
+
+{%- if has_content -%}
+  {%- style -%}
+    #apc-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+      padding: {{ section.settings.padding_top_mobile }}px 0 {{ section.settings.padding_bottom_mobile }}px;
+    }
+    #apc-{{ section.id }} * {
+      box-sizing: border-box;
+    }
+    #apc-{{ section.id }} .apc__inner {
+      max-width: 1512px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      align-items: stretch;
+    }
+    #apc-{{ section.id }} .apc__media {
+      width: 100%;
+      aspect-ratio: 350 / 320;
+      border-radius: {{ section.settings.border_radius }}px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    #apc-{{ section.id }} .apc__media img,
+    #apc-{{ section.id }} .apc__media .placeholder-svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    #apc-{{ section.id }} .apc__content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+      width: 100%;
+      min-width: 0;
+    }
+    #apc-{{ section.id }} .apc__eyebrow {
+      margin: 0;
+      color: {{ section.settings.eyebrow_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      line-height: 16px;
+      text-transform: uppercase;
+    }
+    #apc-{{ section.id }} .apc__heading {
+      margin: 0;
+      color: {{ section.settings.heading_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: {{ section.settings.heading_size_mobile }}px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: normal;
+      text-transform: none;
+    }
+    #apc-{{ section.id }} .apc__subhead {
+      margin: 0;
+      color: {{ section.settings.muted_color }};
+      font-family: var(--atlas-font-body-family, inherit);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    #apc-{{ section.id }} .apc__comparison {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: stretch;
+      width: 100%;
+    }
+    #apc-{{ section.id }} .apc__ladder {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: flex-start;
+      background-color: {{ section.settings.comparison_background_color }};
+      min-width: 0;
+    }
+    #apc-{{ section.id }} .apc__ladder-label {
+      margin: 0;
+      color: {{ section.settings.muted_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: normal;
+    }
+    #apc-{{ section.id }} .apc__row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+    }
+    #apc-{{ section.id }} .apc__row-head {
+      display: flex;
+      gap: 8px;
+      align-items: baseline;
+      width: 100%;
+    }
+    #apc-{{ section.id }} .apc__price {
+      color: {{ section.settings.price_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: {{ section.settings.price_size }}px;
+      font-weight: 700;
+      line-height: normal;
+      white-space: nowrap;
+    }
+    #apc-{{ section.id }} .apc__row-label {
+      color: {{ section.settings.muted_color }};
+      font-family: var(--atlas-font-body-family, inherit);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: normal;
+    }
+    #apc-{{ section.id }} .apc__bar-track {
+      width: 100%;
+      height: 8px;
+    }
+    #apc-{{ section.id }} .apc__bar {
+      display: block;
+      height: 8px;
+      border-radius: 4px;
+      background-color: {{ section.settings.bar_color }};
+    }
+    #apc-{{ section.id }} .apc__card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      background-color: {{ section.settings.card_background_color }};
+      border: 2px solid {{ section.settings.card_border_color }};
+      border-radius: {{ section.settings.border_radius }}px;
+      padding: 24px;
+      min-width: 0;
+    }
+    #apc-{{ section.id }} .apc__card-eyebrow {
+      margin: 0;
+      color: {{ section.settings.muted_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: normal;
+    }
+    #apc-{{ section.id }} .apc__card-price {
+      margin: 0;
+      color: {{ section.settings.card_price_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: {{ section.settings.card_price_size }}px;
+      font-weight: 700;
+      line-height: normal;
+    }
+    #apc-{{ section.id }} .apc__card-name {
+      margin: 0;
+      color: {{ section.settings.price_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+    }
+    #apc-{{ section.id }} .apc__card-sub {
+      margin: 0;
+      color: {{ section.settings.muted_color }};
+      font-family: var(--atlas-font-body-family, inherit);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: normal;
+    }
+    #apc-{{ section.id }} .apc__cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px 24px;
+      border-radius: 8px;
+      background-color: {{ section.settings.cta_background_color }};
+      color: {{ section.settings.cta_text_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: 16px;
+      font-weight: 600;
+      line-height: normal;
+      text-decoration: none;
+    }
+
+    @media screen and (min-width: 990px) {
+      #apc-{{ section.id }} {
+        padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+      }
+      #apc-{{ section.id }} .apc__inner {
+        flex-direction: row;
+        gap: 64px;
+        align-items: center;
+        padding-left: 56px;
+        padding-right: 56px;
+      }
+      #apc-{{ section.id }} .apc__media {
+        width: 620px;
+        max-width: 50%;
+        aspect-ratio: 620 / 580;
+      }
+      #apc-{{ section.id }} .apc__content {
+        flex: 1 1 0;
+      }
+      #apc-{{ section.id }} .apc__heading {
+        font-size: {{ section.settings.heading_size }}px;
+      }
+      #apc-{{ section.id }} .apc__comparison {
+        flex-direction: row;
+        gap: 48px;
+        align-items: flex-start;
+        background-color: {{ section.settings.comparison_background_color }};
+      }
+      #apc-{{ section.id }} .apc__ladder {
+        flex: 1 1 0;
+        align-self: flex-start;
+      }
+      #apc-{{ section.id }} .apc__card {
+        flex: 1 1 0;
+      }
+    }
+  {%- endstyle -%}
+
+  <div id="apc-{{ section.id }}" class="apc">
+    <div class="apc__inner">
+      {%- if section.settings.image != blank -%}
+        <div class="apc__media">
+          {{
+            section.settings.image
+            | image_url: width: 1240
+            | image_tag: loading: 'lazy', widths: '350, 620, 700, 1240', alt: section.settings.heading
+          }}
+        </div>
+      {%- else -%}
+        <div class="apc__media placeholder">
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+
+      <div class="apc__content">
+        {%- if section.settings.eyebrow_text != blank -%}
+          <p class="apc__eyebrow">{{ section.settings.eyebrow_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="apc__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.subhead != blank -%}
+          <p class="apc__subhead">{{ section.settings.subhead }}</p>
+        {%- endif -%}
+
+        <div class="apc__comparison">
+          <div class="apc__ladder">
+            {%- if section.settings.ladder_label != blank -%}
+              <p class="apc__ladder-label">{{ section.settings.ladder_label }}</p>
+            {%- endif -%}
+            {%- for i in (1..row_count) -%}
+              {%- assign price_key = 'row_' | append: i | append: '_price' -%}
+              {%- assign label_key = 'row_' | append: i | append: '_label' -%}
+              {%- assign bar_key = 'row_' | append: i | append: '_bar_percent' -%}
+              {%- assign r_price = section.settings[price_key] -%}
+              {%- assign r_label = section.settings[label_key] -%}
+              {%- assign r_bar = section.settings[bar_key] -%}
+              {%- if r_price != blank or r_label != blank -%}
+                <div class="apc__row">
+                  <div class="apc__row-head">
+                    {%- if r_price != blank -%}<span class="apc__price">{{ r_price }}</span>{%- endif -%}
+                    {%- if r_label != blank -%}<span class="apc__row-label">{{ r_label }}</span>{%- endif -%}
+                  </div>
+                  {%- if r_bar > 0 -%}
+                    <div class="apc__bar-track">
+                      <span class="apc__bar" style="width: {{ r_bar }}%;"></span>
+                    </div>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if section.settings.card_eyebrow != blank or section.settings.card_price != blank or section.settings.card_name != blank or section.settings.card_sub != blank or section.settings.cta_label != blank -%}
+            <div class="apc__card">
+              {%- if section.settings.card_eyebrow != blank -%}
+                <p class="apc__card-eyebrow">{{ section.settings.card_eyebrow }}</p>
+              {%- endif -%}
+              {%- if section.settings.card_price != blank -%}
+                <p class="apc__card-price">{{ section.settings.card_price }}</p>
+              {%- endif -%}
+              {%- if section.settings.card_name != blank -%}
+                <p class="apc__card-name">{{ section.settings.card_name }}</p>
+              {%- endif -%}
+              {%- if section.settings.card_sub != blank -%}
+                <p class="apc__card-sub">{{ section.settings.card_sub }}</p>
+              {%- endif -%}
+              {%- if section.settings.cta_label != blank -%}
+                <a class="apc__cta" href="{{ section.settings.cta_url | default: '#main-product-top' }}">
+                  {{ section.settings.cta_label }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- schema -%}
+{
+  "name": "Price comparison",
+  "class": "atlas-isolation-wrapper section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "inline_richtext", "id": "eyebrow_text", "label": "Eyebrow" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading" },
+    { "type": "inline_richtext", "id": "subhead", "label": "Subheading", "info": "Optional line under the heading." },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "text",
+      "id": "ladder_label",
+      "label": "Cost ladder label",
+      "info": "Frames the rows as the ongoing cost you avoid by buying.",
+      "default": "You could spend:"
+    },
+    { "type": "header", "content": "Price row 1" },
+    { "type": "text", "id": "row_1_price", "label": "Price" },
+    { "type": "text", "id": "row_1_label", "label": "Label" },
+    { "type": "range", "id": "row_1_bar_percent", "label": "Bar width", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 90 },
+    { "type": "header", "content": "Price row 2" },
+    { "type": "text", "id": "row_2_price", "label": "Price" },
+    { "type": "text", "id": "row_2_label", "label": "Label" },
+    { "type": "range", "id": "row_2_bar_percent", "label": "Bar width", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 54 },
+    { "type": "header", "content": "Price row 3" },
+    { "type": "text", "id": "row_3_price", "label": "Price" },
+    { "type": "text", "id": "row_3_label", "label": "Label" },
+    { "type": "range", "id": "row_3_bar_percent", "label": "Bar width", "min": 0, "max": 100, "step": 1, "unit": "%", "default": 29 },
+    { "type": "header", "content": "Own it card" },
+    { "type": "text", "id": "card_eyebrow", "label": "Card eyebrow", "default": "Or own it once" },
+    { "type": "text", "id": "card_price", "label": "Card price" },
+    { "type": "text", "id": "card_name", "label": "Product name" },
+    { "type": "text", "id": "card_sub", "label": "Card note" },
+    { "type": "text", "id": "cta_label", "label": "Button label" },
+    { "type": "url", "id": "cta_url", "label": "Button link", "info": "Defaults to the buy box (#main-product-top) when blank." },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_background_color", "label": "Section background", "default": "#fdf5f1" },
+    { "type": "color", "id": "eyebrow_color", "label": "Eyebrow", "default": "#7c1c2f" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#231f20" },
+    { "type": "color", "id": "muted_color", "label": "Secondary text", "default": "#676986" },
+    { "type": "color", "id": "price_color", "label": "Ladder price & product name", "default": "#231f20" },
+    { "type": "color", "id": "bar_color", "label": "Bar", "default": "#ddbfc2" },
+    { "type": "color", "id": "comparison_background_color", "label": "Comparison background", "default": "#ffffff" },
+    { "type": "color", "id": "card_background_color", "label": "Card background", "default": "#ffffff" },
+    { "type": "color", "id": "card_border_color", "label": "Card border", "default": "#7c1c2f" },
+    { "type": "color", "id": "card_price_color", "label": "Card price", "default": "#7c1c2f" },
+    { "type": "color", "id": "cta_background_color", "label": "Button background", "default": "#7c1c2f" },
+    { "type": "color", "id": "cta_text_color", "label": "Button text", "default": "#ffffff" },
+    { "type": "header", "content": "Type sizes" },
+    { "type": "range", "id": "heading_size", "label": "Desktop heading size", "min": 20, "max": 50, "step": 1, "unit": "px", "default": 32 },
+    { "type": "range", "id": "heading_size_mobile", "label": "Mobile heading size", "min": 16, "max": 40, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "price_size", "label": "Ladder price size", "min": 16, "max": 40, "step": 1, "unit": "px", "default": 24 },
+    { "type": "range", "id": "card_price_size", "label": "Card price size", "min": 24, "max": 60, "step": 1, "unit": "px", "default": 40 },
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "border_radius", "label": "Image & card radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 16 },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_top_mobile", "label": "Mobile top padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "padding_bottom_mobile", "label": "Mobile bottom padding", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "header", "content": "Atlas fonts" },
+    {
+      "type": "select",
+      "id": "atlas_font",
+      "label": "Font",
+      "info": "Applies a curated brand font to Atlas sections. Managed by Atlas.",
+      "options": [
+        { "value": "", "label": "Default (theme)" },
+        { "value": "work_sans", "label": "Work Sans" },
+        { "value": "inter", "label": "Inter" },
+        { "value": "archivo", "label": "Archivo" }
+      ],
+      "default": ""
+    }
+  ],
+  "presets": [
+    { "name": "Price comparison" }
+  ]
+}
+{%- endschema -%}

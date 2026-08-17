@@ -1,0 +1,355 @@
+{%- comment -%}
+  Parallax heading — a pinned section whose big headline lines reveal one-by-one as the page
+  scrolls through it (like gruns.co). The section is a tall spacer; an inner element sticks
+  (fixed) at 100vh while scrolling, and scroll progress drives each line's masked reveal (JS).
+  Optional product image below the lines, over a gradient/solid background.
+{%- endcomment -%}
+{% render 'a-atlas-fonts-r2', atlas_font: section.settings.atlas_font %}
+
+{%- style -%}
+  #parallax-heading-{{ section.id }} {
+    position: relative;
+    height: {{ section.settings.scroll_length_vh }}vh;
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding-top: 90px;
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 0 {{ section.settings.inner_padding_x }}px;
+    gap: {{ section.settings.content_gap }}px;
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__mask {
+    overflow: hidden;
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__line {
+    display: inline-block;
+    margin: 0;
+    font-family: var(--atlas-font-heading-family, inherit);
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: {{ section.settings.text_color }};
+    transform: translateY(110%);
+    will-change: transform;
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__line strong {
+    color: {{ section.settings.highlighted_color }};
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__image {
+    display: flex;
+    justify-content: center;
+    margin-top: {{ section.settings.image_top_margin }}px;
+    margin-bottom: {{ section.settings.image_bottom_margin }}px;
+  }
+  #parallax-heading-{{ section.id }} .parallax-heading__image img {
+    width: 100%;
+    max-width: {{ section.settings.image_max_width }}px;
+    height: auto;
+  }
+  @media screen and (max-width: 768px) {
+    #parallax-heading-{{ section.id }} .parallax-heading__line {
+      font-size: {{ section.settings.heading_size_mobile }}px;
+      white-space: normal;
+    }
+  }
+{%- endstyle -%}
+
+<div
+  id="parallax-heading-{{ section.id }}"
+  class="parallax-heading"
+  style="height: {{ section.settings.scroll_length_vh }}vh;"
+>
+  <div
+    class="parallax-heading__sticky"
+    style="{% if section.settings.use_gradient_background %}background: {{ section.settings.section_background_gradient }};{% else %}background-color: {{ section.settings.section_background_color }};{% endif %}"
+  >
+    <div class="parallax-heading__inner">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'line' -%}
+          <div class="parallax-heading__mask" {{ block.shopify_attributes }}>
+            {%- comment -%}
+              Each line is a single masked row (nowrap on desktop); a line break inside one
+              line breaks the reveal, so flatten any newline or <br> to a space here. Keeps
+              <strong> intact — it drives the highlighted-word color above.
+            {%- endcomment -%}
+            <p class="parallax-heading__line">{{ block.settings.text | newline_to_br | strip_newlines | replace: '<br />', ' ' | replace: '<br/>', ' ' | replace: '<br>', ' ' }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if section.settings.image != blank -%}
+        <div class="parallax-heading__image">
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', widths: '300, 480, 640, 800, 1000, 1200', sizes: '(max-width: 768px) 60vw, 320px' }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    var sec = document.getElementById('parallax-heading-{{ section.id }}');
+    if (!sec) return;
+    var lines = [].slice.call(sec.querySelectorAll('.parallax-heading__line'));
+    if (!lines.length) return;
+    var inner = sec.querySelector('.parallax-heading__inner');
+    var sticky = sec.querySelector('.parallax-heading__sticky');
+    var n = lines.length;
+    var ticking = false;
+    function clamp(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
+    // Scale the whole composed frame (lines + image + spacing) down to fit the pinned
+    // viewport, so nothing is clipped and the image's top/bottom spacing stays visible.
+    function fit() {
+      if (!inner || !sticky) return;
+      inner.style.transform = 'none';
+      var cs = getComputedStyle(sticky);
+      var padT = parseFloat(cs.paddingTop) || 0;
+      var padB = parseFloat(cs.paddingBottom) || 0;
+      var avail = sticky.clientHeight - padT - padB - 24; // content-box minus breathing
+      var ch = inner.getBoundingClientRect().height;
+      var scale = (ch > avail && ch > 0) ? (avail / ch) : 1;
+      inner.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
+    }
+    function update() {
+      var vh = window.innerHeight || document.documentElement.clientHeight;
+      var total = sec.offsetHeight - vh; // scroll distance while the inner is pinned
+      var scrolled = -sec.getBoundingClientRect().top;
+      var p = total > 0 ? clamp(scrolled / total) : (scrolled > 0 ? 1 : 0);
+      // Finish the reveal before the pin ends, then hold the composed frame so the
+      // fully-assembled layout (incl. the image's top/bottom spacing) is actually seen.
+      var revealEnd = 0.7;
+      var rp = clamp(p / revealEnd);
+      var seg = 1 / n;
+      for (var i = 0; i < n; i++) {
+        var lp = clamp((rp - i * seg) / seg);
+        lines[i].style.transform = 'translateY(' + ((1 - lp) * 110) + '%)';
+      }
+      ticking = false;
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    function onResize() { fit(); onScroll(); }
+    // Use capture phase so we catch scroll from whichever element owns it: the window
+    // (theme editor / standalone Atlas theme) OR a nested scroll container such as
+    // Horizon's `.page-wrapper`, which locks html/body overflow and scrolls internally.
+    // Scroll events don't bubble, but they do travel the capture phase, so a capture
+    // listener on window fires for descendant scrollers too. update() reads
+    // getBoundingClientRect().top (viewport-relative), so it stays correct either way.
+    window.addEventListener('scroll', onScroll, { passive: true, capture: true });
+    window.addEventListener('resize', onResize, { passive: true });
+    if (document.fonts && document.fonts.ready) { document.fonts.ready.then(function () { fit(); update(); }); }
+    var imgs = inner ? inner.querySelectorAll('img') : [];
+    for (var k = 0; k < imgs.length; k++) {
+      if (!imgs[k].complete) {
+        imgs[k].addEventListener('load', function () { fit(); update(); });
+        imgs[k].addEventListener('error', function () { fit(); update(); });
+      }
+    }
+    fit();
+    update();
+  })();
+</script>
+
+{%- schema -%}
+{
+  "name": "Parallax heading",
+  "class": "atlas-isolation-wrapper section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Scroll"
+    },
+    {
+      "type": "range",
+      "id": "scroll_length_vh",
+      "label": "Scroll length",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "vh",
+      "default": 250,
+      "info": "How much scrolling the pinned reveal spans (as % of screen height)."
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Gap between lines",
+      "min": 0,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "inner_padding_x",
+      "label": "Inner side padding",
+      "min": 0,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (below lines)"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width",
+      "label": "Image width",
+      "min": 100,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "image_top_margin",
+      "label": "Space above image",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "image_bottom_margin",
+      "label": "Space below image",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop line size",
+      "min": 20,
+      "max": 160,
+      "step": 2,
+      "unit": "px",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Mobile line size",
+      "min": 10,
+      "max": 90,
+      "step": 1,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "highlighted_color",
+      "label": "Bolded text color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_gradient_background",
+      "label": "Use gradient background",
+      "default": false
+    },
+    {
+      "type": "color_background",
+      "id": "section_background_gradient",
+      "label": "Section background gradient",
+      "default": "linear-gradient(180deg, rgba(26, 122, 60, 1) 0%, rgba(246, 196, 69, 1) 100%)",
+      "visible_if": "{{ section.settings.use_gradient_background }}"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "default": "#ffffff",
+      "visible_if": "{{ section.settings.use_gradient_background == false }}"
+    },
+    {
+      "type": "header",
+      "content": "Atlas fonts"
+    },
+    {
+      "type": "select",
+      "id": "atlas_font",
+      "label": "Font",
+      "info": "Applies a curated brand font to Atlas sections. Managed by Atlas.",
+      "options": [
+        { "value": "", "label": "Default (theme)" },
+        { "value": "work_sans", "label": "Work Sans" },
+        { "value": "inter", "label": "Inter" },
+        { "value": "archivo", "label": "Archivo" }
+      ],
+      "default": ""
+    }
+  ],
+  "blocks": [
+    {
+      "type": "line",
+      "name": "Line",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "text",
+          "label": "Line text",
+          "default": "60+ Ingredients"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Parallax heading",
+      "settings": {
+        "use_gradient_background": true,
+        "text_color": "#ffffff"
+      },
+      "blocks": [
+        { "type": "line", "settings": { "text": "60+ Ingredients" } },
+        { "type": "line", "settings": { "text": "21 Vitamins & Minerals" } },
+        { "type": "line", "settings": { "text": "6g of Fiber" } },
+        { "type": "line", "settings": { "text": "1 Convenient Pack" } }
+      ]
+    }
+  ]
+}
+{%- endschema -%}

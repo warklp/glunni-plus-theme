@@ -1,0 +1,80 @@
+{%- comment -%}
+  Renders a heading or text block for a-reel-carousel, so the section can place
+  content blocks before OR after the video carousel (by block order).
+  Accepts: block, global_color, global_heading_size, content_alignment
+{%- endcomment -%}
+{%- case block.type -%}
+  {%- when 'heading' -%}
+    {% style %}
+      .atlas-isolation-wrapper #heading-section-{{ block.id }} {
+        color: {% if global_color %}rgb(var(--atlas-color-base-heading)){% else %}{{ block.settings.color }}{% endif %};
+        font-size: {% if global_heading_size %}var(--atlas-font-heading-size) !important{% else %}{{ block.settings.size }}px !important{% endif %};
+        line-height: {% if global_heading_size %}calc(var(--atlas-font-heading-size) + 8px) !important{% else %}{{ block.settings.size | plus: 8 }}px{% endif %};
+        margin: 0;
+        padding-top: {{ block.settings.padding_top_desktop }}px;
+        padding-bottom: {{ block.settings.padding_bottom_desktop }}px;
+        text-align: {{ content_alignment }};
+        width: 100%;
+      }
+      @media (max-width: 768px) {
+        .atlas-isolation-wrapper #heading-section-{{ block.id }} {
+          padding-top: {{ block.settings.padding_top_mobile }}px;
+          padding-bottom: {{ block.settings.padding_bottom_mobile }}px;
+          font-size: {% if global_heading_size %}var(--atlas-font-heading-mob-size) !important{% else %}{{ block.settings.mobile_font_size }}px !important{% endif %};
+          line-height: {% if global_heading_size %}calc(var(--atlas-font-heading-mob-size) + 6px) !important{% else %}{{ block.settings.mobile_font_size | plus: 6 }}px{% endif %};
+          text-align: {{ content_alignment }};
+        }
+      }
+      .atlas-isolation-wrapper #heading-section-{{ block.id }} strong {
+        {%- if block.settings.heading_use_gradient -%}
+          background: {% if block.settings.heading_gradient_color != blank %}{{ block.settings.heading_gradient_color }}{% else %}var(--atlas-gradient-base-background-1){% endif %};
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        {%- endif -%}
+      }
+    {% endstyle %}
+    <h2 id="heading-section-{{ block.id }}" class="title banner__heading" {{ block.shopify_attributes }}>
+      <span style="--atlas-color-highlighted-color: {{ block.settings.highlighted_color }};">
+        {{- block.settings.heading -}}
+      </span>
+    </h2>
+  {%- when 'text' -%}
+    {% style %}
+      .atlas-isolation-wrapper #text-section-{{ block.id }} {
+        margin: 0;
+        padding-top: {{ block.settings.padding_top_desktop }}px;
+        padding-bottom: {{ block.settings.padding_bottom_desktop }}px;
+        text-align: {{ content_alignment }};
+        font-size: {{ block.settings.size }}px;
+        line-height: {{ block.settings.size | plus: 8 }}px;
+        color: {% if global_color %}rgb(var(--atlas-color-base-text)){% else %}{{ block.settings.color }}{% endif %};
+      }
+      .atlas-isolation-wrapper #text-section-{{ block.id }} strong {
+        {% if block.settings.text_use_gradient %}
+          background: {% if block.settings.text_gradient_color != blank %}{{ block.settings.text_gradient_color }}{% else %}var(--atlas-color-highlighted-color){% endif %};
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        {% else %}
+          color: {{ block.settings.highlighted_color }};
+        {% endif %}
+      }
+      @media (max-width: 750px) {
+        .atlas-isolation-wrapper #text-section-{{ block.id }} {
+          padding-top: {{ block.settings.padding_top_mobile }}px;
+          padding-bottom: {{ block.settings.padding_bottom_mobile }}px;
+          text-align: {{ content_alignment }};
+          font-size: {{ block.settings.size_mobile }}px;
+          line-height: {{ block.settings.size_mobile | plus: 6 }}px;
+        }
+      }
+    {% endstyle %}
+    <div
+      id="text-section-{{ block.id }}"
+      class="body image-with-text__text rte sw-base-text-color body"
+      {{ block.shopify_attributes }}
+    >
+      <div>{{ block.settings.text }}</div>
+    </div>
+{%- endcase -%}

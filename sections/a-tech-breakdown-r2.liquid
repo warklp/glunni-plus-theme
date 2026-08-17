@@ -1,0 +1,492 @@
+{%- comment -%}
+  Tech breakdown — a centered header (eyebrow + heading) over a central product image
+  flanked by spec callouts (an annotated product diagram). Desktop: two columns of callouts
+  (left-aligned left, right-aligned right) around a tall narrow image, each callout a
+  title + rule + description. Mobile: image on top, then a single list of the same items,
+  each with an optional circle icon. Blank images fall back to the theme placeholder SVG
+  (sibling pattern). Every text/image token is optional; with no eyebrow/heading, no callout
+  content and no image the section renders nothing (gated / default-off).
+
+  Kept as its own section (nature test, 2026-07-15): the central image flanked on BOTH sides
+  by callouts exists in no library section — a-points-sect / a-image-with-text / a-reasons /
+  a-banner-product are one-sided image + single content column; a-feature-icons /
+  a-benefits-cards / a-multicolumn / a-key-features / a-collage have no central image anchor.
+{%- endcomment -%}
+{% render 'a-atlas-fonts-r2', atlas_font: section.settings.atlas_font %}
+
+{%- liquid
+  assign tech_count = 4
+  assign has_content = false
+  if section.settings.eyebrow_text != blank or section.settings.heading_text != blank or section.settings.image != blank
+    assign has_content = true
+  endif
+  for i in (1..tech_count)
+    assign title_key = 'tech_' | append: i | append: '_title'
+    assign body_key = 'tech_' | append: i | append: '_body'
+    if section.settings[title_key] != blank or section.settings[body_key] != blank
+      assign has_content = true
+    endif
+  endfor
+-%}
+
+{%- if has_content -%}
+  {%- liquid
+    assign tb_ar = ''
+    case section.settings.image_ratio
+      when 'square'
+        assign tb_ar = '1 / 1'
+      when 'portrait'
+        assign tb_ar = '3 / 4'
+      when 'landscape'
+        assign tb_ar = '3 / 2'
+      when 'wide'
+        assign tb_ar = '16 / 9'
+    endcase
+  -%}
+  {%- style -%}
+    #tech-breakdown-{{ section.id }} {
+      background-color: {{ section.settings.section_background_color }};
+      padding: {{ section.settings.padding_top_mobile }}px 20px {{ section.settings.padding_bottom_mobile }}px;
+      box-sizing: border-box;
+    }
+    #tech-breakdown-{{ section.id }} * {
+      box-sizing: border-box;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__head {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      text-align: center;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__eyebrow {
+      margin: 0;
+      color: {{ section.settings.eyebrow_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      line-height: 16px;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__heading {
+      margin: 0;
+      color: {{ section.settings.heading_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-size: {{ section.settings.heading_size_mobile }}px;
+      font-weight: 600;
+      line-height: 32px;
+      letter-spacing: normal;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__media {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__media img,
+    #tech-breakdown-{{ section.id }} .tech-breakdown__media .placeholder-svg {
+      display: block;
+      width: 100%;
+      {% if tb_ar != blank %}
+      height: 100%;
+      object-fit: cover;
+      {% else %}
+      height: auto;
+      {% endif %}
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__title {
+      margin: 0;
+      color: {{ section.settings.tech_title_color }};
+      font-family: var(--atlas-font-heading-family, inherit);
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__rule {
+      width: 100%;
+      height: 1px;
+      background-color: {{ section.settings.rule_color }};
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__body {
+      margin: 0;
+      color: {{ section.settings.tech_body_color }};
+      font-family: var(--atlas-font-body-family, inherit);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: normal;
+    }
+
+    /* Mobile layout (default) */
+    #tech-breakdown-{{ section.id }} .tech-breakdown__head {
+      padding: 12px 16px;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__mobile {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
+      max-width: 480px;
+      margin: 24px auto 0;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__mobile .tech-breakdown__media {
+      width: 100%;
+      {% if tb_ar != blank %}aspect-ratio: {{ tb_ar }};{% endif %}
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      width: 100%;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__item {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      width: 100%;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__mobile-rule {
+      flex-shrink: 0;
+      width: 24px;
+      height: 2px;
+      margin-top: 10px;
+      background-color: {{ section.settings.rule_color }};
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__item-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1 1 0;
+      min-width: 0;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__mobile .tech-breakdown__title {
+      font-size: {{ section.settings.tech_title_size_mobile }}px;
+      line-height: 22px;
+    }
+    #tech-breakdown-{{ section.id }} .tech-breakdown__mobile .tech-breakdown__body {
+      line-height: 20px;
+    }
+
+    /* Desktop layout */
+    #tech-breakdown-{{ section.id }} .tech-breakdown__desktop {
+      display: none;
+    }
+
+    @media screen and (min-width: 1200px) {
+      #tech-breakdown-{{ section.id }} {
+        padding: {{ section.settings.padding_top }}px 96px {{ section.settings.padding_bottom }}px;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__head {
+        gap: 16px;
+        padding: 0;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__heading {
+        font-size: {{ section.settings.heading_size }}px;
+        line-height: normal;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__mobile {
+        display: none;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__desktop {
+        display: flex;
+        gap: 64px;
+        align-items: stretch;
+        width: 100%;
+        margin-top: 56px;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__col {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__col--left {
+        align-items: flex-start;
+        padding: 8px 0 96px;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__col--right {
+        align-items: flex-end;
+        padding: 48px 0 56px;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__callout {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__col--right .tech-breakdown__callout {
+        align-items: flex-end;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__col--right .tech-breakdown__rule {
+        width: 100%;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__col--right .tech-breakdown__body {
+        text-align: right;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__desktop .tech-breakdown__media {
+        flex-shrink: 0;
+        align-self: center;
+        {% if tb_ar != blank %}
+        width: 400px;
+        aspect-ratio: {{ tb_ar }};
+        {% else %}
+        width: auto;
+        height: 520px;
+        {% endif %}
+      }
+      {% if tb_ar == blank %}
+      #tech-breakdown-{{ section.id }} .tech-breakdown__desktop .tech-breakdown__media img,
+      #tech-breakdown-{{ section.id }} .tech-breakdown__desktop .tech-breakdown__media .placeholder-svg {
+        width: auto;
+        height: 100%;
+      }
+      {% endif %}
+      #tech-breakdown-{{ section.id }} .tech-breakdown__desktop .tech-breakdown__title {
+        font-size: {{ section.settings.tech_title_size }}px;
+        line-height: normal;
+      }
+      #tech-breakdown-{{ section.id }} .tech-breakdown__desktop .tech-breakdown__body {
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    }
+  {%- endstyle -%}
+
+  {%- capture media_html -%}
+    {%- if section.settings.image != blank -%}
+      <div class="tech-breakdown__media">
+        {{
+          section.settings.image
+          | image_url: width: 1100
+          | image_tag: loading: 'lazy', widths: '220, 350, 440, 700, 1100', alt: section.settings.heading_text
+        }}
+      </div>
+    {%- else -%}
+      <div class="tech-breakdown__media placeholder">
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+  {%- endcapture -%}
+
+  <div id="tech-breakdown-{{ section.id }}" class="tech-breakdown">
+    {%- if section.settings.eyebrow_text != blank or section.settings.heading_text != blank -%}
+      <div class="tech-breakdown__head">
+        {%- if section.settings.eyebrow_text != blank -%}
+          <p class="tech-breakdown__eyebrow">{{ section.settings.eyebrow_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading_text != blank -%}
+          <p class="tech-breakdown__heading">{{ section.settings.heading_text }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Desktop: callout columns flanking the central image {%- endcomment -%}
+    <div class="tech-breakdown__desktop">
+      <div class="tech-breakdown__col tech-breakdown__col--left">
+        {%- for i in (1..tech_count) -%}
+          {%- assign col_mod = i | modulo: 2 -%}
+          {%- if col_mod == 1 -%}
+            {%- assign title_key = 'tech_' | append: i | append: '_title' -%}
+            {%- assign body_key = 'tech_' | append: i | append: '_body' -%}
+            {%- assign c_title = section.settings[title_key] -%}
+            {%- assign c_body = section.settings[body_key] -%}
+            {%- if c_title != blank or c_body != blank -%}
+              <div class="tech-breakdown__callout">
+                {%- if c_title != blank -%}<p class="tech-breakdown__title">{{ c_title }}</p>{%- endif -%}
+                <div class="tech-breakdown__rule"></div>
+                {%- if c_body != blank -%}<p class="tech-breakdown__body">{{ c_body }}</p>{%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {{ media_html }}
+      <div class="tech-breakdown__col tech-breakdown__col--right">
+        {%- for i in (1..tech_count) -%}
+          {%- assign col_mod = i | modulo: 2 -%}
+          {%- if col_mod == 0 -%}
+            {%- assign title_key = 'tech_' | append: i | append: '_title' -%}
+            {%- assign body_key = 'tech_' | append: i | append: '_body' -%}
+            {%- assign c_title = section.settings[title_key] -%}
+            {%- assign c_body = section.settings[body_key] -%}
+            {%- if c_title != blank or c_body != blank -%}
+              <div class="tech-breakdown__callout">
+                {%- if c_title != blank -%}<p class="tech-breakdown__title">{{ c_title }}</p>{%- endif -%}
+                <div class="tech-breakdown__rule"></div>
+                {%- if c_body != blank -%}<p class="tech-breakdown__body">{{ c_body }}</p>{%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -%} Mobile: image on top, then ordered list with icons {%- endcomment -%}
+    <div class="tech-breakdown__mobile">
+      {{ media_html }}
+      <div class="tech-breakdown__list">
+        {%- for i in (1..tech_count) -%}
+          {%- assign title_key = 'tech_' | append: i | append: '_title' -%}
+          {%- assign body_key = 'tech_' | append: i | append: '_body' -%}
+          {%- assign c_title = section.settings[title_key] -%}
+          {%- assign c_body = section.settings[body_key] -%}
+          {%- if c_title != blank or c_body != blank -%}
+            <div class="tech-breakdown__item">
+              <div class="tech-breakdown__mobile-rule"></div>
+              <div class="tech-breakdown__item-copy">
+                {%- if c_title != blank -%}<p class="tech-breakdown__title">{{ c_title }}</p>{%- endif -%}
+                {%- if c_body != blank -%}<p class="tech-breakdown__body">{{ c_body }}</p>{%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- schema -%}
+{
+  "name": "Tech breakdown",
+  "class": "atlas-isolation-wrapper section",
+  "disabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "inline_richtext", "id": "eyebrow_text", "label": "Eyebrow" },
+    { "type": "inline_richtext", "id": "heading_text", "label": "Heading" },
+    { "type": "header", "content": "Callout 1 (top left)" },
+    { "type": "inline_richtext", "id": "tech_1_title", "label": "Title" },
+    { "type": "inline_richtext", "id": "tech_1_body", "label": "Body" },
+    { "type": "header", "content": "Callout 2 (top right)" },
+    { "type": "inline_richtext", "id": "tech_2_title", "label": "Title" },
+    { "type": "inline_richtext", "id": "tech_2_body", "label": "Body" },
+    { "type": "header", "content": "Callout 3 (bottom left)" },
+    { "type": "inline_richtext", "id": "tech_3_title", "label": "Title" },
+    { "type": "inline_richtext", "id": "tech_3_body", "label": "Body" },
+    { "type": "header", "content": "Callout 4 (bottom right)" },
+    { "type": "inline_richtext", "id": "tech_4_title", "label": "Title" },
+    { "type": "inline_richtext", "id": "tech_4_body", "label": "Body" },
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Image ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to image" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "portrait", "label": "Portrait (3:4)" },
+        { "value": "landscape", "label": "Landscape (3:2)" },
+        { "value": "wide", "label": "Wide (16:9)" }
+      ],
+      "default": "adapt"
+    },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "section_background_color", "label": "Section background", "default": "#fefbf9" },
+    { "type": "color", "id": "eyebrow_color", "label": "Eyebrow", "default": "#7c1c2f" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#290217" },
+    { "type": "color", "id": "tech_title_color", "label": "Callout title", "default": "#7c1c2f" },
+    { "type": "color", "id": "rule_color", "label": "Callout rule", "default": "#7c1c2f" },
+    { "type": "color", "id": "tech_body_color", "label": "Callout body", "default": "#676986" },
+    { "type": "header", "content": "Type sizes" },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Desktop heading size",
+      "min": 20,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "heading_size_mobile",
+      "label": "Mobile heading size",
+      "min": 16,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "tech_title_size",
+      "label": "Desktop callout title size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "tech_title_size_mobile",
+      "label": "Mobile callout title size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    { "type": "header", "content": "Padding" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Desktop top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Desktop bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "label": "Mobile top padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "label": "Mobile bottom padding",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    { "type": "header", "content": "Atlas fonts" },
+    {
+      "type": "select",
+      "id": "atlas_font",
+      "label": "Font",
+      "info": "Applies a curated brand font to Atlas sections. Managed by Atlas.",
+      "options": [
+        { "value": "", "label": "Default (theme)" },
+        { "value": "work_sans", "label": "Work Sans" },
+        { "value": "inter", "label": "Inter" },
+        { "value": "archivo", "label": "Archivo" }
+      ],
+      "default": ""
+    }
+  ],
+  "presets": [
+    { "name": "Tech breakdown" }
+  ]
+}
+{%- endschema -%}

@@ -1,0 +1,451 @@
+{% render 'a-atlas-fonts-r2', atlas_font: section.settings.atlas_font %}
+{%- comment -%}
+  Expert switcher: left-side portrait media + right-side avatar tabs that swap the selected
+  quote, attribution and media. Generic and isolated; expert content is author-defined via
+  blocks (no hard-coded strings). Activation follows the tab show/hide pattern used by
+  a-testimonials, with proper ARIA tab semantics. Default-safe on its own template.
+{%- endcomment -%}
+
+{%- liquid
+  assign global_color = settings.enable_global_color
+-%}
+
+{% style %}
+  .atlas-isolation-wrapper #section-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.section_background_color }};
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-wrap {
+    display: flex;
+    gap: 64px;
+    align-items: center;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-media {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: {{ section.settings.media_max_width }}px;
+    aspect-ratio: {{ section.settings.media_aspect_ratio }};
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-media-item {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    background: {{ section.settings.media_placeholder_bg }};
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-media-item[hidden] {
+    display: none;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-media-item img,
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-media-item svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-play {
+    position: absolute;
+    left: 24px;
+    bottom: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: {{ section.settings.play_bg_color }};
+    color: {{ section.settings.play_icon_color }};
+    text-decoration: none;
+    font-size: 16px;
+    line-height: 1;
+    border: 0;
+    cursor: pointer;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-copy {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-avatars {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-avatar {
+    flex: 0 0 auto;
+    width: {{ section.settings.avatar_size }}px;
+    height: {{ section.settings.avatar_size }}px;
+    border-radius: 9999px;
+    overflow: hidden;
+    padding: 0;
+    border: 2px solid transparent;
+    background: {{ section.settings.media_placeholder_bg }};
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-avatar img,
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-avatar svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-avatar.is-active {
+    width: {{ section.settings.avatar_active_size }}px;
+    height: {{ section.settings.avatar_active_size }}px;
+    border-color: {{ section.settings.avatar_active_border }};
+    opacity: 1;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-avatar:focus-visible {
+    outline: 2px solid {{ section.settings.avatar_active_border }};
+    outline-offset: 2px;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-quote-group[hidden] {
+    display: none;
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-quote {
+    margin: 0 0 16px;
+    font-size: {{ section.settings.quote_size }}px;
+    line-height: 1.4;
+    font-weight: 600;
+    color: {% if global_color %}rgb(var(--atlas-color-base-heading)){% else %}{{ section.settings.quote_color }}{% endif %};
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-name {
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: {{ section.settings.name_color }};
+  }
+  .atlas-isolation-wrapper #section-{{ section.id }} .es-credentials {
+    margin: 0;
+    font-size: 12px;
+    color: {{ section.settings.credentials_color }};
+  }
+  @media (max-width: 1024px) {
+    .atlas-isolation-wrapper #section-{{ section.id }} .es-wrap {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 32px;
+    }
+    .atlas-isolation-wrapper #section-{{ section.id }} .es-media {
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+{% endstyle %}
+
+<div id="section-{{ section.id }}">
+  {%- assign experts = section.blocks | where: 'type', 'expert' -%}
+  <expert-switcher class="page-width es-wrap">
+    <div class="es-media">
+      {%- for block in experts -%}
+        <div class="es-media-item" data-index="{{ forloop.index0 }}" {% unless forloop.first %}hidden{% endunless %}>
+          {%- if block.settings.media_image != blank -%}
+            {{ block.settings.media_image | image_url: width: 840 | image_tag: loading: 'lazy', alt: block.settings.name | escape }}
+          {%- else -%}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+          {%- if block.settings.video_url != blank -%}
+            <a class="es-play" href="{{ block.settings.video_url }}" target="_blank" rel="noopener" aria-label="Play video for {{ block.settings.name | escape }}">&#9654;</a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="es-copy">
+      {%- if experts.size > 1 -%}
+        <div class="es-avatars" role="tablist" aria-label="Select an expert">
+          {%- for block in experts -%}
+            <button
+              type="button"
+              class="es-avatar{% if forloop.first %} is-active{% endif %}"
+              role="tab"
+              id="es-tab-{{ section.id }}-{{ forloop.index0 }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              aria-controls="es-panel-{{ section.id }}-{{ forloop.index0 }}"
+              data-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.avatar != blank -%}
+                {{ block.settings.avatar | image_url: width: 128 | image_tag: loading: 'lazy', alt: block.settings.name | escape }}
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- for block in experts -%}
+        <div
+          class="es-quote-group"
+          id="es-panel-{{ section.id }}-{{ forloop.index0 }}"
+          role="tabpanel"
+          aria-labelledby="es-tab-{{ section.id }}-{{ forloop.index0 }}"
+          data-index="{{ forloop.index0 }}"
+          {% unless forloop.first %}hidden{% endunless %}
+        >
+          {%- if block.settings.quote != blank -%}<p class="es-quote">{{ block.settings.quote }}</p>{%- endif -%}
+          {%- if block.settings.name != blank -%}<p class="es-name">{{ block.settings.name }}</p>{%- endif -%}
+          {%- if block.settings.credentials != blank -%}<p class="es-credentials">{{ block.settings.credentials }}</p>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </expert-switcher>
+</div>
+
+<script>
+  (function () {
+    if (customElements.get('expert-switcher')) return;
+    class ExpertSwitcher extends HTMLElement {
+      connectedCallback() {
+        if (this._init) return;
+        this._init = true;
+        this.avatars = Array.from(this.querySelectorAll('.es-avatar'));
+        this.mediaItems = Array.from(this.querySelectorAll('.es-media-item'));
+        this.groups = Array.from(this.querySelectorAll('.es-quote-group'));
+        this.avatars.forEach((avatar) => {
+          avatar.addEventListener('click', () => this.select(avatar.dataset.index));
+        });
+      }
+      select(index) {
+        this.avatars.forEach((avatar) => {
+          var active = avatar.dataset.index === index;
+          avatar.classList.toggle('is-active', active);
+          avatar.setAttribute('aria-selected', active ? 'true' : 'false');
+        });
+        this.mediaItems.forEach((item) => {
+          item.hidden = item.dataset.index !== index;
+        });
+        this.groups.forEach((group) => {
+          group.hidden = group.dataset.index !== index;
+        });
+      }
+    }
+    customElements.define('expert-switcher', ExpertSwitcher);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Expert switcher",
+  "tag": "section",
+  "class": "atlas-isolation-wrapper atlas-gradient section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "select",
+      "id": "media_aspect_ratio",
+      "label": "Media aspect ratio",
+      "options": [
+        { "value": "16/9", "label": "Landscape (16:9)" },
+        { "value": "4/3", "label": "Landscape (4:3)" },
+        { "value": "1/1", "label": "Square (1:1)" },
+        { "value": "3/4", "label": "Portrait (3:4)" },
+        { "value": "9/16", "label": "Portrait (9:16)" }
+      ],
+      "default": "3/4"
+    },
+    {
+      "type": "range",
+      "id": "media_max_width",
+      "label": "Media max width",
+      "min": 240,
+      "max": 720,
+      "step": 20,
+      "unit": "px",
+      "default": 420
+    },
+    {
+      "type": "color",
+      "id": "media_placeholder_bg",
+      "label": "Media / avatar placeholder background",
+      "default": "#fdf5f1"
+    },
+    {
+      "type": "color",
+      "id": "play_bg_color",
+      "label": "Play button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "play_icon_color",
+      "label": "Play icon color",
+      "default": "#1f0212"
+    },
+    {
+      "type": "header",
+      "content": "Avatars"
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "label": "Avatar size",
+      "min": 40,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 56
+    },
+    {
+      "type": "range",
+      "id": "avatar_active_size",
+      "label": "Active avatar size",
+      "min": 48,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "avatar_active_border",
+      "label": "Active avatar border",
+      "default": "#7c1c2f"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "quote_size",
+      "label": "Quote size",
+      "min": 16,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote color",
+      "default": "#1f0212"
+    },
+    {
+      "type": "color",
+      "id": "name_color",
+      "label": "Name color",
+      "default": "#231f20"
+    },
+    {
+      "type": "color",
+      "id": "credentials_color",
+      "label": "Credentials color",
+      "default": "#676986"
+    },
+    {
+      "type": "header",
+      "content": "Section styling"
+    },
+    {
+      "type": "color",
+      "id": "section_background_color",
+      "label": "Section background color",
+      "default": "#fefbf9"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 80
+    },
+    {
+      "type": "header",
+      "content": "Atlas fonts"
+    },
+    {
+      "type": "select",
+      "id": "atlas_font",
+      "label": "Font",
+      "info": "Applies a curated brand font to Atlas sections. Managed by Atlas.",
+      "options": [
+        { "value": "", "label": "Default (theme)" },
+        { "value": "work_sans", "label": "Work Sans" },
+        { "value": "inter", "label": "Inter" },
+        { "value": "archivo", "label": "Archivo" }
+      ],
+      "default": ""
+    }
+  ],
+  "blocks": [
+    {
+      "type": "expert",
+      "name": "Expert",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Avatar"
+        },
+        {
+          "type": "image_picker",
+          "id": "media_image",
+          "label": "Media image / video poster"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "Optional. Adds a play button that opens the video."
+        },
+        {
+          "type": "inline_richtext",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Share a short expert endorsement quote."
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Expert name"
+        },
+        {
+          "type": "text",
+          "id": "credentials",
+          "label": "Credentials"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Expert switcher",
+      "blocks": [
+        { "type": "expert" },
+        { "type": "expert" },
+        { "type": "expert" }
+      ]
+    }
+  ]
+}
+{% endschema %}
