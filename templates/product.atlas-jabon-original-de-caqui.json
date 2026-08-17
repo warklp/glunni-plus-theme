@@ -13,6 +13,7 @@
     "borders_pY89rK",
     "horizontal_scrolling_text_mgft6H",
     "rich_text_rPfaL7",
+    "178700032230ae1364",
     "image_with_text_PfmxAD",
     "scrolling_images_887gyX",
     "reasons_GqYHik",
@@ -754,7 +755,7 @@
         "highlighted_text_color": "#ef738c",
         "use_gradient_background": false,
         "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#FFA515",
+        "section_background_color": "#ffa515",
         "padding_top": 0,
         "padding_bottom": 8,
         "atlas_font": ""
@@ -784,7 +785,7 @@
       },
       "settings": {
         "eyebrow": "",
-        "eyebrow_color": "#FFA515",
+        "eyebrow_color": "#ffa515",
         "eyebrow_letter_spacing": 4,
         "heading": "Por qué el jabón común no puede solucionar esto",
         "text": "<p>Después de los 40, la piel produce un compuesto a base de aceite llamado <strong>2-nonenal</strong>, que es una de las causas del conocido “olor corporal asociado al envejecimiento”. Como es <strong>un compuesto lipídico</strong>, el jabón y el agua normales simplemente no pueden eliminarlo por completo, por mucho que te frotes.</p><p></p><p><strong>Los taninos del caqui son uno de los ingredientes naturales estudiados por su capacidad para neutralizar químicamente el nonenal a nivel molecular.</strong> Esa es la ciencia detrás de cada barra de Swarva.</p><p></p><p>Piensa en ello como intentar quitar la grasa de una sartén usando solo agua. Puedes frotar todo el día, pero la grasa permanece adherida. <strong>Necesitas un desengrasante.</strong> Eso es lo que hacen los taninos del caqui con los compuestos asociados al olor corporal del envejecimiento.</p>",
@@ -803,7 +804,7 @@
         "body_highlighted_color": "#ffffff",
         "use_gradient_background": false,
         "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#FFA515",
+        "section_background_color": "#ffa515",
         "enable_content_card": false,
         "content_card_background": "#ffffff",
         "content_card_radius": 16,
@@ -824,6 +825,25 @@
         "padding_bottom": 44,
         "atlas_font": ""
       }
+    },
+    "178700032230ae1364": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_b26454c_ngFTPh": {
+          "type": "ai_gen_block_b26454c",
+          "settings": {
+            "image": "shopify://shop_images/Persimmon_Professional_1.webp",
+            "aspect_ratio": "auto",
+            "border_radius": 0,
+            "desktop_width_percent": 60
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_b26454c_ngFTPh"
+      ],
+      "settings": {}
     },
     "image_with_text_PfmxAD": {
       "type": "a-image-with-text-r3",
