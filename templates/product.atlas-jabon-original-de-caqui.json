@@ -238,20 +238,6 @@
               "type": "shopify://apps/atlas-ai-store-builder/blocks/bundler/ff382ac5-0af5-4ea9-a13a-234e8976ca8b",
               "settings": {}
             },
-            "divider_XjYQhi": {
-              "type": "_a-divider",
-              "name": "Divider",
-              "settings": {
-                "divider_height": 1,
-                "divider_color": "#000000",
-                "divider_opacity": 20,
-                "padding_top": 10,
-                "padding_bottom": 10,
-                "padding_top_mobile": 10,
-                "padding_bottom_mobile": 10
-              },
-              "blocks": {}
-            },
             "quantity_selector_BqH8Bi": {
               "type": "_a-quantity_selector-r2",
               "name": "Buy buttons",
@@ -338,6 +324,20 @@
                 }
               },
               "block_order": []
+            },
+            "divider_XjYQhi": {
+              "type": "_a-divider",
+              "name": "Divider",
+              "settings": {
+                "divider_height": 1,
+                "divider_color": "#000000",
+                "divider_opacity": 20,
+                "padding_top": 10,
+                "padding_bottom": 10,
+                "padding_top_mobile": 10,
+                "padding_bottom_mobile": 10
+              },
+              "blocks": {}
             },
             "social_proof_t6FNkr": {
               "type": "_a-social_proof",
@@ -488,50 +488,50 @@
                     "item_author_location_1": "España",
                     "item_text_1": "“He probado tantas cosas antes, pero esta es la primera que realmente me ayudó con ese ‘olor a señora mayor’. Poder abrazar a mis nietos sin preocuparme significa muchísimo para mí.",
                     "item_rating_1": 5,
-                    "item_author_2": "add author name here",
-                    "item_author_location_2": "add author location here",
-                    "item_text_2": "add testimonial here",
-                    "item_rating_2": 5,
-                    "item_author_3": "add author name here",
-                    "item_author_location_3": "add author location here",
-                    "item_text_3": "add testimonial here",
-                    "item_rating_3": 5,
-                    "item_author_4": "add author name here",
-                    "item_author_location_4": "add author location here",
-                    "item_text_4": "add testimonial here",
-                    "item_rating_4": 5,
+                    "item_author_2": "",
+                    "item_author_location_2": "",
+                    "item_text_2": "",
+                    "item_rating_2": 0,
+                    "item_author_3": "",
+                    "item_author_location_3": "",
+                    "item_text_3": "",
+                    "item_rating_3": 0,
+                    "item_author_4": "",
+                    "item_author_location_4": "",
+                    "item_text_4": "",
+                    "item_rating_4": 0,
                     "item_author_5": "",
                     "item_author_location_5": "",
                     "item_text_5": "",
-                    "item_rating_5": 5,
+                    "item_rating_5": 0,
                     "item_author_6": "",
                     "item_author_location_6": "",
                     "item_text_6": "",
-                    "item_rating_6": 5,
+                    "item_rating_6": 0,
                     "item_author_7": "",
                     "item_author_location_7": "",
                     "item_text_7": "",
-                    "item_rating_7": 5,
+                    "item_rating_7": 0,
                     "item_author_8": "",
                     "item_author_location_8": "",
                     "item_text_8": "",
-                    "item_rating_8": 5,
+                    "item_rating_8": 0,
                     "item_author_9": "",
                     "item_author_location_9": "",
                     "item_text_9": "",
-                    "item_rating_9": 5,
+                    "item_rating_9": 0,
                     "item_author_10": "",
                     "item_author_location_10": "",
                     "item_text_10": "",
-                    "item_rating_10": 5,
+                    "item_rating_10": 0,
                     "item_author_11": "",
                     "item_author_location_11": "",
                     "item_text_11": "",
-                    "item_rating_11": 5,
+                    "item_rating_11": 0,
                     "item_author_12": "",
                     "item_author_location_12": "",
                     "item_text_12": "",
-                    "item_rating_12": 5
+                    "item_rating_12": 0
                   },
                   "blocks": {}
                 }
@@ -622,7 +622,7 @@
                 "button_label": "ORDER NOW",
                 "border_radius": 6,
                 "close_button_size": 10,
-                "close_button_color": "#6B0808",
+                "close_button_color": "#6b0808",
                 "display_when": "after_scroll",
                 "show_price_badge": true,
                 "show_variant_selector": false,
@@ -638,13 +638,13 @@
                 "price_color": "#000000",
                 "comp_price_size": 14,
                 "compare_price_color": "#535353",
-                "container_bg_color": "#FFFFFF",
+                "container_bg_color": "#ffffff",
                 "badge_bg_color": "#000000",
-                "badge_text_color": "#0E0E0E",
+                "badge_text_color": "#0e0e0e",
                 "bold_sticky_atc_text": false,
                 "button_font_size": 12,
-                "button_text_color": "#FFFFFF",
-                "button_bg_color": "#086B0A",
+                "button_text_color": "#ffffff",
+                "button_bg_color": "#086b0a",
                 "button_border_radius": 6,
                 "input_font_size": 16,
                 "input_text_color": "#000000",
@@ -672,8 +672,8 @@
             "heading_rtdKGR",
             "text_DHFDL8",
             "atlas_ai_store_builder_bundler_7PgE63",
-            "divider_XjYQhi",
             "quantity_selector_BqH8Bi",
+            "divider_XjYQhi",
             "social_proof_t6FNkr",
             "payment_badges_mdNTxn",
             "payment_badges_yf76Lm",
@@ -704,7 +704,7 @@
         "border_size": "60",
         "flip_horizontal": false,
         "flip_vertical": false,
-        "border_shape_color": "#000000",
+        "border_shape_color": "#FFA515",
         "section_bg_color": "#ffffff",
         "use_section_bg_gradient": false,
         "section_bg_gradient": "linear-gradient(262deg, rgba(251, 51, 164, 1), rgba(96, 77, 188, 1) 100%)",
@@ -779,37 +779,7 @@
             "padding_top": 0,
             "padding_bottom": 0
           },
-          "blocks": {
-            "rich_text_list_card_WDMVxF": {
-              "type": "_a-rich-text-list-card",
-              "name": "Rich text card",
-              "settings": {
-                "text": "<p>Resultados visibles en la neutralización del olor del envejecimiento.</p>"
-              },
-              "blocks": {}
-            },
-            "rich_text_list_card_PJtK9f": {
-              "type": "_a-rich-text-list-card",
-              "name": "Rich text card",
-              "settings": {
-                "text": "<p>Proceso natural basado en tradición japonesa y cuidado avanzado.</p>"
-              },
-              "blocks": {}
-            },
-            "rich_text_list_card_KEeKPf": {
-              "type": "_a-rich-text-list-card",
-              "name": "Rich text card",
-              "settings": {
-                "text": "<p>Válido para pieles maduras que buscan versatilidad y eficacia en su higiene diaria.</p>"
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "rich_text_list_card_WDMVxF",
-            "rich_text_list_card_PJtK9f",
-            "rich_text_list_card_KEeKPf"
-          ]
+          "blocks": {}
         }
       },
       "settings": {
