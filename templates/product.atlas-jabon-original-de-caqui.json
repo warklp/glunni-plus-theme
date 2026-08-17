@@ -17,8 +17,6 @@
     "178700032230ae1364",
     "image_with_text_PfmxAD",
     "reasons_GqYHik",
-    "feature_icons_bDyMKj",
-    "comparison_table_EDnGGe",
     "multicolumn_CyG6Jd",
     "vertical_scrolling_content_GDWztK",
     "blocks_xPJD4G",
@@ -819,7 +817,7 @@
         "button_font_size": 14,
         "button_font_size_mobile": 16,
         "button_color": "#ffffff",
-        "button_bg_color": "#086B0A",
+        "button_bg_color": "#086b0a",
         "button_border_radius": 6,
         "button_padding_vertical": 8,
         "button_width_increase_desktop": 0,
@@ -933,8 +931,8 @@
             "heading_tag": "h3",
             "heading_size": 35,
             "reasons_mob_heading_size": 28,
-            "heading_color": "#FFFFFF",
-            "bolded_heading_color": "#FFFFFF",
+            "heading_color": "#ffffff",
+            "bolded_heading_color": "#ffffff",
             "heading_use_gradient": false,
             "heading_gradient_color": "linear-gradient(180deg, rgba(234, 56, 133, 1), rgba(95, 77, 188, 1) 100%)",
             "headig_padding_top": 0,
@@ -943,8 +941,8 @@
             "text_tag": "p",
             "text_size": 18,
             "text_mob_size": 18,
-            "text_color": "#FFFFFF",
-            "bolded_text_color": "#FFFFFF",
+            "text_color": "#ffffff",
+            "bolded_text_color": "#ffffff",
             "text_use_gradient": false,
             "text_gradient_color": "",
             "text_padding_top": 10,
@@ -980,46 +978,7 @@
             "bolded_block_body_color": "#666666",
             "border_color": "#000000"
           },
-          "blocks": {
-            "reasons_to_buy_stat_t96XrA": {
-              "type": "_a-reasons-to-buy-stat-r2",
-              "settings": {
-                "row_heading": "<p>Resultados visibles en días</p>",
-                "row_text": "<p><em>Eliminó el olor del envejecimiento en pocos días.</em></p>",
-                "percentage": 94,
-                "hide_percent_sign": false,
-                "value_suffix": ""
-              },
-              "blocks": {}
-            },
-            "reasons_to_buy_stat_Cpcned": {
-              "type": "_a-reasons-to-buy-stat-r2",
-              "settings": {
-                "row_heading": "<p>Frescura duradera</p>",
-                "row_text": "<p><em>Dejó mi piel fresca y cuidada todo el día.</em></p>",
-                "percentage": 95,
-                "hide_percent_sign": false,
-                "value_suffix": ""
-              },
-              "blocks": {}
-            },
-            "reasons_to_buy_stat_nEiBpL": {
-              "type": "_a-reasons-to-buy-stat-r2",
-              "settings": {
-                "row_heading": "<p>Confianza renovada</p>",
-                "row_text": "<p><em>Mejoró la confianza al abrazar a mis seres queridos.</em></p>",
-                "percentage": 92,
-                "hide_percent_sign": false,
-                "value_suffix": ""
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "reasons_to_buy_stat_t96XrA",
-            "reasons_to_buy_stat_Cpcned",
-            "reasons_to_buy_stat_nEiBpL"
-          ]
+          "blocks": {}
         }
       },
       "block_order": [
@@ -1028,8 +987,8 @@
       ],
       "name": "Reasons to buy",
       "settings": {
-        "image": "shopify://shop_images/319094fc-c030-4b63-9875-aa1008b08c5c.jpg",
-        "image_height": "adapt",
+        "image": "shopify://shop_images/ChatGPT_Image_17_de_ago._de_2026_18_06_19.png",
+        "image_height": "large",
         "image_border_radius": 6,
         "image_position": "center",
         "mobile_image_order": "below",
@@ -1037,15 +996,15 @@
         "border_color_opacity": 0,
         "use_gradient_background": false,
         "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#FFA515",
+        "section_background_color": "#ffa515",
         "show_content_card": false,
         "content_card_background_color": "#ffffff",
         "content_card_border_radius": 24,
         "content_card_padding": 48,
         "content_card_position": "standalone",
         "stats_layout": "vertical",
-        "button_label": "",
-        "button_url": "",
+        "button_label": "COMPRAR AHORA",
+        "button_url": "#buy-box",
         "button_position": "after_stats",
         "button_background_color": "#1a7a3c",
         "button_use_gradient": false,
@@ -1055,333 +1014,6 @@
         "button_border_radius": 40,
         "padding_top": 20,
         "padding_bottom": 20,
-        "atlas_font": ""
-      }
-    },
-    "feature_icons_bDyMKj": {
-      "type": "a-feature-icons-r3",
-      "blocks": {
-        "column_dnAQVt": {
-          "type": "column",
-          "settings": {
-            "icon": "",
-            "custom_icon_image": "shopify://shop_images/epfok6m7s2vj8pn6d3ev6s9qtmq5.webp",
-            "title": "Neutraliza el olor del envejecimiento",
-            "text": "",
-            "icon_heading_font_size": 20,
-            "icon_heading_color": "#000000",
-            "icon_bolded_heading_color": "#000000",
-            "column_text_size": 16,
-            "column_text_color": "#000000",
-            "column_text_highlighted_color": "#000000",
-            "custom_icon_color": "#000000"
-          }
-        },
-        "column_9dY4yh": {
-          "type": "column",
-          "settings": {
-            "icon": "",
-            "custom_icon_image": "shopify://shop_images/zanvqgj6s8z7tzhdoir2vj7lqkws.webp",
-            "title": "Ingredientes naturales japoneses",
-            "text": "",
-            "icon_heading_font_size": 20,
-            "icon_heading_color": "#000000",
-            "icon_bolded_heading_color": "#000000",
-            "column_text_size": 16,
-            "column_text_color": "#000000",
-            "column_text_highlighted_color": "#000000",
-            "custom_icon_color": "#000000"
-          }
-        },
-        "column_VRFTkg": {
-          "type": "column",
-          "settings": {
-            "icon": "",
-            "custom_icon_image": "shopify://shop_images/5aztq1xmy7gim9ted9c1umzzzc36.webp",
-            "title": "Frescor y confianza duraderos",
-            "text": "",
-            "icon_heading_font_size": 20,
-            "icon_heading_color": "#000000",
-            "icon_bolded_heading_color": "#000000",
-            "column_text_size": 16,
-            "column_text_color": "#000000",
-            "column_text_highlighted_color": "#000000",
-            "custom_icon_color": "#000000"
-          }
-        },
-        "column_8WP3Hg": {
-          "type": "column",
-          "settings": {
-            "icon": "",
-            "custom_icon_image": "shopify://shop_images/f7ct0dk6l2mju49nqcf7dizw6xmw.webp",
-            "title": "Solución especializada para piel madura",
-            "text": "",
-            "icon_heading_font_size": 20,
-            "icon_heading_color": "#000000",
-            "icon_bolded_heading_color": "#000000",
-            "column_text_size": 16,
-            "column_text_color": "#000000",
-            "column_text_highlighted_color": "#000000",
-            "custom_icon_color": "#000000"
-          }
-        }
-      },
-      "block_order": [
-        "column_dnAQVt",
-        "column_9dY4yh",
-        "column_VRFTkg",
-        "column_8WP3Hg"
-      ],
-      "name": "Icon guarantees",
-      "settings": {
-        "title": "",
-        "text": "",
-        "columns_desktop": 4,
-        "padding_horizontal_desktop": 50,
-        "columns_mobile": "2",
-        "content_layout": "stacked",
-        "split_text_width": 41,
-        "split_gap": 44,
-        "icon_layout": "stacked",
-        "content_align": "center",
-        "heading_size": 20,
-        "heading_mob_size": 28,
-        "heading_color": "#000000",
-        "bolded_heading_color": "#000000",
-        "heading_use_gradient": false,
-        "heading_gradient_color": "",
-        "body_size": 16,
-        "body_color": "#000000",
-        "bolded_body_color": "#000000",
-        "icon_size": "medium",
-        "icon_pixel_size": 0,
-        "icon_card_vertical_padding_desktop": 25,
-        "icon_card_horizontal_padding_desktop": 25,
-        "icon_card_vertical_padding_mobile": 25,
-        "icon_card_horizontal_padding_mobile": 25,
-        "card_border_radius": 0,
-        "card_content_centered": false,
-        "card_content_gap": 16,
-        "icon_label_font_weight": "700",
-        "swipe_on_mobile": false,
-        "background_style": "primary",
-        "card_background_color": "#ffffff",
-        "use_gradient_background": false,
-        "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#ffffff",
-        "show_content_card": false,
-        "content_card_background_color": "#ffffff",
-        "content_card_border_radius": 24,
-        "content_card_padding": 48,
-        "content_card_position": "standalone",
-        "padding_top": 0,
-        "padding_bottom": 36,
-        "atlas_font": ""
-      }
-    },
-    "comparison_table_EDnGGe": {
-      "type": "a-comparison-table-r4",
-      "blocks": {
-        "comparison_table_content_pR3pm7": {
-          "type": "_a-comparison-table-content",
-          "settings": {
-            "content_heading": "Lo que nos hace <strong>superar a otros</strong> en cuidado natural",
-            "body_content": "<p>Nuestro jabón neutraliza en la raíz el olor del envejecimiento con extracto de caqui japonés, no solo disimula con perfume. Esto te permite sentirte realmente fresca, segura y confiada todo el día.</p>",
-            "content_alignment": "center",
-            "heading_size": 35,
-            "heading_mob_size": 28,
-            "heading_color": "#ffffff",
-            "bolded_heading_color": "#ffffff",
-            "heading_use_gradient": false,
-            "heading_gradient_color": "",
-            "body_size": 18,
-            "body_mob_size": 16,
-            "body_color": "#ffffff",
-            "bolded_body_color": "#757575"
-          },
-          "blocks": {}
-        },
-        "comparison_table_q8DGCj": {
-          "type": "_a-comparison-table-r3",
-          "settings": {
-            "table_border_color": "#c4c4c4",
-            "table_border_opacity": 15,
-            "self_cells_background_color": "#ffffff",
-            "self_cells_background_opacity": 27,
-            "enable_product_column_custom_border": false,
-            "product_column_custom_border_color": "#000000",
-            "product_column_custom_border_opacity": 100,
-            "product_column_custom_border_width": 1,
-            "product_column_custom_border_radius": 10,
-            "enable_product_column_shadow": false,
-            "product_column_shadow_color": "#c8c8c8",
-            "product_column_shadow_opacity": 60
-          },
-          "blocks": {
-            "comparison_table_header_hMiMrg": {
-              "type": "_a-comparison-table-header-r2",
-              "settings": {
-                "show_brand_name": false,
-                "us_label": "",
-                "other_brands_label": "",
-                "logo_width": 125,
-                "mobile_logo_width": 80,
-                "other_brands_logo_width": 74,
-                "other_brands_mobile_logo_width": 48,
-                "cell_header_brand_text_size": 16,
-                "cell_header_brand_text_color": "#ffffff",
-                "cell_header_brand_background_color": "",
-                "cell_header_bold": false,
-                "cell_header_competitor_text_size": 16,
-                "cell_header_competitor_text_color": "#000000"
-              },
-              "blocks": {}
-            },
-            "comparison_table_rows_FYgBBE": {
-              "type": "_a-comparison-table-rows-r2",
-              "settings": {
-                "benefits_desktop_size": 16,
-                "benefits_mobile_size": 14,
-                "bold_features_text": false,
-                "icon_cells_background_color": "rgba(0,0,0,0)",
-                "features_background_color": "rgba(0,0,0,0)",
-                "product_column_border_top_color": "rgba(0,0,0,0)",
-                "enable_product_column_border_top_gradient": false,
-                "product_column_border_top_gradient": "linear-gradient(180deg, rgba(234, 56, 133, 1), rgba(95, 77, 188, 1) 100%)",
-                "product_column_border_opacity": 100
-              },
-              "blocks": {
-                "comparison_table_row_WVHxRY": {
-                  "type": "_a-comparison-table-row-r2",
-                  "settings": {
-                    "benefit": "<em>Neutraliza el olor en su origen</em>",
-                    "us": true,
-                    "others": false,
-                    "feature_text_color": "#ffffff",
-                    "heading_highlighted_color": "#ffffff",
-                    "benefit_icon": "",
-                    "benefit_icon_size": 20,
-                    "benefit_icon_color": "rgba(0,0,0,0)"
-                  },
-                  "blocks": {}
-                },
-                "comparison_table_row_9cRhJJ": {
-                  "type": "_a-comparison-table-row-r2",
-                  "settings": {
-                    "benefit": "<em>Fórmula natural y efectiva</em>",
-                    "us": true,
-                    "others": false,
-                    "feature_text_color": "#ffffff",
-                    "heading_highlighted_color": "#ffffff",
-                    "benefit_icon": "",
-                    "benefit_icon_size": 20,
-                    "benefit_icon_color": "#ffffff"
-                  },
-                  "blocks": {}
-                },
-                "comparison_table_row_VeXHcf": {
-                  "type": "_a-comparison-table-row-r2",
-                  "settings": {
-                    "benefit": "<em>Previene el olor del envejecimiento</em>",
-                    "us": true,
-                    "others": false,
-                    "feature_text_color": "#ffffff",
-                    "heading_highlighted_color": "#ffffff",
-                    "benefit_icon": "",
-                    "benefit_icon_size": 20,
-                    "benefit_icon_color": "#ffffff"
-                  },
-                  "blocks": {}
-                },
-                "comparison_table_row_cEgxLE": {
-                  "type": "_a-comparison-table-row-r2",
-                  "settings": {
-                    "benefit": "<em>Deja la piel fresca todo el día</em>",
-                    "us": true,
-                    "others": false,
-                    "feature_text_color": "#ffffff",
-                    "heading_highlighted_color": "#ffffff",
-                    "benefit_icon": "",
-                    "benefit_icon_size": 20,
-                    "benefit_icon_color": "#ffffff"
-                  },
-                  "blocks": {}
-                },
-                "comparison_table_row_qtFD3a": {
-                  "type": "_a-comparison-table-row-r2",
-                  "settings": {
-                    "benefit": "<em>Confianza en cada abrazo</em>",
-                    "us": true,
-                    "others": false,
-                    "feature_text_color": "#ffffff",
-                    "heading_highlighted_color": "#ffffff",
-                    "benefit_icon": "",
-                    "benefit_icon_size": 20,
-                    "benefit_icon_color": "#ffffff"
-                  },
-                  "blocks": {}
-                },
-                "comparison_table_row_Lx4Gp7": {
-                  "type": "_a-comparison-table-row-r2",
-                  "name": "Table row",
-                  "settings": {
-                    "benefit": "<em>Gentle &amp; Suitable</em>",
-                    "us": true,
-                    "others": false,
-                    "feature_text_color": "#ffffff",
-                    "heading_highlighted_color": "#ffffff",
-                    "benefit_icon": "",
-                    "benefit_icon_size": 20,
-                    "benefit_icon_color": "#4bb82c"
-                  },
-                  "blocks": {}
-                }
-              },
-              "block_order": [
-                "comparison_table_row_WVHxRY",
-                "comparison_table_row_9cRhJJ",
-                "comparison_table_row_VeXHcf",
-                "comparison_table_row_cEgxLE",
-                "comparison_table_row_qtFD3a",
-                "comparison_table_row_Lx4Gp7"
-              ]
-            }
-          },
-          "block_order": [
-            "comparison_table_header_hMiMrg",
-            "comparison_table_rows_FYgBBE"
-          ]
-        }
-      },
-      "block_order": [
-        "comparison_table_content_pR3pm7",
-        "comparison_table_q8DGCj"
-      ],
-      "name": "Comparison table",
-      "settings": {
-        "icon_size": 26,
-        "checkmark_color": "#ef738c",
-        "x_color": "#ffffff",
-        "checkmark_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewbox=\"0 -960 960 960\" width=\"24px\" fill=\"#ffffff\"><path d=\"m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z\"></path></svg>",
-        "x_icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewbox=\"0 -960 960 960\" width=\"24px\" fill=\"#ffffff\"><path d=\"m336-280 144-144 144 144 56-56-144-144 144-144-56-56-144 144-144-144-56 56 144 144-144 144 56 56ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z\"></path></svg>",
-        "use_gradient_background": false,
-        "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#000000",
-        "section_padding_top_desktop": 36,
-        "section_padding_bottom_desktop": 36,
-        "button_label": "",
-        "link": "shopify://products/added-rev-testing",
-        "button_text_size": 12,
-        "button_font_weight": "",
-        "button_text_color": "#ffffff",
-        "button_background_color": "#1d1a2d",
-        "button_border_radius": 9,
-        "button_border_width": 0,
-        "button_border_color": "#000000",
-        "button_padding_vertical": 16,
-        "button_padding_horizontal": 12,
-        "button_width_increase_desktop": 69,
-        "button_width_increase_mobile": 68,
         "atlas_font": ""
       }
     },
@@ -1445,6 +1077,7 @@
         "column_MC7qbD",
         "column_KwEtUh"
       ],
+      "disabled": true,
       "name": "Featured columns",
       "settings": {
         "title": "Rutina diaria para confianza",
@@ -1602,6 +1235,7 @@
         "vertical_scrolling_block_mwCLQ6",
         "vertical_scrolling_block_cMTeGK"
       ],
+      "disabled": true,
       "name": "Vertical sliding content",
       "settings": {
         "content_heading": "Únete a miles que han mejorado su confianza <strong>Hoy</strong>.",
@@ -1672,7 +1306,7 @@
         "text_XwBC4w": {
           "type": "text",
           "settings": {
-            "text": "Antes, muchas mujeres sentían que, a pesar de bañarse, el olor del envejecimiento persistía, generando inseguridad en momentos íntimos. Después de usar este jabón, experimentan una sensación de frescura duradera y confianza renovada, pudiendo abrazar y compartir con sus seres queridos sin preocupaciones.",
+            "text": "Antes, muchas personas sentían que, a pesar de bañarse, el olor del envejecimiento persistía, generando inseguridad en momentos íntimos. Después de usar este jabón, experimentan una sensación de frescura duradera y confianza renovada, pudiendo abrazar y compartir con sus seres queridos sin preocupaciones.",
             "size": 18,
             "size_mobile": 18,
             "color": "#000000",
