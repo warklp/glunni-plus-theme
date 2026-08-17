@@ -24,8 +24,7 @@
     "blocks_LVNdkG",
     "testimonials_2_nHX7mT",
     "collapsible_content_qCMdgd",
-    "newsletter_4L76mC",
-    "horizontal_scrolling_text_8qqTpn"
+    "newsletter_4L76mC"
   ],
   "sections": {
     "main": {
@@ -551,7 +550,7 @@
                   "type": "_a-collapsible_tab-r2",
                   "name": "Collapsible Tab",
                   "settings": {
-                    "heading": "Description",
+                    "heading": "Descripción",
                     "content": "<p>El Jabón Original de Caqui es la solución natural y efectiva contra el olor persistente del envejecimiento, ayudando a sentirte fresca y segura en cada momento.</p><ul><li>Neutraliza el olor del envejecimiento en la piel madura.</li><li>Con extracto de caqui japonés, trabaja en la raíz del problema.</li><li>Deja la piel fresca, limpia y con confianza duradera.</li><li>Una tradición japonesa que cuida tu piel naturalmente.</li></ul>",
                     "collapsible_font_heading_size": 16,
                     "collapsible_font_size": 14,
@@ -571,7 +570,7 @@
                   "type": "_a-collapsible_tab-r2",
                   "name": "Collapsible Tab",
                   "settings": {
-                    "heading": "Most Common Questions",
+                    "heading": "Preguntas más comunes",
                     "content": "<p><strong>¿Este jabón ayuda a eliminar el olor del envejecimiento en lugar de solo enmascararlo con perfume?:</strong> ¿Este jabón realmente elimina el olor del envejecimiento o solo lo disfraza con perfume?<br/><strong>¿Es seguro para piel sensible o seca?:</strong> ¿Es adecuado para piel sensible o seca?<br/><br/><strong>¿Cuánto tiempo generalmente se requiere para notar una diferencia en el olor tras usar el jabón regularmente?:</strong> ¿Cuánto tiempo se tarda en notar los resultados al usar este jabón?<br/></p>",
                     "collapsible_font_heading_size": 16,
                     "collapsible_font_size": 14,
@@ -591,8 +590,8 @@
                   "type": "_a-collapsible_tab-r2",
                   "name": "Collapsible Tab",
                   "settings": {
-                    "heading": "Returns & Refunds",
-                    "content": "<p>We offer a 30-day return window on unused products. If your item arrives damaged or incorrect, please contact our support team and we’ll make it right.</p>",
+                    "heading": "Devoluciones y reembolsos",
+                    "content": "<p>Ofrecemos un plazo de devolución de 30 días para productos sin usar. Si su artículo llega dañado o incorrecto, póngase en contacto con nuestro equipo de soporte y lo solucionaremos.<br/><br/></p>",
                     "collapsible_font_heading_size": 16,
                     "collapsible_font_size": 14,
                     "coll_heading_color": "#000000",
@@ -629,11 +628,11 @@
                 "show_close_button": true,
                 "show_price": true,
                 "show_compare_at_price": true,
-                "title_size": 15,
+                "title_size": 20,
                 "product_title_color": "#000000",
-                "option_size": 12,
+                "option_size": 13,
                 "product_option_color": "#000000",
-                "price_size": 18,
+                "price_size": 23,
                 "price_color": "#000000",
                 "comp_price_size": 14,
                 "compare_price_color": "#535353",
@@ -641,7 +640,7 @@
                 "badge_bg_color": "#000000",
                 "badge_text_color": "#0e0e0e",
                 "bold_sticky_atc_text": false,
-                "button_font_size": 12,
+                "button_font_size": 16,
                 "button_text_color": "#ffffff",
                 "button_bg_color": "#086b0a",
                 "button_border_radius": 6,
@@ -1003,7 +1002,7 @@
         "content_card_padding": 48,
         "content_card_position": "standalone",
         "stats_layout": "vertical",
-        "button_label": "COMPRAR AHORA",
+        "button_label": "",
         "button_url": "#buy-box",
         "button_position": "after_stats",
         "button_background_color": "#1a7a3c",
@@ -1375,6 +1374,7 @@
         "text_ck4YRg",
         "text_jNFk7C"
       ],
+      "disabled": true,
       "name": "Before and after",
       "settings": {
         "before_image": "shopify://shop_images/67292189-e250-4557-b401-95a67b43675a.jpg",
@@ -1425,9 +1425,10 @@
         "slide_AAdf8g": {
           "type": "slide",
           "settings": {
-            "review_heading": "Add review heading here",
-            "review_text": "add testimonial here",
-            "review_name": "add author name here",
+            "review_heading": "¡Me encantó este producto!",
+            "review_text": "La calidad es excelente y superó todas mis expectativas. Mi piel se siente más suave y luminosa desde el primer uso.",
+            "author_image": "shopify://shop_images/09970882687717088268771.webp",
+            "review_name": "María G.",
             "tab_label": "",
             "author_name_color": "#000000",
             "highlight_review": false,
@@ -1445,9 +1446,10 @@
         "slide_EWrtgY": {
           "type": "slide",
           "settings": {
-            "review_heading": "Add review heading here",
-            "review_text": "add testimonial here",
-            "review_name": "add author name here",
+            "review_heading": "Un cambio visible en mi piel",
+            "review_text": "Después de unas semanas, noté una gran diferencia. Es fácil de usar, agradable y ahora forma parte de mi rutina diaria.",
+            "author_image": "shopify://shop_images/20173882687717388268771.webp",
+            "review_name": "Sofía R.",
             "tab_label": "",
             "author_name_color": "#000000",
             "highlight_review": true,
@@ -1458,16 +1460,17 @@
             "review_heading_color": "#ffffff",
             "review_bolded_heading_color": "#ffffff",
             "review_slide_text_size": 15,
-            "review_body_color": "#000000",
+            "review_body_color": "#FFA515",
             "review_bolded_body_color": "#000000"
           }
         },
         "slide_LJQ46H": {
           "type": "slide",
           "settings": {
-            "review_heading": "Add review heading here",
-            "review_text": "add testimonial here",
-            "review_name": "add author name here",
+            "review_heading": "Una compra que vale la pena",
+            "review_text": "Me sorprendió la rapidez de la entrega y la atención al detalle. El producto es tal como se describe y lo recomiendo totalmente.",
+            "author_image": "shopify://shop_images/59947682687714768268771.webp",
+            "review_name": "Camila P.",
             "tab_label": "",
             "author_name_color": "#000000",
             "highlight_review": false,
@@ -1485,11 +1488,12 @@
         "slide_7jPyzQ": {
           "type": "slide",
           "settings": {
-            "review_heading": "Add review heading here",
-            "review_text": "add testimonial here",
-            "review_name": "add author name here",
+            "review_heading": "Ahora es un imprescindible",
+            "review_text": "Estoy muy feliz con los resultados. Se nota la diferencia y varias amigas ya me han preguntado qué estoy usando.",
+            "author_image": "shopify://shop_images/28490782687719078268771.webp",
+            "review_name": "Valentina M.",
             "tab_label": "",
-            "author_name_color": "#000000",
+            "author_name_color": "#FFFFFF",
             "highlight_review": true,
             "num_stars": 5,
             "review_star_size": 20,
@@ -1498,7 +1502,7 @@
             "review_heading_color": "#000000",
             "review_bolded_heading_color": "#000000",
             "review_slide_text_size": 16,
-            "review_body_color": "#000000",
+            "review_body_color": "#FFA515",
             "review_bolded_body_color": "#000000"
           }
         }
@@ -1510,10 +1514,10 @@
         "slide_7jPyzQ"
       ],
       "settings": {
-        "section_heading": "Add testimonials section heading here",
+        "section_heading": "Lo que dicen nuestras clientas",
         "show_navigation_buttons": true,
         "show_overall_rating": true,
-        "overall_rating_text": "Rated 4.9/5 By 9,840+ Women",
+        "overall_rating_text": "Rated 4.9/5 By 9,840+ Personas",
         "overall_rating_value": 5,
         "show_tabs": false,
         "tab_border_color": "#000000",
@@ -1771,7 +1775,7 @@
       ],
       "name": "Our newsletter",
       "settings": {
-        "side_block_image": "shopify://shop_images/cd7058d1-51c7-41c2-b0af-e6afd2e0fcd1.jpg",
+        "side_block_image": "shopify://shop_images/ChatGPT_Image_17_de_ago._de_2026_14_25_25.png",
         "image_height": "adapt",
         "image_first_desktop": false,
         "content_alignment_desktop": "center",
@@ -1782,55 +1786,6 @@
         "section_background_color": "#ffffff",
         "padding_top": 24,
         "padding_bottom": 36
-      }
-    },
-    "horizontal_scrolling_text_8qqTpn": {
-      "type": "a-horizontal-scrolling-text-r3",
-      "blocks": {
-        "text_mDKDyk": {
-          "type": "text",
-          "settings": {
-            "title": "• <strong>30-DAY MONEY BACK GUARANTEE</strong>"
-          }
-        },
-        "text_GKHyMh": {
-          "type": "text",
-          "settings": {
-            "title": "• <strong>FREE WORLDWIDE DELIVERY</strong>"
-          }
-        },
-        "text_d7ahWh": {
-          "type": "text",
-          "settings": {
-            "title": "• <strong>EASY RETURNS &amp; REFUNDS</strong>"
-          }
-        },
-        "text_DA83Wc": {
-          "type": "text",
-          "settings": {
-            "title": "• <strong>24/7 CUSTOMER SERVICE AVAILABLE</strong>"
-          }
-        }
-      },
-      "block_order": [
-        "text_mDKDyk",
-        "text_GKHyMh",
-        "text_d7ahWh",
-        "text_DA83Wc"
-      ],
-      "name": "Horizontal sliding text",
-      "settings": {
-        "speed": 1,
-        "text_size": 14,
-        "text_spacing": 4,
-        "text_color": "#ffffff",
-        "highlighted_text_color": "#ffffff",
-        "use_gradient_background": false,
-        "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#ffffff",
-        "padding_top": 16,
-        "padding_bottom": 16,
-        "atlas_font": ""
       }
     }
   }
