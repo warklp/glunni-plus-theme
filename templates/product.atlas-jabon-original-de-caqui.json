@@ -16,7 +16,6 @@
     "rich_text_rPfaL7",
     "178700032230ae1364",
     "image_with_text_PfmxAD",
-    "scrolling_images_887gyX",
     "reasons_GqYHik",
     "feature_icons_bDyMKj",
     "comparison_table_EDnGGe",
@@ -764,30 +763,6 @@
     },
     "1787001957136bb266": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_034b7d6_ncPxEj": {
-          "type": "ai_gen_block_034b7d6",
-          "settings": {
-            "image": "shopify://shop_images/Persimmon_Professional_1.webp",
-            "link": "",
-            "desktop_width_percent": 25,
-            "mobile_width_percent": 85,
-            "padding_top": 40,
-            "padding_bottom": 40,
-            "border_radius": 4,
-            "border_thickness": 0,
-            "border_color": "#121212",
-            "shadow_opacity": 0,
-            "shadow_horizontal": 0,
-            "shadow_vertical": 4,
-            "shadow_blur": 5
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_034b7d6_ncPxEj"
-      ],
       "settings": {}
     },
     "rich_text_rPfaL7": {
@@ -839,12 +814,12 @@
         "content_card_radius": 16,
         "content_card_padding": 48,
         "content_card_max_width": 800,
-        "button_label": "",
-        "button_link": "shopify://products/2024-summer-slides",
+        "button_label": "COMPRAR AHORA",
+        "button_link": "#buy-box",
         "button_font_size": 14,
-        "button_font_size_mobile": 12,
+        "button_font_size_mobile": 16,
         "button_color": "#ffffff",
-        "button_bg_color": "#1d1a2d",
+        "button_bg_color": "#086B0A",
         "button_border_radius": 6,
         "button_padding_vertical": 8,
         "button_width_increase_desktop": 0,
@@ -862,7 +837,7 @@
     "image_with_text_PfmxAD": {
       "type": "a-image-with-text-r3",
       "settings": {
-        "image": "shopify://shop_images/Persimmon_Professional_1.webp",
+        "image": "shopify://shop_images/ChatGPT_Image_17_de_ago._de_2026_14_21_48.png",
         "image_radius": 6,
         "defer_loading_image": true,
         "media_layout": "single",
@@ -948,103 +923,28 @@
         "atlas_font": ""
       }
     },
-    "scrolling_images_887gyX": {
-      "type": "a-scrolling-images-r3",
-      "blocks": {
-        "slide_W898dM": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/6d9d3f73-bfca-408e-987e-6819cc56cdce.jpg",
-            "link": ""
-          }
-        },
-        "slide_YRkr9h": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/a721ca16-4d0b-4835-8b09-f4c30e478c74.jpg",
-            "link": ""
-          }
-        },
-        "slide_nMWBmc": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/327bddeb-01f5-4af9-b0b2-4bf8ef843318.jpg",
-            "link": ""
-          }
-        },
-        "slide_EnpmaA": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/cd7058d1-51c7-41c2-b0af-e6afd2e0fcd1.jpg",
-            "link": ""
-          }
-        },
-        "slide_hWbFGV": {
-          "type": "slide",
-          "settings": {
-            "image": "shopify://shop_images/67292189-e250-4557-b401-95a67b43675a.jpg",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "slide_W898dM",
-        "slide_YRkr9h",
-        "slide_nMWBmc",
-        "slide_EnpmaA",
-        "slide_hWbFGV"
-      ],
-      "settings": {
-        "section_heading": "",
-        "section_eyebrow": "",
-        "heading_alignment": "center",
-        "font_size": 20,
-        "mobile_font_size": 10,
-        "header_color": "#000000",
-        "header_highlighted_color": "#000000",
-        "heading_use_gradient": false,
-        "heading_gradient_color": "",
-        "layout_mode": "scroll",
-        "pause_hover": false,
-        "slider_direction": "right",
-        "scrolling_velocity": 1,
-        "slider_gap": 25,
-        "slider_gap_mobile": 15,
-        "icon_width": 250,
-        "icon_width_mobile": 150,
-        "show_bottom_divider": false,
-        "divider_color": "#e5e5e5",
-        "image_border_radius": 8,
-        "use_gradient_background": false,
-        "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#000000",
-        "padding_top": 24,
-        "padding_bottom": 24,
-        "atlas_font": ""
-      }
-    },
     "reasons_GqYHik": {
       "type": "a-reasons-r4",
       "blocks": {
         "reasons_to_buy_content_rmwz9L": {
           "type": "_a-reasons-to-buy-content",
           "settings": {
-            "heading": "Por qué miles confían en nosotros y <strong>siguen volviendo</strong>",
+            "heading": "<strong>Conoce los ingredientes</strong> que te ayudan a sentirte fresco y seguro de nuevo",
             "heading_tag": "h3",
             "heading_size": 35,
             "reasons_mob_heading_size": 28,
-            "heading_color": "#000000",
-            "bolded_heading_color": "#000000",
+            "heading_color": "#FFFFFF",
+            "bolded_heading_color": "#FFFFFF",
             "heading_use_gradient": false,
             "heading_gradient_color": "linear-gradient(180deg, rgba(234, 56, 133, 1), rgba(95, 77, 188, 1) 100%)",
             "headig_padding_top": 0,
             "headig_padding_bottom": 0,
-            "text": "Neutraliza el olor del envejecimiento de forma natural, dejando una sensación de frescura y confianza.",
+            "text": "",
             "text_tag": "p",
             "text_size": 18,
             "text_mob_size": 18,
-            "text_color": "#000000",
-            "bolded_text_color": "#000000",
+            "text_color": "#FFFFFF",
+            "bolded_text_color": "#FFFFFF",
             "text_use_gradient": false,
             "text_gradient_color": "",
             "text_padding_top": 10,
@@ -1052,29 +952,6 @@
             "content_alignment": "center",
             "content_gap": 21,
             "content_gap_mobile": 14
-          },
-          "blocks": {}
-        },
-        "reasons_to_buy_product_card_3LG667": {
-          "type": "_a-reasons-to-buy-product-card",
-          "settings": {
-            "product_url": "shopify://products/lip-balm",
-            "product_image": "shopify://shop_images/cd7058d1-51c7-41c2-b0af-e6afd2e0fcd1_c1bae365-942d-4716-808b-60f6fa6145ea.jpg",
-            "product_title": "<p>Jabón Original de Caqui</p>",
-            "product_description": "<p>Cuidado natural contra olor del envejecimiento</p>",
-            "product_title_font_size": 21,
-            "product_title_color": "#ef738c",
-            "product_description_font_size": 15,
-            "product_description_color": "#000000",
-            "card_background_color": "#e2e2e2",
-            "card_has_gradient": false,
-            "card_gradient": "linear-gradient(180deg, rgba(234, 56, 133, 1), rgba(95, 77, 188, 1) 100%)",
-            "product_description_opacity": 70,
-            "arrow_icon_color": "#ef738c",
-            "card_border_radius": 10,
-            "thumbnail_border_radius": 4,
-            "text_content_gap": 10,
-            "text_content_gap_mobile": 11
           },
           "blocks": {}
         },
@@ -1147,7 +1024,6 @@
       },
       "block_order": [
         "reasons_to_buy_content_rmwz9L",
-        "reasons_to_buy_product_card_3LG667",
         "reasons_to_buy_stats_TQiBR8"
       ],
       "name": "Reasons to buy",
@@ -1161,7 +1037,7 @@
         "border_color_opacity": 0,
         "use_gradient_background": false,
         "section_background_gradient": "linear-gradient(180deg, rgba(251, 51, 166, 1), rgba(127, 72, 176, 1) 50%, rgba(48, 145, 211, 1) 100%)",
-        "section_background_color": "#ffffff",
+        "section_background_color": "#FFA515",
         "show_content_card": false,
         "content_card_background_color": "#ffffff",
         "content_card_border_radius": 24,
