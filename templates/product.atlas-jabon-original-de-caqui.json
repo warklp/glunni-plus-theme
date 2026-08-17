@@ -12,6 +12,7 @@
     "main",
     "borders_pY89rK",
     "horizontal_scrolling_text_mgft6H",
+    "1787001957136bb266",
     "rich_text_rPfaL7",
     "178700032230ae1364",
     "image_with_text_PfmxAD",
@@ -761,6 +762,34 @@
         "atlas_font": ""
       }
     },
+    "1787001957136bb266": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_034b7d6_ncPxEj": {
+          "type": "ai_gen_block_034b7d6",
+          "settings": {
+            "image": "shopify://shop_images/Persimmon_Professional_1.webp",
+            "link": "",
+            "desktop_width_percent": 25,
+            "mobile_width_percent": 85,
+            "padding_top": 40,
+            "padding_bottom": 40,
+            "border_radius": 4,
+            "border_thickness": 0,
+            "border_color": "#121212",
+            "shadow_opacity": 0,
+            "shadow_horizontal": 0,
+            "shadow_vertical": 4,
+            "shadow_blur": 5
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_034b7d6_ncPxEj"
+      ],
+      "settings": {}
+    },
     "rich_text_rPfaL7": {
       "type": "a-rich-text-r3",
       "blocks": {
@@ -788,7 +817,7 @@
         "eyebrow_color": "#ffa515",
         "eyebrow_letter_spacing": 4,
         "heading": "Por qué el jabón común no puede solucionar esto",
-        "text": "<p>Después de los 40, la piel produce un compuesto a base de aceite llamado <strong>2-nonenal</strong>, que es una de las causas del conocido “olor corporal asociado al envejecimiento”. Como es <strong>un compuesto lipídico</strong>, el jabón y el agua normales simplemente no pueden eliminarlo por completo, por mucho que te frotes.</p><p></p><p><strong>Los taninos del caqui son uno de los ingredientes naturales estudiados por su capacidad para neutralizar químicamente el nonenal a nivel molecular.</strong> Esa es la ciencia detrás de cada barra de Swarva.</p><p></p><p>Piensa en ello como intentar quitar la grasa de una sartén usando solo agua. Puedes frotar todo el día, pero la grasa permanece adherida. <strong>Necesitas un desengrasante.</strong> Eso es lo que hacen los taninos del caqui con los compuestos asociados al olor corporal del envejecimiento.</p>",
+        "text": "<p><br/>Después de los 40, la piel puede producir <strong>2-nonenal</strong>, un compuesto asociado al olor corporal relacionado con el envejecimiento que, al ser lipídico, no se elimina fácilmente con agua y jabón. <strong>Los taninos del caqui ayudan a neutralizar el nonenal a nivel molecular</strong>, actuando como un desengrasante que ayuda a combatir los compuestos responsables de este olor.<br/><br/></p>",
         "content_alignment": "center",
         "enable_promo_strip": false,
         "text_max_width_percentage": 80,
@@ -828,21 +857,6 @@
     },
     "178700032230ae1364": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_b26454c_ngFTPh": {
-          "type": "ai_gen_block_b26454c",
-          "settings": {
-            "image": "shopify://shop_images/Persimmon_Professional_1.webp",
-            "aspect_ratio": "auto",
-            "border_radius": 0,
-            "desktop_width_percent": 60
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_b26454c_ngFTPh"
-      ],
       "settings": {}
     },
     "image_with_text_PfmxAD": {
@@ -858,7 +872,7 @@
         "eyebrow": "",
         "eyebrow_rating": 0,
         "eyebrow_rating_color": "#000000",
-        "heading": "Por qué el jabón común no puede solucionar esto",
+        "heading": "Convierte cada ducha en un nuevo comienzo",
         "text": "<p>Este jabón ayuda a <strong>neutralizar el olor del envejecimiento</strong> de forma natural y efectiva, para que puedas sentirte fresca, cuidada y segura en cada situación.</p>",
         "button_text": "",
         "button_link": "",
