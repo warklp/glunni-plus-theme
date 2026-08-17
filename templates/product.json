@@ -12,59 +12,14 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "vendor": {
-          "type": "text",
-          "settings": {
-            "text": "{{ product.vendor }}",
-            "text_style": "uppercase"
-          }
-        },
         "title": {
           "type": "title",
           "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "variant_picker": {
-          "type": "variant_picker",
-          "settings": {
-            "picker_type": "button",
-            "swatch_shape": "circle"
-          }
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": true
-          }
-        },
-        "description": {
-          "type": "description",
-          "settings": {}
-        },
-        "share": {
-          "type": "share",
-          "settings": {
-            "share_label": "Share"
-          }
         },
         "glunni_rating": {
           "type": "custom_liquid",
           "settings": {
             "custom_liquid": "<div class=\"glunni-rating-badge\">\n  <span class=\"glunni-rating-badge__stars\">&#9733;&#9733;&#9733;&#9733;&#9733;</span>\n  <span class=\"glunni-rating-badge__text\">Excellent 4.8/5 &middot; Based on 1247 Reviews</span>\n</div>\n<style>\n.glunni-rating-badge{display:inline-flex;align-items:center;gap:8px;background:#eef3ee;color:#2f4a3a;padding:6px 12px;border-radius:6px;font-size:1.3rem;margin-bottom:1.2rem;}\n.glunni-rating-badge__stars{color:#2f4a3a;letter-spacing:1px;}\n</style>"
-          }
-        },
-        "glunni_buybox": {
-          "type": "custom_liquid",
-          "settings": {
-            "custom_liquid": "<p class=\"glunni-sale-divider\"><span>Sale Ends Midnight</span></p>\n\n<div class=\"glunni-purchase-options\" data-glunni-purchase-options>\n  <label class=\"glunni-option\" data-glunni-option data-qty=\"1\" data-paid=\"1\" data-free=\"0\" data-label=\"Buy One\" data-sale=\"3999\" data-was=\"7998\" data-sub=\"2999\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"1\">\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__body\">\n      <span class=\"glunni-option__label\">Buy One</span>\n    </span>\n    <span class=\"glunni-option__price\" data-price></span>\n  </label>\n\n  <label class=\"glunni-option glunni-option--featured\" data-glunni-option data-qty=\"3\" data-paid=\"2\" data-free=\"1\" data-label=\"Buy 2, Get 1 FREE\" data-sale=\"7998\" data-was=\"11997\" data-sub=\"5998\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"3\" checked>\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__badge\">Most Popular</span>\n    <span class=\"glunni-option__body\">\n      <span class=\"glunni-option__label-row\">\n        <span class=\"glunni-option__label\">Buy 2, Get 1 FREE</span>\n        <span class=\"glunni-option__tag\">+ FREE Shipping</span>\n      </span>\n      <em>You Save 67%</em>\n    </span>\n    <span class=\"glunni-option__price\" data-price></span>\n  </label>\n\n  <label class=\"glunni-option\" data-glunni-option data-qty=\"5\" data-paid=\"3\" data-free=\"2\" data-label=\"Buy 3, Get 2 FREE\" data-sale=\"11997\" data-was=\"19995\" data-sub=\"8997\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"5\">\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__badge glunni-option__badge--alt\">Best Value</span>\n    <span class=\"glunni-option__body\">\n      <span class=\"glunni-option__label-row\">\n        <span class=\"glunni-option__label\">Buy 3, Get 2 FREE</span>\n        <span class=\"glunni-option__tag\">+ FREE Shipping</span>\n      </span>\n      <em>You Save 70%</em>\n    </span>\n    <span class=\"glunni-option__price\" data-price></span>\n  </label>\n\n  <label class=\"glunni-subscribe-box\" data-glunni-subscribe>\n    <input type=\"checkbox\" data-glunni-subscribe-input>\n    <span class=\"glunni-subscribe-box__check\">\n      <svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6.2 12.1 2.4 8.3l1.2-1.2 2.6 2.6 5.6-5.6 1.2 1.2z\"/></svg>\n    </span>\n    <span class=\"glunni-subscribe-box__text\">\n      <span class=\"glunni-subscribe-box__title\">Save 25% with Automatic Refills</span>\n      <span class=\"glunni-subscribe-box__desc\">Zero commitment, Cancel Anytime</span>\n    </span>\n  </label>\n</div>\n\n<div class=\"glunni-trust-row\">\n  <span>Mastercard</span><span>Amex</span><span>Apple&nbsp;Pay</span><span>GPay</span><span>Shop</span><span>Discover</span><span>Visa</span>\n</div>\n<p class=\"glunni-guarantee\">60-Day Guarantee &middot; Free Shipping Over $50</p>\n\n<style>\n.glunni-purchase-options{border:1px solid rgba(0,0,0,.1);border-radius:10px;padding:1rem;margin:.9rem 0;}\n.glunni-option{display:flex;align-items:center;gap:.7rem;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem;cursor:pointer;position:relative;}\n.glunni-option input{position:absolute;opacity:0;}\n.glunni-option__radio{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.3);flex:none;}\n.glunni-option:has(input:checked){border-color:#1f3d2b;background:#f2f6f2;}\n.glunni-option:has(input:checked) .glunni-option__radio{border-color:#1f3d2b;background:radial-gradient(circle,#1f3d2b 40%,transparent 44%);}\n.glunni-option__body{flex:1;display:flex;flex-direction:column;min-width:0;}\n.glunni-option__label-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}\n.glunni-option__label{font-weight:600;}\n.glunni-option__tag{background:#eef3ee;color:#2f4a3a;font-size:.9rem;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;}\n.glunni-option__body em{display:block;font-style:normal;font-weight:400;font-size:.9rem;opacity:.6;margin-top:.1rem;}\n.glunni-option__price{font-weight:700;text-align:right;white-space:nowrap;}\n.glunni-option__price .glunni-option__old-price{display:block;font-weight:400;opacity:.5;font-size:.9rem;text-decoration:line-through;}\n.glunni-option__price strong{font-size:1.15rem;}\n.glunni-option__badge{position:absolute;top:-10px;right:12px;background:#1f3d2b;color:#fff;font-size:.9rem;font-weight:600;padding:2px 8px;border-radius:4px;}\n.glunni-option__badge--alt{background:#8a6d3b;}\n\n.glunni-subscribe-box{display:flex;align-items:flex-start;gap:.8rem;border:2px dashed rgba(0,0,0,.25);border-radius:10px;background:#fff;padding:.75rem 1rem;margin-top:.6rem;cursor:pointer;position:relative;transition:all .15s ease;}\n.glunni-subscribe-box input{position:absolute;opacity:0;}\n.glunni-subscribe-box:has(input:checked){border:2px solid #1f3d2b;background:#f2f6f2;}\n.glunni-subscribe-box__check{width:22px;height:22px;border-radius:6px;border:2px solid rgba(0,0,0,.3);background:#fff;flex:none;margin-top:.1rem;display:flex;align-items:center;justify-content:center;}\n.glunni-subscribe-box__check svg{width:13px;height:13px;fill:#fff;opacity:0;transition:opacity .1s ease;}\n.glunni-subscribe-box:has(input:checked) .glunni-subscribe-box__check{background:#1f3d2b;border-color:#1f3d2b;}\n.glunni-subscribe-box:has(input:checked) .glunni-subscribe-box__check svg{opacity:1;}\n.glunni-subscribe-box__text{display:flex;flex-direction:column;gap:.1rem;}\n.glunni-subscribe-box__title{font-weight:700;font-size:1.1rem;}\n.glunni-subscribe-box__desc{font-size:.95rem;opacity:.65;line-height:1.25;}\n\n.glunni-trust-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin:.7rem 0 .25rem;font-size:.95rem;opacity:.6;}\n.glunni-guarantee{text-align:center;font-size:.95rem;opacity:.65;margin:0 0 .5rem;}\n\n.glunni-sale-divider{display:flex;align-items:center;text-align:center;gap:.75rem;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:1rem 0;}\n.glunni-sale-divider::before,.glunni-sale-divider::after{content:\"\";flex:1;height:1px;background:rgba(0,0,0,.15);}\n\n.product-form__submit{background:#1f3d2b !important;border-color:#1f3d2b !important;border-radius:10px !important;font-weight:700 !important;font-size:1.1rem !important;padding:.95rem !important;text-transform:none !important;}\n.product-form__submit:hover{background:#16301f !important;}\n.product-form__buttons .shopify-payment-button{display:none !important;}\n</style>\n\n{%- liquid\n  assign glunni_free_variant_id = null\n  for v in product.variants\n    if v.title == \"Free Gift (Included in Bundle)\"\n      assign glunni_free_variant_id = v.id\n    endif\n  endfor\n-%}\n<script>\n(function(){\n  var root = document.currentScript.closest('.shopify-section');\n  if (!root) return;\n  var freeVariantId = {{ glunni_free_variant_id | json }};\n  var options = Array.prototype.slice.call(root.querySelectorAll('[data-glunni-option]'));\n  var subscribeInput = root.querySelector('[data-glunni-subscribe-input]');\n\n  function getQtyInput(){\n    return document.querySelector('input[name=\"quantity\"], quantity-input input');\n  }\n\n  function fmt(cents){\n    return '$' + (cents / 100).toFixed(2);\n  }\n\n  function updatePrices(){\n    var subscribed = !!(subscribeInput && subscribeInput.checked);\n    options.forEach(function(opt){\n      var sale = parseInt(opt.dataset.sale, 10);\n      var was = parseInt(opt.dataset.was, 10);\n      var sub = parseInt(opt.dataset.sub, 10);\n      var now = subscribed ? sub : sale;\n      var priceEl = opt.querySelector('[data-price]');\n      if (!priceEl) return;\n      priceEl.innerHTML = '<span class=\"glunni-option__old-price\">' + fmt(was) + '</span><strong>' + fmt(now) + '</strong>';\n    });\n  }\n\n  function selectOption(opt){\n    options.forEach(function(o){\n      o.querySelector('input').checked = false;\n    });\n    opt.querySelector('input').checked = true;\n    var qtyInput = getQtyInput();\n    if (qtyInput) {\n      qtyInput.value = opt.dataset.qty;\n      qtyInput.dispatchEvent(new Event('change', { bubbles: true }));\n    }\n  }\n\n  options.forEach(function(opt){\n    opt.addEventListener('click', function(evt){\n      evt.preventDefault();\n      selectOption(opt);\n    });\n  });\n\n  if (subscribeInput) {\n    subscribeInput.addEventListener('change', updatePrices);\n  }\n\n  var defaultChecked = options.find(function(o){ return o.querySelector('input').checked; });\n  updatePrices();\n\n  document.addEventListener('DOMContentLoaded', function(){\n    if (defaultChecked) selectOption(defaultChecked);\n  });\n\n  function getSelectedOption(){\n    return options.find(function(o){ return o.querySelector('input').checked; }) || defaultChecked;\n  }\n\n  document.addEventListener('submit', function(evt){\n    var form = evt.target;\n    if (!form || !form.matches || !form.matches('[data-type=\"add-to-cart-form\"]')) return;\n    if (form.closest('.shopify-section') !== root) return;\n\n    evt.preventDefault();\n    evt.stopImmediatePropagation();\n\n    var opt = getSelectedOption();\n    var paid = parseInt(opt.dataset.paid, 10);\n    var free = parseInt(opt.dataset.free, 10);\n    var label = opt.dataset.label;\n    var subscribed = !!(subscribeInput && subscribeInput.checked);\n\n    var idInput = form.querySelector('input[name=\"id\"]');\n    var variantId = idInput ? idInput.value : null;\n    if (!variantId) return;\n\n    var items = [{\n      id: variantId,\n      quantity: paid,\n      properties: subscribed\n        ? { '_glunni_plan': label, '_glunni_subscription': 'Yes - 25% recurring' }\n        : { '_glunni_plan': label }\n    }];\n\n    if (free > 0 && freeVariantId) {\n      items.push({\n        id: freeVariantId,\n        quantity: free,\n        properties: { '_glunni_free': '1', '_glunni_note': 'Free gift item from bundle' }\n      });\n    }\n\n    var submitButton = form.querySelector('[type=\"submit\"]');\n    if (submitButton) submitButton.setAttribute('aria-disabled', 'true');\n\n    var cartEl = document.querySelector('cart-drawer') || document.querySelector('cart-notification');\n    var body = { items: items, sections_url: window.location.pathname };\n    if (cartEl && typeof cartEl.getSectionsToRender === 'function') {\n      body.sections = cartEl.getSectionsToRender().map(function(s){ return s.id; });\n    }\n\n    fetch(window.routes.cart_add_url, {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },\n      body: JSON.stringify(body)\n    })\n      .then(function(r){ return r.json(); })\n      .then(function(response){\n        if (submitButton) submitButton.removeAttribute('aria-disabled');\n        if (response.status) {\n          alert(response.description || response.message || 'Could not add to cart.');\n          return;\n        }\n        if (cartEl && typeof cartEl.renderContents === 'function') {\n          cartEl.renderContents(response);\n        } else {\n          window.location = window.routes.cart_url;\n        }\n      })\n      .catch(function(err){\n        if (submitButton) submitButton.removeAttribute('aria-disabled');\n        console.error(err);\n        window.location = window.routes.cart_url;\n      });\n  }, true);\n})();\n</script>\n"
           }
         },
         "glunni_benefits": {
@@ -79,13 +34,41 @@
             "heading_3": "Feel the difference in just a few weeks"
           }
         },
+        "glunni_buybox": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<p class=\"glunni-sale-divider\"><span>Sale Ends Midnight</span></p>\n\n<div class=\"glunni-purchase-options\" data-glunni-purchase-options>\n  <label class=\"glunni-option\" data-glunni-option data-qty=\"1\" data-paid=\"1\" data-free=\"0\" data-label=\"Buy One\" data-sale=\"3999\" data-was=\"7998\" data-sub=\"2999\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"1\">\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__body\">\n      <span class=\"glunni-option__label\">Buy One</span>\n    </span>\n    <span class=\"glunni-option__price\" data-price></span>\n  </label>\n\n  <label class=\"glunni-option glunni-option--featured\" data-glunni-option data-qty=\"3\" data-paid=\"2\" data-free=\"1\" data-label=\"Buy 2, Get 1 FREE\" data-sale=\"7998\" data-was=\"11997\" data-sub=\"5998\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"3\" checked>\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__badge\">Most Popular</span>\n    <span class=\"glunni-option__body\">\n      <span class=\"glunni-option__label-row\">\n        <span class=\"glunni-option__label\">Buy 2, Get 1 FREE</span>\n        <span class=\"glunni-option__tag\">+ FREE Shipping</span>\n      </span>\n      <em>You Save 67%</em>\n    </span>\n    <span class=\"glunni-option__price\" data-price></span>\n  </label>\n\n  <label class=\"glunni-option\" data-glunni-option data-qty=\"5\" data-paid=\"3\" data-free=\"2\" data-label=\"Buy 3, Get 2 FREE\" data-sale=\"11997\" data-was=\"19995\" data-sub=\"8997\">\n    <input type=\"radio\" name=\"glunni-bundle\" value=\"5\">\n    <span class=\"glunni-option__radio\"></span>\n    <span class=\"glunni-option__badge glunni-option__badge--alt\">Best Value</span>\n    <span class=\"glunni-option__body\">\n      <span class=\"glunni-option__label-row\">\n        <span class=\"glunni-option__label\">Buy 3, Get 2 FREE</span>\n        <span class=\"glunni-option__tag\">+ FREE Shipping</span>\n      </span>\n      <em>You Save 70%</em>\n    </span>\n    <span class=\"glunni-option__price\" data-price></span>\n  </label>\n\n  <label class=\"glunni-subscribe-box\" data-glunni-subscribe>\n    <input type=\"checkbox\" data-glunni-subscribe-input>\n    <span class=\"glunni-subscribe-box__check\">\n      <svg viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M6.2 12.1 2.4 8.3l1.2-1.2 2.6 2.6 5.6-5.6 1.2 1.2z\"/></svg>\n    </span>\n    <span class=\"glunni-subscribe-box__text\">\n      <span class=\"glunni-subscribe-box__title\">Save 25% with Automatic Refills</span>\n      <span class=\"glunni-subscribe-box__desc\">Zero commitment, Cancel Anytime</span>\n    </span>\n  </label>\n</div>\n\n<div class=\"glunni-trust-row\">\n  <span>Mastercard</span><span>Amex</span><span>Apple&nbsp;Pay</span><span>GPay</span><span>Shop</span><span>Discover</span><span>Visa</span>\n</div>\n<p class=\"glunni-guarantee\">60-Day Guarantee &middot; Free Shipping Over $50</p>\n\n<style>\n.glunni-purchase-options{border:1px solid rgba(0,0,0,.1);border-radius:10px;padding:1rem;margin:.9rem 0;}\n.glunni-option{display:flex;align-items:center;gap:.7rem;border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:.7rem .9rem;margin-bottom:.5rem;cursor:pointer;position:relative;}\n.glunni-option input{position:absolute;opacity:0;}\n.glunni-option__radio{width:18px;height:18px;border-radius:50%;border:2px solid rgba(0,0,0,.3);flex:none;}\n.glunni-option:has(input:checked){border-color:#1f3d2b;background:#f2f6f2;}\n.glunni-option:has(input:checked) .glunni-option__radio{border-color:#1f3d2b;background:radial-gradient(circle,#1f3d2b 40%,transparent 44%);}\n.glunni-option__body{flex:1;display:flex;flex-direction:column;min-width:0;}\n.glunni-option__label-row{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}\n.glunni-option__label{font-weight:600;}\n.glunni-option__tag{background:#eef3ee;color:#2f4a3a;font-size:.9rem;font-weight:600;padding:1px 7px;border-radius:20px;white-space:nowrap;}\n.glunni-option__body em{display:block;font-style:normal;font-weight:400;font-size:.9rem;opacity:.6;margin-top:.1rem;}\n.glunni-option__price{font-weight:700;text-align:right;white-space:nowrap;}\n.glunni-option__price .glunni-option__old-price{display:block;font-weight:400;opacity:.5;font-size:.9rem;text-decoration:line-through;}\n.glunni-option__price strong{font-size:1.15rem;}\n.glunni-option__badge{position:absolute;top:-10px;right:12px;background:#1f3d2b;color:#fff;font-size:.9rem;font-weight:600;padding:2px 8px;border-radius:4px;}\n.glunni-option__badge--alt{background:#8a6d3b;}\n\n.glunni-subscribe-box{display:flex;align-items:flex-start;gap:.8rem;border:2px dashed rgba(0,0,0,.25);border-radius:10px;background:#fff;padding:.75rem 1rem;margin-top:.6rem;cursor:pointer;position:relative;transition:all .15s ease;}\n.glunni-subscribe-box input{position:absolute;opacity:0;}\n.glunni-subscribe-box:has(input:checked){border:2px solid #1f3d2b;background:#f2f6f2;}\n.glunni-subscribe-box__check{width:22px;height:22px;border-radius:6px;border:2px solid rgba(0,0,0,.3);background:#fff;flex:none;margin-top:.1rem;display:flex;align-items:center;justify-content:center;}\n.glunni-subscribe-box__check svg{width:13px;height:13px;fill:#fff;opacity:0;transition:opacity .1s ease;}\n.glunni-subscribe-box:has(input:checked) .glunni-subscribe-box__check{background:#1f3d2b;border-color:#1f3d2b;}\n.glunni-subscribe-box:has(input:checked) .glunni-subscribe-box__check svg{opacity:1;}\n.glunni-subscribe-box__text{display:flex;flex-direction:column;gap:.1rem;}\n.glunni-subscribe-box__title{font-weight:700;font-size:1.1rem;}\n.glunni-subscribe-box__desc{font-size:.95rem;opacity:.65;line-height:1.25;}\n\n.glunni-trust-row{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;margin:.7rem 0 .25rem;font-size:.95rem;opacity:.6;}\n.glunni-guarantee{text-align:center;font-size:.95rem;opacity:.65;margin:0 0 .5rem;}\n\n.glunni-sale-divider{display:flex;align-items:center;text-align:center;gap:.75rem;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:1rem 0;}\n.glunni-sale-divider::before,.glunni-sale-divider::after{content:\"\";flex:1;height:1px;background:rgba(0,0,0,.15);}\n\n.product-form__submit{background:#1f3d2b !important;border-color:#1f3d2b !important;border-radius:10px !important;font-weight:700 !important;font-size:1.1rem !important;padding:.95rem !important;text-transform:none !important;}\n.product-form__submit:hover{background:#16301f !important;}\n.product-form__buttons .shopify-payment-button{display:none !important;}\n</style>\n\n{%- liquid\n  assign glunni_free_variant_id = null\n  for v in product.variants\n    if v.title == \"Free Gift (Included in Bundle)\"\n      assign glunni_free_variant_id = v.id\n    endif\n  endfor\n-%}\n<script>\n(function(){\n  var root = document.currentScript.closest('.shopify-section');\n  if (!root) return;\n  var freeVariantId = {{ glunni_free_variant_id | json }};\n  var options = Array.prototype.slice.call(root.querySelectorAll('[data-glunni-option]'));\n  var subscribeInput = root.querySelector('[data-glunni-subscribe-input]');\n\n  function getQtyInput(){\n    return document.querySelector('input[name=\"quantity\"], quantity-input input');\n  }\n\n  function fmt(cents){\n    return '$' + (cents / 100).toFixed(2);\n  }\n\n  function updatePrices(){\n    var subscribed = !!(subscribeInput && subscribeInput.checked);\n    options.forEach(function(opt){\n      var sale = parseInt(opt.dataset.sale, 10);\n      var was = parseInt(opt.dataset.was, 10);\n      var sub = parseInt(opt.dataset.sub, 10);\n      var now = subscribed ? sub : sale;\n      var priceEl = opt.querySelector('[data-price]');\n      if (!priceEl) return;\n      priceEl.innerHTML = '<span class=\"glunni-option__old-price\">' + fmt(was) + '</span><strong>' + fmt(now) + '</strong>';\n    });\n  }\n\n  function selectOption(opt){\n    options.forEach(function(o){\n      o.querySelector('input').checked = false;\n    });\n    opt.querySelector('input').checked = true;\n    var qtyInput = getQtyInput();\n    if (qtyInput) {\n      qtyInput.value = opt.dataset.qty;\n      qtyInput.dispatchEvent(new Event('change', { bubbles: true }));\n    }\n  }\n\n  options.forEach(function(opt){\n    opt.addEventListener('click', function(evt){\n      evt.preventDefault();\n      selectOption(opt);\n    });\n  });\n\n  if (subscribeInput) {\n    subscribeInput.addEventListener('change', updatePrices);\n  }\n\n  var defaultChecked = options.find(function(o){ return o.querySelector('input').checked; });\n  updatePrices();\n\n  document.addEventListener('DOMContentLoaded', function(){\n    if (defaultChecked) selectOption(defaultChecked);\n  });\n\n  function getSelectedOption(){\n    return options.find(function(o){ return o.querySelector('input').checked; }) || defaultChecked;\n  }\n\n  document.addEventListener('submit', function(evt){\n    var form = evt.target;\n    if (!form || !form.matches || !form.matches('[data-type=\"add-to-cart-form\"]')) return;\n    if (form.closest('.shopify-section') !== root) return;\n\n    evt.preventDefault();\n    evt.stopImmediatePropagation();\n\n    var opt = getSelectedOption();\n    var paid = parseInt(opt.dataset.paid, 10);\n    var free = parseInt(opt.dataset.free, 10);\n    var label = opt.dataset.label;\n    var subscribed = !!(subscribeInput && subscribeInput.checked);\n\n    var idInput = form.querySelector('input[name=\"id\"]');\n    var variantId = idInput ? idInput.value : null;\n    if (!variantId) return;\n\n    var items = [{\n      id: variantId,\n      quantity: paid,\n      properties: subscribed\n        ? { '_glunni_plan': label, '_glunni_subscription': 'Yes - 25% recurring' }\n        : { '_glunni_plan': label }\n    }];\n\n    if (free > 0 && freeVariantId) {\n      items.push({\n        id: freeVariantId,\n        quantity: free,\n        properties: { '_glunni_free': '1', '_glunni_note': 'Free gift item from bundle' }\n      });\n    }\n\n    var submitButton = form.querySelector('[type=\"submit\"]');\n    if (submitButton) submitButton.setAttribute('aria-disabled', 'true');\n\n    var cartEl = document.querySelector('cart-drawer') || document.querySelector('cart-notification');\n    var body = { items: items, sections_url: window.location.pathname };\n    if (cartEl && typeof cartEl.getSectionsToRender === 'function') {\n      body.sections = cartEl.getSectionsToRender().map(function(s){ return s.id; });\n    }\n\n    fetch(window.routes.cart_add_url, {\n      method: 'POST',\n      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },\n      body: JSON.stringify(body)\n    })\n      .then(function(r){ return r.json(); })\n      .then(function(response){\n        if (submitButton) submitButton.removeAttribute('aria-disabled');\n        if (response.status) {\n          alert(response.description || response.message || 'Could not add to cart.');\n          return;\n        }\n        if (cartEl && typeof cartEl.renderContents === 'function') {\n          cartEl.renderContents(response);\n        } else {\n          window.location = window.routes.cart_url;\n        }\n      })\n      .catch(function(err){\n        if (submitButton) submitButton.removeAttribute('aria-disabled');\n        console.error(err);\n        window.location = window.routes.cart_url;\n      });\n  }, true);\n})();\n</script>"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": true
+          }
+        },
         "glunni_faq": {
           "type": "collapsible_tab",
           "settings": {
             "heading": "Frequently Asked Questions about Glunni ACV",
             "icon": "question_mark",
-            "content": "<p><strong>How does Glunni ACV help people taking Ozempic, Wegovy, or Mounjaro?</strong></p><p>GLP-1 medications often slow digestion, which can cause nausea, bloating, constipation, and heartburn. Glunni ACV combines apple cider vinegar, prebiotic fiber, probiotics, and digestive enzymes to help support your digestion during this adjustment period.</p><p><strong>Can I take Glunni ACV alongside my GLP-1 medication?</strong></p><p>Many people using GLP-1 medications add Glunni ACV to their daily routine as digestive support. Since everyone responds differently, talk to your doctor before starting, especially if you're already taking other supplements or medications.</p><p><strong>How long does it take to feel a difference?</strong></p><p>Everybody responds at its own pace, but many people report feeling lighter and more comfortable digestively within the first few weeks of consistent use.</p><p><strong>Does Glunni ACV taste like vinegar?</strong></p><p>No. Unlike liquid apple cider vinegar, Glunni ACV comes in easy-to-swallow capsules — no sour taste or throat discomfort, just the benefits without the harsh flavor.</p><p><strong>Does Glunni ACV replace my GLP-1 medication?</strong></p><p>No. Glunni ACV is a dietary supplement designed to support your digestion during treatment — it does not replace, alter the dosage of, or interfere with your medication's effect.</p><p><strong>How should I take Glunni ACV?</strong></p><p>Follow the dosage on the label, taking the capsules with water, ideally close to meals. If you have any questions, consult your doctor or nutritionist.</p>"
+            "content": "<p><strong>How does Glunni ACV help people taking Ozempic, Wegovy, or Mounjaro?</strong></p><p>GLP-1 medications often slow digestion, which can cause nausea, bloating, constipation, and heartburn. Glunni ACV combines apple cider vinegar, prebiotic fiber, probiotics, and digestive enzymes to help support your digestion during this adjustment period.</p><p><strong>Can I take Glunni ACV alongside my GLP-1 medication?</strong></p><p>Many people using GLP-1 medications add Glunni ACV to their daily routine as digestive support. Since everyone responds differently, talk to your doctor before starting, especially if you're already taking other supplements or medications.</p><p><strong>How long does it take to feel a difference?</strong></p><p>Everybody responds at its own pace, but many people report feeling lighter and more comfortable digestively within the first few weeks of consistent use.</p><p><strong>Does Glunni ACV taste like vinegar?</strong></p><p>No. Unlike liquid apple cider vinegar, Glunni ACV comes in easy-to-swallow capsules — no sour taste or throat discomfort, just the benefits without the harsh flavor.</p><p><strong>Does Glunni ACV replace my GLP-1 medication?</strong></p><p>No. Glunni ACV is a dietary supplement designed to support your digestion during treatment — it does not replace, alter the dosage of, or interfere with your medication's effect.</p><p><strong>How should I take Glunni ACV?</strong></p><p>Follow the dosage on the label, taking the capsules with water, ideally close to meals. If you have any questions, consult your doctor or nutritionist.</p>",
+            "page": ""
           }
+        },
+        "description": {
+          "type": "description",
+          "settings": {}
+        },
+        "share": {
+          "type": "share",
+          "settings": {
+            "share_label": "Share"
+          }
+        },
+        "atlas_ai_store_builder_bundler_wEGTcT": {
+          "type": "shopify://apps/atlas-ai-store-builder/blocks/bundler/ff382ac5-0af5-4ea9-a13a-234e8976ca8b",
+          "settings": {}
         }
       },
       "block_order": [
@@ -96,7 +79,8 @@
         "buy_buttons",
         "glunni_faq",
         "description",
-        "share"
+        "share",
+        "atlas_ai_store_builder_bundler_wEGTcT"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -112,31 +96,6 @@
         "enable_video_looping": false,
         "padding_top": 36,
         "padding_bottom": 12
-      }
-    },
-    "disclosures": {
-      "type": "disclosures",
-      "settings": {
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
-    },
-    "related-products": {
-      "type": "related-products",
-      "settings": {
-        "heading": "You may also like",
-        "heading_size": "h2",
-        "products_to_show": 4,
-        "columns_desktop": 4,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 36,
-        "padding_bottom": 28
       }
     },
     "glunni_checklist_1": {
@@ -191,21 +150,27 @@
           "type": "column",
           "settings": {
             "title": "Passo 1 — O que está acontecendo",
-            "text": "<p>O GLP-1 desacelera o esvaziamento do estômago e reduz a produção de ácido e enzimas — por isso vêm a náusea, o inchaço e a prisão de ventre.</p>"
+            "text": "<p>O GLP-1 desacelera o esvaziamento do estômago e reduz a produção de ácido e enzimas — por isso vêm a náusea, o inchaço e a prisão de ventre.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "step2": {
           "type": "column",
           "settings": {
             "title": "Passo 2 — O que o Glunni ACV faz",
-            "text": "<p>Vinagre de maçã, fibra prebiótica e enzimas digestivas trabalham juntos para apoiar a digestão e devolver o conforto após as refeições.</p>"
+            "text": "<p>Vinagre de maçã, fibra prebiótica e enzimas digestivas trabalham juntos para apoiar a digestão e devolver o conforto após as refeições.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "step3": {
           "type": "column",
           "settings": {
             "title": "Passo 3 — O que muda no seu corpo",
-            "text": "<p>Em poucas semanas, a maioria sente menos inchaço, digestão mais leve e o intestino funcionando com mais regularidade.</p>"
+            "text": "<p>Em poucas semanas, a maioria sente menos inchaço, digestão mais leve e o intestino funcionando com mais regularidade.</p>",
+            "link_label": "",
+            "link": ""
           }
         }
       },
@@ -219,11 +184,14 @@
         "heading_size": "h1",
         "image_width": "third",
         "image_ratio": "square",
+        "button_label": "Etiqueta de botão",
+        "button_link": "",
         "columns_desktop": 3,
         "column_alignment": "left",
         "background_style": "primary",
         "color_scheme": "scheme-1",
         "columns_mobile": "1",
+        "swipe_on_mobile": false,
         "padding_top": 52,
         "padding_bottom": 52
       }
@@ -368,28 +336,36 @@
           "type": "column",
           "settings": {
             "title": "Feito Para Quem Usa GLP-1",
-            "text": "<p>Formulado pensando nos efeitos digestivos comuns de Ozempic, Wegovy e Mounjaro.</p>"
+            "text": "<p>Formulado pensando nos efeitos digestivos comuns de Ozempic, Wegovy e Mounjaro.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "r2": {
           "type": "column",
           "settings": {
             "title": "100% Natural",
-            "text": "<p>Vinagre de maçã, fibra prebiótica e enzimas, sem enchimento desnecessário.</p>"
+            "text": "<p>Vinagre de maçã, fibra prebiótica e enzimas, sem enchimento desnecessário.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "r3": {
           "type": "column",
           "settings": {
             "title": "Cápsula, Sem Gosto Forte",
-            "text": "<p>Todo o benefício do vinagre de maçã, sem o sabor ácido do líquido.</p>"
+            "text": "<p>Todo o benefício do vinagre de maçã, sem o sabor ácido do líquido.</p>",
+            "link_label": "",
+            "link": ""
           }
         },
         "r4": {
           "type": "column",
           "settings": {
             "title": "Qualidade Testada",
-            "text": "<p>Não-OGM, sem glúten, sem laticínios, fabricado com rigor de qualidade.</p>"
+            "text": "<p>Não-OGM, sem glúten, sem laticínios, fabricado com rigor de qualidade.</p>",
+            "link_label": "",
+            "link": ""
           }
         }
       },
@@ -404,11 +380,14 @@
         "heading_size": "h1",
         "image_width": "full",
         "image_ratio": "square",
+        "button_label": "Etiqueta de botão",
+        "button_link": "",
         "columns_desktop": 4,
         "column_alignment": "left",
         "background_style": "primary",
         "color_scheme": "scheme-1",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 52,
         "padding_bottom": 52
       }
@@ -449,11 +428,44 @@
         "height": "large",
         "desktop_image_width": "medium",
         "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
         "desktop_content_position": "middle",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
         "section_color_scheme": "scheme-1",
         "color_scheme": "scheme-1",
         "padding_top": 52,
         "padding_bottom": 52
+      }
+    },
+    "disclosures": {
+      "type": "disclosures",
+      "settings": {
+        "heading": "Divulgações",
+        "heading_size": "h2",
+        "open_by_default": false,
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
       }
     }
   },
